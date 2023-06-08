@@ -9,6 +9,8 @@ import projectsReducer from './projects-reducer';
 import tasksReducer from './tasks-reducer';
 import jobsReducer from './jobs-reducer';
 import aboutReducer from './about-reducer';
+import userLogsReducer from './user-logs-reducer';
+// import shareReducer from './share-reducer';
 import formatsReducer from './formats-reducer';
 import pluginsReducer from './plugins-reducer';
 import modelsReducer from './models-reducer';
@@ -31,6 +33,8 @@ export default function createRootReducer(): Reducer {
         tasks: tasksReducer,
         jobs: jobsReducer,
         about: aboutReducer,
+        userLogs: userLogsReducer,
+        // share: shareReducer,
         formats: formatsReducer,
         plugins: pluginsReducer,
         models: modelsReducer,

@@ -125,5 +125,8 @@
     "@types/react-router-dom": "^5.3.3",
     "@types/prettier": "2.4.1"
   },
-  "dependencies": {}
+  "dependencies": {
+    "@emotion/react": "^11.11.0",
+    "@emotion/styled": "^11.11.0"
+  }
 }

@@ -75,6 +75,7 @@ import EmailVerificationSentPage from './email-confirmation-pages/email-verifica
 import IncorrectEmailConfirmationPage from './email-confirmation-pages/incorrect-email-confirmation';
 import CreateModelPage from './create-model-page/create-model-page';
 import OrganizationWatcher from './watchers/organization-watcher';
+import IdleTimeoutComponent from './idle-timeout-component';
 
 interface CVATAppProps {
     loadFormats: () => void;
@@ -451,6 +452,7 @@ class CVATApplication extends React.PureComponent<CVATAppProps & RouteComponentP
                     <GlobalErrorBoundary>
                         <ShortcutsContextProvider>
                             <Layout>
+                                <IdleTimeoutComponent />
                                 <Header />
                                 <Layout.Content style={{ height: '100%' }}>
                                     <ShortcutsDialog />
@@ -558,11 +560,10 @@ class CVATApplication extends React.PureComponent<CVATAppProps & RouteComponentP
                 </Space>
             );
         }
-
-        return(
+        return (
             //  <Spin size='large' className='cvat-spinner' tip='Connecting...' />
-             <Spin indicator={antIcon} size='large' className='cvat-spinner' /> // new
-        )
+            <Spin indicator={antIcon} size='large' className='cvat-spinner' /> // new
+        );
     }
 }
 

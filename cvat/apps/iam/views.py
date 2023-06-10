@@ -34,6 +34,7 @@ from drf_spectacular.contrib.rest_auth import get_token_serializer_class
 
 from .authentication import Signer
 from cvat.apps.iam.models import UserSession
+from .serializers import UserSessionSerializer
 
 
 def get_organization(request):
@@ -164,9 +165,22 @@ class LoginViewEx(LoginView):
             user=user,
             username=username,
             login_time=timezone.now(),
+            logout_time=None,
             comments='login'
         )
-        return self.get_response()
+        response = self.get_response()
+        key = response.data.get('key')
+
+        try:
+            token, created = Token.objects.get_or_create(user=user)
+            if created:
+                token.key = key
+                token.created = timezone.now()
+                token.save()
+        except:
+            pass
+        # key = data.get('key')
+        return Response(response.data)
 
 class RegisterViewEx(RegisterView):
     def get_response_data(self, user):
@@ -184,28 +198,39 @@ class RegisterViewEx(RegisterView):
             allauth_settings.EmailVerificationMethod.MANDATORY:
             data['email_verification_required'] = False
             data['key'] = user.auth_token.key
+
+        Token.objects.create(
+            user=user,
+            key=data.get('key'),
+            created=timezone.now(),
+        )
         return data
 
 class LogoutViewEx(LogoutView):
     def logout(self, request):
         auth_header = request.headers.get('Authorization')
         token = ""
-        if auth_header and auth_header.startswith('Bearer '):
+
+        if auth_header and auth_header.startswith('Token '):
             token = auth_header.split(' ')[1]
+
         try:
-            response = super().logout(request)
             if token:
                 user_token = Token.objects.select_related('user').get(key=token)
                 user = user_token.user
+
+                response = super().logout(request)
 
                 try:
                     user_session = UserSession.objects.filter(user=user, logout_time__isnull=True).earliest('login_time')
                     user_session.logout_time = timezone.now()
                     user_session.save()
+
                 except UserSession.DoesNotExist:
                     pass
-            return response
+                return Response(response.data)
         except Token.DoesNotExist:
+            return Response("Request Unauthorized")
             pass
 
 

@@ -13,6 +13,12 @@ from allauth.account.utils import filter_users_by_email
 from django.conf import settings
 
 from cvat.apps.iam.forms import ResetPasswordFormEx
+from cvat.apps.iam.models import UserSession
+
+class UserSessionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = UserSession
+        fields = '__all__'
 
 class RegisterSerializerEx(RegisterSerializer):
     first_name = serializers.CharField(required=False)

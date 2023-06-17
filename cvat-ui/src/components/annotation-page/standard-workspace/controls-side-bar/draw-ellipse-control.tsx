@@ -12,6 +12,7 @@ import { ShapeType } from 'reducers';
 
 import DrawShapePopoverContainer from 'containers/annotation-page/standard-workspace/controls-side-bar/draw-shape-popover';
 import withVisibilityHandling from './handle-popover-visibility';
+import EllipseIcon1 from '../../../../assets/ellipse-icon1.svg';
 
 export interface Props {
     canvasInstance: Canvas;
@@ -46,7 +47,8 @@ function DrawEllipseControl(props: Props): JSX.Element {
             placement='right'
             content={<DrawShapePopoverContainer shapeType={ShapeType.ELLIPSE} />}
         >
-            <Icon {...dynamicIconProps} component={EllipseIcon} />
+             {/* <Icon {...dynamicIconProps} component={EllipseIcon} /> */}
+             <EllipseIcon1  {...dynamicIconProps} />
         </CustomPopover>
     );
 }

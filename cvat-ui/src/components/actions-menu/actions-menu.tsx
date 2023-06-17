@@ -128,7 +128,7 @@ function ActionsMenuComponent(props: Props): JSX.Element {
     );
 
     return (
-        <Menu selectable={false} className='cvat-actions-menu' onClick={onClickMenuWrapper}>
+        <Menu selectable={false} className='cvat-actions-menu' style={{fontFamily:'Lexend'}} onClick={onClickMenuWrapper}>
             { menuItems.sort((menuItem1, menuItem2) => menuItem1[1] - menuItem2[1])
                 .map((menuItem) => menuItem[0]) }
         </Menu>

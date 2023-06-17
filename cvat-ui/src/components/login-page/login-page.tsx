@@ -31,7 +31,7 @@ function LoginPageComponent(props: LoginPageComponentProps & RouteComponentProps
     return (
         <SigningLayout>
             <Col {...formSizes.wrapper}>
-                <Row justify='center'>
+                <Row>
                     <Col {...formSizes.form}>
                         <LoginForm
                             fetching={fetching}

@@ -7,6 +7,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import Slider from 'antd/lib/slider';
 import Spin from 'antd/lib/spin';
+import { LoadingOutlined } from '@ant-design/icons';
 import Dropdown from 'antd/lib/dropdown';
 import { PlusCircleOutlined, UpOutlined } from '@ant-design/icons';
 
@@ -59,6 +60,8 @@ import BrushTools from './brush-tools';
 
 const cvat = getCore();
 const MAX_DISTANCE_TO_OPEN_SHAPE = 50;
+
+const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />; // new
 
 interface StateToProps {
     canvasInstance: Canvas | Canvas3d | null;
@@ -989,7 +992,7 @@ class CanvasWrapperComponent extends React.PureComponent<Props> {
                 {
                     !canvasIsReady && (
                         <div className='cvat-spinner-container'>
-                            <Spin className='cvat-spinner' />
+                            <Spin indicator={antIcon} size='large' className='cvat-spinner' />
                         </div>
                     )
                 }

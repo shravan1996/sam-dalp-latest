@@ -21,6 +21,7 @@ import ProjectActionsMenuComponent from './actions-menu';
 
 interface Props {
     projectInstance: Project;
+    modalValue:Boolean;
 }
 
 const useCardHeight = useCardHeightHOC({
@@ -34,6 +35,8 @@ export default function ProjectItemComponent(props: Props): JSX.Element {
     const {
         projectInstance: instance,
     } = props;
+
+    console.log(props.modalValue);
 
     const history = useHistory();
     const height = useCardHeight();
@@ -53,46 +56,65 @@ export default function ProjectItemComponent(props: Props): JSX.Element {
     }
 
     return (
+        <div >
         <Card
             cover={(
-                <Preview
-                    project={instance}
-                    loadingClassName='cvat-project-item-loading-preview'
-                    emptyPreviewClassName='cvat-project-item-empty-preview'
-                    previewWrapperClassName='cvat-projects-project-item-card-preview-wrapper'
-                    previewClassName='cvat-projects-project-item-card-preview'
-                    onClick={onOpenProject}
-                />
-            )}
-            size='small'
-            style={style}
-            className='cvat-projects-project-item-card'
-        >
-            <Meta
-                title={(
-                    <span onClick={onOpenProject} className='cvat-projects-project-item-title' aria-hidden>
-                        {instance.name}
-                    </span>
-                )}
-                description={(
-                    <div className='cvat-projects-project-item-description'>
-                        <div>
-                            {ownerName && (
-                                <>
-                                    <Text type='secondary'>{`Created ${ownerName ? `by ${ownerName}` : ''}`}</Text>
-                                    <br />
-                                </>
-                            )}
-                            <Text type='secondary'>{`Last updated ${updated}`}</Text>
-                        </div>
-                        <div>
-                            <Dropdown overlay={<ProjectActionsMenuComponent projectInstance={instance} />}>
-                                <Button className='cvat-project-details-button' type='link' size='large' icon={<MoreOutlined />} />
-                            </Dropdown>
-                        </div>
+                <div style={{display:'flex',justifyContent:'space-between'}}>
+
+                    <div style={{width:'200px'}}>
+
+                        <Preview
+                            project={instance}
+                            loadingClassName='cvat-project-item-loading-preview'
+                            emptyPreviewClassName='cvat-project-item-empty-preview'
+                            previewWrapperClassName='cvat-projects-project-item-card-preview-wrapper'
+                            previewClassName='cvat-projects-project-item-card-preview rounded-[18px]'
+                            onClick={onOpenProject}
+
+                        />
+
                     </div>
-                )}
-            />
+                    <div>
+                        <Dropdown overlay={<ProjectActionsMenuComponent projectInstance={instance} />}>
+                            <Button className='cvat-project-details-button' type='link' size='large' icon={<MoreOutlined />} />
+                        </Dropdown>
+                    </div>
+                </div>
+
+            )}
+
+            size='small'
+            style={{width:'300px',height:'280px',fontFamily:'Lexend',padding:'12px',borderRadius:'10px',marginRight:'20px',display:'flex',flexDirection:'column',justifyContent:'space-between'}}
+            className={'cvat-projects-project-item-card ' + props.modalValue ? 'backdrop-blur-sm inset-0 bg-black bg-opacity-60 ' : ''}
+        >
+            <div className='-ml-[10px]' >
+
+                <Meta
+
+                    title={(
+                        <span onClick={onOpenProject} className='cvat-projects-project-item-title' aria-hidden>
+                            {instance.name}
+                        </span>
+                    )}
+                    description={(
+                        <div className='cvat-projects-project-item-description' style={{display:'flex',justifyContent:'space-between'}}>
+                            <div>
+                                {ownerName && (
+                                    <>
+                                        <Text type='secondary'>{`Created ${ownerName ? `by ${ownerName}` : ''}`}</Text>
+                                        <br />
+                                    </>
+                                )}
+                                <Text type='secondary'>{`Last updated ${updated}`}</Text>
+                            </div>
+
+                        </div>
+                    )}
+                />
+            </div>
         </Card>
+
+    </div>
+
     );
 }

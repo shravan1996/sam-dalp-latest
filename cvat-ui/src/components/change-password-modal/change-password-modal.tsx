@@ -50,13 +50,14 @@ function ChangePasswordComponent(props: ChangePasswordPageComponentProps): JSX.E
     return (
         <Modal
             className='cvat-modal-change-password'
-            title={<Title level={3}>Change password</Title>}
+            title={<Title level={3} style={{fontFamily:'Lexend'}}>Change password</Title>}
             okType='primary'
             okText='Submit'
             footer={null}
             visible={visible}
             destroyOnClose
             onCancel={onClose}
+            style={{borderRadius:'10px'}}
         >
             <ChangePasswordForm
                 onSubmit={(changePasswordData: ChangePasswordData): void => {

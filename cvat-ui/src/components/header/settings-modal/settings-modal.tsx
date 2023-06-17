@@ -79,10 +79,11 @@ const SettingsModal = (props: SettingsModalProps): JSX.Element => {
             onCancel={onClose}
             width={800}
             className='cvat-settings-modal'
+            style={{fontFamily:'Lexend',borderRadius:'7px'}}
             footer={(
                 <>
                     <Tooltip title='Will save settings to restore them after the app is reopened'>
-                        <Button className='cvat-save-settings-button' type='primary' onClick={onSaveSettings}>
+                    <Button className='cvat-save-settings-button' style={{backgroundColor:'#7E96EA',borderRadius:'7px'}} type='primary' onClick={onSaveSettings}>
                             Save
                         </Button>
                     </Tooltip>

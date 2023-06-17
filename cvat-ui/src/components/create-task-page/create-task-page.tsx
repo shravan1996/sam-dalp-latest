@@ -76,9 +76,9 @@ export default function CreateTaskPage(props: Props): JSX.Element {
     }, [error]);
 
     return (
-        <Row justify='center' align='top' className='cvat-create-work-form-wrapper'>
-            <Col md={20} lg={16} xl={14} xxl={9}>
-                <Text className='cvat-title'>Create a new task</Text>
+        <Row align='top' className='cvat-create-work-form-wrapper'>
+            <Col style={{marginLeft:'100px'}} md={20} lg={16} xl={14} xxl={9}>
+                <Text className='cvat-title' style={{lineHeight:'32px'}}>Create a new task</Text>
                 <CreateTaskContent
                     projectId={projectId}
                     onCreate={handleCreate}

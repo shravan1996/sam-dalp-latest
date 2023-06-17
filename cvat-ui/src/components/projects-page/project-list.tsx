@@ -13,6 +13,11 @@ import { CombinedState, Project } from 'reducers';
 import ProjectItem from './project-item';
 
 export default function ProjectListComponent(): JSX.Element {
+    interface Props{
+        modal: any;
+    }
+
+export default function ProjectListComponent(props: Props): JSX.Element {
     const dispatch = useDispatch();
     const projectsCount = useSelector((state: CombinedState) => state.projects.count);
     const projects = useSelector((state: CombinedState) => state.projects.current);
@@ -37,29 +42,33 @@ export default function ProjectListComponent(): JSX.Element {
     };
 
     return (
-        <>
-            <Row justify='center' align='middle' className='cvat-project-list-content'>
-                <Col className='cvat-projects-list' {...dimensions}>
-                    {projects.map(
-                        (project: Project): JSX.Element => (
-                            <ProjectItem key={project.id} projectInstance={project} />
-                        ),
-                    )}
-                </Col>
-            </Row>
-            <Row justify='center' align='middle'>
-                <Col {...dimensions}>
-                    <Pagination
-                        className='cvat-projects-pagination'
-                        onChange={changePage}
-                        showSizeChanger={false}
-                        total={projectsCount}
-                        pageSize={12}
-                        current={page}
-                        showQuickJumper
-                    />
-                </Col>
-            </Row>
-        </>
+        <div>
+
+        <Row justify='center' align='middle' className='cvat-project-list-content '>
+            <Col className='cvat-projects-list' {...dimensions}>
+
+                {projects.map(
+                    (project: Project): JSX.Element => (
+                        <ProjectItem key={project.id} projectInstance={project} modalValue={props.modal} />
+                    ),
+                )}
+            </Col>
+        </Row>
+        <Row justify='center' align='middle' className='mt-[20px]' >
+            <Col {...dimensions}>
+                <Pagination
+                    className='cvat-projects-pagination'
+                    onChange={changePage}
+                    showSizeChanger={false}
+                    total={projectsCount}
+                    pageSize={12}
+                    current={page}
+                    showQuickJumper
+
+                />
+            </Col>
+        </Row>
+
+    </div>
     );
 }

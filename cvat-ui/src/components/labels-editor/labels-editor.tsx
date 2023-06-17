@@ -217,68 +217,71 @@ export default class LabelsEditor extends React.PureComponent<LabelsEditorProps,
         const savedAndUnsavedLabels = [...savedLabels, ...unsavedLabels];
 
         return (
-            <Tabs
+            <div className='rounded-md border-[1px] '>
+                <Tabs
                 defaultActiveKey='2'
                 type='card'
                 tabBarStyle={{ marginBottom: '0px' }}
-            >
-                <Tabs.TabPane
-                    tab={(
-                        <span>
-                            <EditOutlined />
-                            <Text>Raw</Text>
-                        </span>
-                    )}
-                    key='1'
                 >
-                    <RawViewer labels={savedAndUnsavedLabels} onSubmit={this.handleRawSubmit} />
-                </Tabs.TabPane>
+             <Tabs.TabPane
+                        tab={(
+                            <span >
+                                <BuildOutlined />
+                                <Text>Constructor</Text>
+                            </span>
+                        )}
+                        key='2'
+                    >
+                        {constructorMode === ConstructorMode.SHOW && (
+                            <ConstructorViewer
+                                labels={savedAndUnsavedLabels}
+                                onUpdate={(label: LabelOptColor): void => {
+                                    this.setState({
+                                        constructorMode: ConstructorMode.UPDATE,
+                                        labelForUpdate: label,
+                                    });
+                                }}
+                                onDelete={this.handleDelete}
+                                onCreate={(_creatorType: 'basic' | 'skeleton'): void => {
+                                    this.setState({
+                                        creatorType: _creatorType,
+                                        constructorMode: ConstructorMode.CREATE,
+                                    });
+                                }}
+                            />
+                        )}
+                        {constructorMode === ConstructorMode.UPDATE && labelForUpdate !== null && (
+                            <ConstructorUpdater
+                                label={labelForUpdate}
+                                labelNames={labels.map((l) => l.name)}
+                                onUpdate={this.handleUpdate}
+                                onCancel={this.handlerCancel}
+                            />
+                        )}
+                        {constructorMode === ConstructorMode.CREATE && (
+                            <ConstructorCreator
+                                creatorType={creatorType}
+                                labelNames={labels.map((l) => l.name)}
+                                onCreate={this.handleCreate}
+                                onCancel={this.handlerCancel}
+                            />
+                        )}
+                    </Tabs.TabPane>
+                    <Tabs.TabPane
+                        tab={(
+                            <span>
+                                <EditOutlined />
+                                <Text>Raw</Text>
+                            </span>
+                        )}
+                        key='1'
+                    >
+                        <RawViewer labels={savedAndUnsavedLabels} onSubmit={this.handleRawSubmit} />
+                    </Tabs.TabPane>
+                </Tabs>
 
-                <Tabs.TabPane
-                    tab={(
-                        <span>
-                            <BuildOutlined />
-                            <Text>Constructor</Text>
-                        </span>
-                    )}
-                    key='2'
-                >
-                    {constructorMode === ConstructorMode.SHOW && (
-                        <ConstructorViewer
-                            labels={savedAndUnsavedLabels}
-                            onUpdate={(label: LabelOptColor): void => {
-                                this.setState({
-                                    constructorMode: ConstructorMode.UPDATE,
-                                    labelForUpdate: label,
-                                });
-                            }}
-                            onDelete={this.handleDelete}
-                            onCreate={(_creatorType: 'basic' | 'skeleton'): void => {
-                                this.setState({
-                                    creatorType: _creatorType,
-                                    constructorMode: ConstructorMode.CREATE,
-                                });
-                            }}
-                        />
-                    )}
-                    {constructorMode === ConstructorMode.UPDATE && labelForUpdate !== null && (
-                        <ConstructorUpdater
-                            label={labelForUpdate}
-                            labelNames={labels.map((l) => l.name)}
-                            onUpdate={this.handleUpdate}
-                            onCancel={this.handlerCancel}
-                        />
-                    )}
-                    {constructorMode === ConstructorMode.CREATE && (
-                        <ConstructorCreator
-                            creatorType={creatorType}
-                            labelNames={labels.map((l) => l.name)}
-                            onCreate={this.handleCreate}
-                            onCancel={this.handlerCancel}
-                        />
-                    )}
-                </Tabs.TabPane>
-            </Tabs>
+            </div>
+
         );
     }
 }

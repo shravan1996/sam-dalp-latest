@@ -8,6 +8,7 @@ import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
 import Spin from 'antd/lib/spin';
+import { LoadingOutlined } from '@ant-design/icons'; // new
 import { CombinedState, Indexable } from 'reducers';
 import { getProjectsAsync } from 'actions/projects-actions';
 import FeedbackComponent from 'components/feedback/feedback';
@@ -17,6 +18,7 @@ import TopBarComponent from './top-bar';
 import ProjectListComponent from './project-list';
 
 export default function ProjectsPageComponent(): JSX.Element {
+    const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />; // new
     const dispatch = useDispatch();
     const history = useHistory();
     const fetching = useSelector((state: CombinedState) => state.projects.fetching);
@@ -25,6 +27,12 @@ export default function ProjectsPageComponent(): JSX.Element {
     const tasksQuery = useSelector((state: CombinedState) => state.projects.tasksGettingQuery);
     const importing = useSelector((state: CombinedState) => state.import.projects.backup.importing);
     const [isMounted, setIsMounted] = useState(false);
+    const [modal,setModal]=useState(false)
+
+    const pull_data = (data:any) => {
+       setModal(data);
+      }
+
     const anySearch = Object.keys(query).some((value: string) => value !== 'page' && (query as any)[value] !== null);
 
     const queryParams = new URLSearchParams(history.location.search);
@@ -49,11 +57,13 @@ export default function ProjectsPageComponent(): JSX.Element {
         }
     }, [query]);
 
-    const content = count ? <ProjectListComponent /> : <EmptyListComponent notFound={anySearch} />;
+    const content =  count && !modal ? <ProjectListComponent modal={modal} /> : <EmptyListComponent notFound={anySearch} />;
 
     return (
-        <div className='cvat-projects-page'>
+        <div className={'cvat-projects-page flex flex-col justify-start'}>
+        <div>
             <TopBarComponent
+                func={pull_data}
                 onApplySearch={(search: string | null) => {
                     dispatch(
                         getProjectsAsync({
@@ -83,12 +93,18 @@ export default function ProjectsPageComponent(): JSX.Element {
                 }}
                 query={updatedQuery}
                 importing={importing}
+
             />
+        </div>
+
+        <div>
             { fetching ? (
-                <div className='cvat-empty-project-list'>
-                    <Spin size='large' className='cvat-spinner' />
-                </div>
-            ) : content }
+                    <div className='cvat-empty-project-list'>
+                        <Spin indicator={antIcon} size='large' className='cvat-spinner' />
+                    </div>
+                ) :  content}
+        </div>
+
             <FeedbackComponent />
         </div>
     );

@@ -12,6 +12,7 @@ import { ShapeType } from 'reducers';
 
 import DrawShapePopoverContainer from 'containers/annotation-page/standard-workspace/controls-side-bar/draw-shape-popover';
 import withVisibilityHandling from './handle-popover-visibility';
+import PolyLineIcon1 from '../../../../assets/polyline-icon1.svg';
 
 export interface Props {
     canvasInstance: Canvas;
@@ -46,7 +47,8 @@ function DrawPolylineControl(props: Props): JSX.Element {
             placement='right'
             content={<DrawShapePopoverContainer shapeType={ShapeType.POLYLINE} />}
         >
-            <Icon {...dynamicIconProps} component={PolylineIcon} />
+            {/* <Icon {...dynamicIconProps} component={PolylineIcon} /> */}
+            <PolyLineIcon1 {...dynamicIconProps} />
         </CustomPopover>
     );
 }

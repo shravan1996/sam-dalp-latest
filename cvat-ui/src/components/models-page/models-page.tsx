@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getModelProvidersAsync, getModelsAsync } from 'actions/models-actions';
 import { updateHistoryFromQuery } from 'components/resource-sorting-filtering';
 import Spin from 'antd/lib/spin';
+import { LoadingOutlined } from '@ant-design/icons'; // new
 import notification from 'antd/lib/notification';
 
 import { CombinedState, Indexable } from 'reducers';
@@ -24,6 +25,8 @@ function ModelsPageComponent(): JSX.Element {
     const fetching = useSelector((state: CombinedState) => state.models.fetching);
     const query = useSelector((state: CombinedState) => state.models.query);
     const totalCount = useSelector((state: CombinedState) => state.models.totalCount);
+
+    const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />; // new
 
     const onCreateModel = useCallback(() => {
         history.push('/models/create');
@@ -95,7 +98,7 @@ function ModelsPageComponent(): JSX.Element {
             />
             { fetching ? (
                 <div className='cvat-empty-models-list'>
-                    <Spin size='large' className='cvat-spinner' />
+                    <Spin indicator={antIcon} size='large' className='cvat-spinner' />
                 </div>
             ) : content }
             <FeedbackComponent />

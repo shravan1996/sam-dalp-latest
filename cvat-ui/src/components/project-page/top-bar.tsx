@@ -23,25 +23,29 @@ export default function ProjectTopBar(props: DetailsComponentProps): JSX.Element
     const history = useHistory();
 
     return (
-        <Row className='cvat-task-top-bar' justify='space-between' align='middle'>
-            <Col>
-                <Button
-                    className='cvat-back-to-projects-button'
-                    onClick={() => history.push('/projects')}
-                    type='link'
-                    size='large'
-                >
-                    <LeftOutlined />
-                    Back to projects
-                </Button>
-            </Col>
-            <Col className='cvat-project-top-bar-actions'>
-                <Dropdown overlay={<ActionsMenu projectInstance={projectInstance} />}>
-                    <Button size='middle' className='cvat-project-page-actions-button'>
-                        <Text className='cvat-text-color'>Actions</Text>
-                        <MoreOutlined className='cvat-menu-icon' />
+        <Row className='cvat-task-top-bar ml-0' justify='space-between' align='middle'>
+                <Col className='cvat-project-top-bar-actions'>
+                    <Dropdown overlay={<ActionsMenu projectInstance={projectInstance} />}>
+                        <Button size='middle' className='cvat-project-page-actions-button'>
+                            <Text className='cvat-text-color'>Actions</Text>
+                            <MoreOutlined className='cvat-menu-icon' />
+                        </Button>
+                    </Dropdown>
+                </Col>
+
+                <Col>
+                    <Button
+                        className='cvat-back-to-projects-button'
+                        onClick={() => history.push('/projects')}
+                        type='link'
+                        style={{color:'#023E8A',textDecoration:'underline'}}
+                        size='large'
+                    >
+                        {/* <LeftOutlined style={{color:'#023E8A'}}/> */}
+                        Back to projects
                     </Button>
                 </Dropdown>
+            </Col>
             </Col>
         </Row>
     );

@@ -13,6 +13,8 @@ import { useSelector } from 'react-redux';
 import { FilterIcon, FullscreenIcon, InfoIcon } from 'icons';
 import { DimensionType } from 'cvat-core-wrapper';
 import { CombinedState, Workspace } from 'reducers';
+import FullscreenIcon1 from '../../../assets/fullscreen-icon1.svg'
+import InfoIcon1 from '../../../assets/info-icon1.svg'
 
 interface Props {
     workspace: Workspace;
@@ -48,16 +50,16 @@ function RightGroup(props: Props): JSX.Element {
                     }
                 }}
             >
-                <Icon component={FullscreenIcon} />
-                Fullscreen
+                <Icon component={FullscreenIcon1} />
+                {/* Fullscreen */}
             </Button>
             <Button
                 type='link'
                 className='cvat-annotation-header-info-button cvat-annotation-header-button'
                 onClick={showStatistics}
             >
-                <Icon component={InfoIcon} />
-                Info
+                <Icon component={InfoIcon1}  style={{color:'white'}}/>
+                {/* Info */}
             </Button>
             <Button
                 type='link'
@@ -66,8 +68,8 @@ function RightGroup(props: Props): JSX.Element {
                 }`}
                 onClick={showFilters}
             >
-                <Icon component={FilterIcon} />
-                Filters
+                <Icon component={FilterIcon} style={{width:'20px'}}/>
+                {/* Filters */}
             </Button>
             <div>
                 <Select

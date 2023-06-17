@@ -8,6 +8,7 @@ import { useDispatch } from 'react-redux';
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
 import Spin from 'antd/lib/spin';
+import { LoadingOutlined } from '@ant-design/icons'; // new
 import Button from 'antd/lib/button';
 import message from 'antd/lib/message';
 import Text from 'antd/lib/typography/Text';
@@ -39,6 +40,14 @@ function TasksPageComponent(props: Props): JSX.Element {
     const dispatch = useDispatch();
     const history = useHistory();
     const [isMounted, setIsMounted] = useState(false);
+
+    const [modal,setModal]=useState(false)
+
+    const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />; // new
+
+    const pull_data = (data:any) => {
+       setModal(data);
+      }
 
     const queryParams = new URLSearchParams(history.location.search);
     const updatedQuery = { ...query };
@@ -84,7 +93,7 @@ function TasksPageComponent(props: Props): JSX.Element {
         }
     }, [countInvisible]);
 
-    const content = count ? (
+    const content = count && !modal ? (
         <>
             <TaskListContainer />
             <Row justify='center' align='middle'>
@@ -113,6 +122,7 @@ function TasksPageComponent(props: Props): JSX.Element {
     return (
         <div className='cvat-tasks-page'>
             <TopBar
+                func={pull_data}
                 onApplySearch={(search: string | null) => {
                     dispatch(
                         getTasksAsync({
@@ -145,7 +155,7 @@ function TasksPageComponent(props: Props): JSX.Element {
             />
             { fetching ? (
                 <div className='cvat-empty-tasks-list'>
-                    <Spin size='large' className='cvat-spinner' />
+                    <Spin indicator={antIcon} size='large' className='cvat-spinner' />
                 </div>
             ) : content }
             <FeedbackComponent />

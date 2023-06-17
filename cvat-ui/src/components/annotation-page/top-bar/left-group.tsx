@@ -17,6 +17,8 @@ import {
 } from 'icons';
 import { ActiveControl, ToolsBlockerState } from 'reducers';
 import CVATTooltip from 'components/common/cvat-tooltip';
+import MenuIcon from '../../../assets/menu-icon.svg';
+import SaveIcon1 from '../../../assets/save-icon1.svg';
 
 interface Props {
     saving: boolean;
@@ -71,16 +73,17 @@ function LeftGroup(props: Props): JSX.Element {
     return (
         <>
             <Modal className='cvat-saving-job-modal' title='Saving changes on the server' visible={saving} footer={[]} closable={false}>
-                <Text>CVAT is saving your annotations, please wait </Text>
+                <Text>DALP AI is saving your annotations, please wait </Text>
                 <LoadingOutlined />
             </Modal>
             <Col className='cvat-annotation-header-left-group'>
+            <div>
                 <Dropdown overlay={<AnnotationMenuContainer />}>
-                    <Button type='link' className='cvat-annotation-header-menu-button cvat-annotation-header-button'>
-                        <Icon component={MainMenuIcon} />
-                        Menu
+                    <Button type='link' style={{backgroundColor:'black',color:'white'}} className='cvat-annotation-header-menu-button cvat-annotation-header-button'>
+                        <Icon component={MenuIcon} />
                     </Button>
                 </Dropdown>
+            </div>
                 <CVATTooltip overlay={`Save current changes ${saveShortcut}`}>
                     <Button
                         onClick={saving ? undefined : onSaveAnnotation}
@@ -88,8 +91,9 @@ function LeftGroup(props: Props): JSX.Element {
                         className={saving ? 'cvat-annotation-header-save-button cvat-annotation-disabled-header-button' :
                             'cvat-annotation-header-save-button cvat-annotation-header-button'}
                     >
-                        <Icon component={SaveIcon} />
-                        {saving ? 'Saving...' : 'Save'}
+                        {/* <Icon component={SaveIcon} /> */}
+                        <SaveIcon1 />
+                        {/* {saving ? 'Saving...' : 'Save'} */}
                     </Button>
                 </CVATTooltip>
                 <CVATTooltip overlay={`Undo: ${undoAction} ${undoShortcut}`}>
@@ -100,7 +104,7 @@ function LeftGroup(props: Props): JSX.Element {
                         onClick={onUndoClick}
                     >
                         <Icon component={UndoIcon} />
-                        <span>Undo</span>
+                        {/* <span>Undo</span> */}
                     </Button>
                 </CVATTooltip>
                 <CVATTooltip overlay={`Redo: ${redoAction} ${redoShortcut}`}>
@@ -111,7 +115,7 @@ function LeftGroup(props: Props): JSX.Element {
                         onClick={onRedoClick}
                     >
                         <Icon component={RedoIcon} />
-                        Redo
+                        {/* Redo */}
                     </Button>
                 </CVATTooltip>
                 {includesDoneButton ? (

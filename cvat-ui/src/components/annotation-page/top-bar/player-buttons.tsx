@@ -8,6 +8,11 @@ import Icon from '@ant-design/icons';
 import Popover from 'antd/lib/popover';
 
 import CVATTooltip from 'components/common/cvat-tooltip';
+import FirstArrowIcon1 from '../../../assets/first-arrow-icon1.svg';
+import LastArrowIcon1 from '../../../assets/last-arrow-icon1.svg';
+import PrevButtonIcon1 from '../../../assets/prev-button-icon1.svg';
+import NextButtonIcon1 from '../../../assets/next-button-icon1.svg';
+import PlayButtonIcon1 from '../../../assets/play-button-icon1.svg';
 
 import {
     FirstIcon,
@@ -103,13 +108,14 @@ function PlayerButtons(props: Props): JSX.Element {
     }
 
     return (
-        <Col className='cvat-player-buttons'>
-            <CVATTooltip title='Go to the first frame'>
-                <Icon className='cvat-player-first-button' component={FirstIcon} onClick={onFirstFrame} />
+        <Col className='cvat-player-buttons' style={{marginRight:'10px'}}>
+            <CVATTooltip title='Go to the first frame' >
+                {/* <Icon className='cvat-player-first-button' component={FirstIcon} onClick={onFirstFrame} /> */}
+                <FirstArrowIcon1 className='cvat-player-first-button' style={{marginLeft:'4px',marginRight:'15px'}} onClick={onFirstFrame}/>
             </CVATTooltip>
-            <CVATTooltip title={`Go back with a step ${backwardShortcut}`}>
+            {/*<CVATTooltip title={`Go back with a step ${backwardShortcut}`}>
                 <Icon className='cvat-player-backward-button' component={BackJumpIcon} onClick={onBackward} />
-            </CVATTooltip>
+            </CVATTooltip> */}
             <Popover
                 trigger='contextMenu'
                 placement='bottom'
@@ -146,17 +152,18 @@ function PlayerButtons(props: Props): JSX.Element {
                 )}
             >
                 <CVATTooltip placement='top' title={`${prevButtonTooltipMessage} ${previousFrameShortcut}`}>
-                    {prevButton}
+                    <PrevButtonIcon1 style={{marginLeft:'4px',marginRight:'22px'}}/>
                 </CVATTooltip>
             </Popover>
 
             {!playing ? (
-                <CVATTooltip title={`Play ${playPauseShortcut}`}>
-                    <Icon className='cvat-player-play-button' component={PlayIcon} onClick={onSwitchPlay} />
+                <CVATTooltip title={`Play ${playPauseShortcut}`} >
+                    {/* <Icon className='cvat-player-play-button' component={PlayIcon} onClick={onSwitchPlay} /> */}
+                    <PlayButtonIcon1 className='cvat-player-play-button' style={{marginLeft:'4px',marginRight:'15px'}}  onClick={onSwitchPlay} />
                 </CVATTooltip>
             ) : (
                 <CVATTooltip title={`Pause ${playPauseShortcut}`}>
-                    <Icon className='cvat-player-pause-button' component={PauseIcon} onClick={onSwitchPlay} />
+                    <Icon className='cvat-player-pause-button' component={PauseIcon} onClick={onSwitchPlay}  style={{marginLeft:'4px',marginRight:'15px'}}  />
                 </CVATTooltip>
             )}
 
@@ -195,15 +202,17 @@ function PlayerButtons(props: Props): JSX.Element {
                     </>
                 )}
             >
-                <CVATTooltip placement='top' title={`${nextButtonTooltipMessage} ${nextFrameShortcut}`}>
-                    {nextButton}
+                <CVATTooltip  placement='top' title={`${nextButtonTooltipMessage} ${nextFrameShortcut}`}>
+                    {/* {nextButton} */}
+                    <NextButtonIcon1  style={{marginLeft:'4px',marginRight:'15px'}}/>
                 </CVATTooltip>
             </Popover>
-            <CVATTooltip title={`Go next with a step ${forwardShortcut}`}>
+            {/*<CVATTooltip title={`Go next with a step ${forwardShortcut}`}>
                 <Icon className='cvat-player-forward-button' component={ForwardJumpIcon} onClick={onForward} />
-            </CVATTooltip>
+            </CVATTooltip>*/}
             <CVATTooltip title='Go to the last frame'>
-                <Icon className='cvat-player-last-button' component={LastIcon} onClick={onLastFrame} />
+                {/* <Icon className='cvat-player-last-button' component={LastIcon} onClick={onLastFrame} /> */}
+                <LastArrowIcon1  style={{marginLeft:'4px',marginRight:'20px'}} className='cvat-player-last-button' onClick={onLastFrame}/>
             </CVATTooltip>
         </Col>
     );

@@ -5,16 +5,22 @@
 @import '../../base.scss';
 
 .cvat-create-project-form-wrapper {
-    text-align: center;
+    //text-align: center;
     padding-top: $grid-unit-size * 5;
     overflow-y: auto;
     height: 90%;
     position: fixed;
-    width: 100%;
+    width:144%; //100%;
+    font-family:'Lexend'; // new
+    margin-left:100px;  // new
 
     > div > span {
         font-size: $grid-unit-size * 4;
     }
+}
+
+.cvat-submit-open-project-button:hover{
+    background-color:#6983ce ;
 }
 
 .cvat-create-project-content {

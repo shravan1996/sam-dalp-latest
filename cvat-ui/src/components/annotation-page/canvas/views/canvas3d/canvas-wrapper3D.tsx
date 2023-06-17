@@ -13,6 +13,7 @@ import {
 } from '@ant-design/icons';
 import Button from 'antd/lib/button';
 import Spin from 'antd/lib/spin';
+import { LoadingOutlined } from '@ant-design/icons'; // new
 
 import {
     activateObject,
@@ -75,6 +76,8 @@ interface DispatchToProps {
     onEditShape: (enabled: boolean) => void;
     onUpdateContextMenu(visible: boolean, left: number, top: number, type: ContextMenuType, pointID?: number): void;
 }
+
+const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />; // new
 
 function mapStateToProps(state: CombinedState): StateToProps {
     const {
@@ -183,7 +186,7 @@ type Props = StateToProps & DispatchToProps;
 
 const Spinner = React.memo(() => (
     <div className='cvat-spinner-container'>
-        <Spin className='cvat-spinner' />
+        <Spin indicator={antIcon} size='large' className='cvat-spinner' />
     </div>
 ));
 

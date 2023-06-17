@@ -8,10 +8,13 @@ import React, { useEffect } from 'react';
 import { Row, Col } from 'antd/lib/grid';
 import Text from 'antd/lib/typography/Text';
 import Spin from 'antd/lib/spin';
+import { LoadingOutlined } from '@ant-design/icons'; // new
 import { CombinedState } from 'reducers';
 import { useSelector, useDispatch } from 'react-redux';
 import { getModelProvidersAsync } from 'actions/models-actions';
 import ModelForm from './model-form';
+
+const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />; // new
 
 function CreateModelPage(): JSX.Element {
     const dispatch = useDispatch();
@@ -31,7 +34,7 @@ function CreateModelPage(): JSX.Element {
             {
                 fetching ? (
                     <div className='cvat-empty-webhooks-list'>
-                        <Spin size='large' className='cvat-spinner' />
+                        <Spin indicator={antIcon} size='large' className='cvat-spinner' />
                     </div>
                 ) : (
                     <Row justify='center' align='top'>

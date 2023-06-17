@@ -9,10 +9,10 @@ import {
     useHistory, useRouteMatch,
 } from 'react-router';
 import Spin from 'antd/lib/spin';
+import { LoadingOutlined } from '@ant-design/icons'; // new
 import { Row, Col } from 'antd/lib/grid';
 import Pagination from 'antd/lib/pagination';
 import Button from 'antd/lib/button';
-
 import { CombinedState, Indexable } from 'reducers';
 import { updateHistoryFromQuery } from 'components/resource-sorting-filtering';
 import { getWebhooksAsync } from 'actions/webhooks-actions';
@@ -28,12 +28,19 @@ interface ProjectRouteMatch {
 const PAGE_SIZE = 10;
 
 function WebhooksPage(): JSX.Element | null {
+    const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />; // new
     const dispatch = useDispatch();
     const history = useHistory();
     const organization = useSelector((state: CombinedState) => state.organizations.current);
     const fetching = useSelector((state: CombinedState) => state.webhooks.fetching);
     const totalCount = useSelector((state: CombinedState) => state.webhooks.totalCount);
     const query = useSelector((state: CombinedState) => state.webhooks.query);
+
+    const [modal,setModal]=useState(false)
+
+    const pull_data = (data:any) => {
+       setModal(data);
+    }
 
     const projectsMatch = useRouteMatch<ProjectRouteMatch>({ path: '/projects/:id/webhooks' });
 
@@ -108,6 +115,7 @@ function WebhooksPage(): JSX.Element | null {
     return (
         <div className='cvat-webhooks-page'>
             <TopBar
+                func={pull_data}
                 query={updatedQuery}
                 onCreateWebhook={onCreateWebhook}
                 goBackContent={goBackContent}
@@ -141,7 +149,7 @@ function WebhooksPage(): JSX.Element | null {
             />
             { fetching ? (
                 <div className='cvat-empty-webhooks-list'>
-                    <Spin size='large' className='cvat-spinner' />
+                    <Spin indicator={antIcon} size='large' className='cvat-spinner' />
                 </div>
             ) : content }
         </div>

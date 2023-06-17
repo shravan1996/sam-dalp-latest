@@ -9,6 +9,7 @@ import { ZoomIcon } from 'icons';
 import { ActiveControl } from 'reducers';
 import { Canvas } from 'cvat-canvas-wrapper';
 import CVATTooltip from 'components/common/cvat-tooltip';
+import ResizeControlIcon from '../../../../assets/resize-control-icon.svg';
 
 export interface Props {
     canvasInstance: Canvas;
@@ -20,8 +21,23 @@ function ResizeControl(props: Props): JSX.Element {
 
     return (
         <CVATTooltip title='Select a region of interest' placement='right'>
-            <Icon
+            {/*<Icon
                 component={ZoomIcon}
+                className={
+                    activeControl === ActiveControl.ZOOM_CANVAS ?
+                        'cvat-resize-control cvat-active-canvas-control' :
+                        'cvat-resize-control'
+                }
+                onClick={(): void => {
+                    if (activeControl === ActiveControl.ZOOM_CANVAS) {
+                        canvasInstance.zoomCanvas(false);
+                    } else {
+                        canvasInstance.cancel();
+                        canvasInstance.zoomCanvas(true);
+                    }
+                }}
+            />*/}
+            <ResizeControlIcon
                 className={
                     activeControl === ActiveControl.ZOOM_CANVAS ?
                         'cvat-resize-control cvat-active-canvas-control' :

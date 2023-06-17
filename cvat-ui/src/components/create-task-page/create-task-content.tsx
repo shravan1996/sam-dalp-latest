@@ -870,7 +870,7 @@ class CreateTaskContent extends React.PureComponent<Props & RouteComponentProps,
             <Row justify='end' gutter={5}>
                 <Col>
                     <Button
-                        className='cvat-submit-open-task-button'
+                        className='cvat-submit-open-task-button hover:bg-cyan-600'
                         type='primary'
                         onClick={this.handleSubmitAndOpen}
                         disabled={!!uploadFileErrorMessage}
@@ -882,6 +882,7 @@ class CreateTaskContent extends React.PureComponent<Props & RouteComponentProps,
                     <Button
                         className='cvat-submit-open-task-button'
                         type='primary'
+                        style={{backgroundColor:'#7E96EA',borderRadius:'10px'}}
                         onClick={this.handleSubmitAndContinue}
                         disabled={!!uploadFileErrorMessage}
                     >
@@ -939,7 +940,7 @@ class CreateTaskContent extends React.PureComponent<Props & RouteComponentProps,
         const { many } = this.props;
 
         return (
-            <Row justify='start' align='middle' className='cvat-create-task-content'>
+            <Row justify='start' align='middle' className='cvat-create-task-content' style={{width:'1300px'}}>
                 <Col span={24}>
                     <Text className='cvat-title'>Basic configuration</Text>
                 </Col>

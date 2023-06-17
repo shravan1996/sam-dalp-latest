@@ -58,8 +58,8 @@ export default function PlayerSettingsComponent(props: Props): JSX.Element {
     const maxFrameStep = 1000;
 
     return (
-        <div className='cvat-player-settings'>
-            <Row align='bottom' className='cvat-player-settings-step'>
+        <div className='cvat-player-settings' style={{fontFamily:'Lexend',borderRadius:'7px'}}>
+            <Row align='bottom' className='cvat-player-settings-step' style={{fontFamily:'Lexend',borderRadius:'7px'}}>
                 <Col>
                     <Text className='cvat-text-color'> Player step </Text>
                     <InputNumber

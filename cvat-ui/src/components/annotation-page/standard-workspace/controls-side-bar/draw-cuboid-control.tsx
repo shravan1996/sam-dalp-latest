@@ -14,6 +14,7 @@ import { CubeIcon } from 'icons';
 
 import DrawShapePopoverContainer from 'containers/annotation-page/standard-workspace/controls-side-bar/draw-shape-popover';
 import withVisibilityHandling from './handle-popover-visibility';
+import CuboidIcon1 from '../../../../assets/cuboid-icon1.svg';
 
 export interface Props {
     canvasInstance: Canvas | Canvas3d;
@@ -48,7 +49,8 @@ function DrawCuboidControl(props: Props): JSX.Element {
             placement='right'
             content={<DrawShapePopoverContainer shapeType={ShapeType.CUBOID} />}
         >
-            <Icon {...dynamicIconProps} component={CubeIcon} />
+            {/* <Icon {...dynamicIconProps} component={CubeIcon} /> */}
+            <CuboidIcon1 {...dynamicIconProps}/>
         </CustomPopover>
     );
 }

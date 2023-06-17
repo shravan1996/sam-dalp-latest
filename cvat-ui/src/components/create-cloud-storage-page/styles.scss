@@ -6,12 +6,13 @@
 
 .cvat-update-cloud-storage-form-wrapper,
 .cvat-attach-cloud-storage-form-wrapper {
-    text-align: center;
+    //text-align: center;
     padding-top: $grid-unit-size * 5;
     overflow-y: auto;
     height: 90%;
     position: fixed;
-    width: 100%;
+    width: 144%; // 100 %;
+    font-family:'Lexend'; // new
 
     > div > span {
         font-size: $grid-unit-size * 4;
@@ -54,6 +55,8 @@
         .cvat-attach-cloud-storage-reset-button,
         .cvat-attach-cloud-storage-submit-button {
             width: $grid-unit-size * 12;
+            background-color: #7E96EA; // new
+            border-radius:10px; // new
         }
     }
 }

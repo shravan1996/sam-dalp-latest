@@ -13,6 +13,7 @@ import { Canvas3d } from 'cvat-canvas3d-wrapper';
 import { ActiveControl } from 'reducers';
 import CVATTooltip from 'components/common/cvat-tooltip';
 import GlobalHotKeys, { KeyMapItem } from 'utils/mousetrap-react';
+import GroupTrackIcon1 from '../../../../assets/group-track-icon1.svg';
 
 export interface Props {
     groupObjects(enabled: boolean): void;
@@ -103,7 +104,8 @@ function GroupControl(props: Props): JSX.Element {
                 handlers={shortcutHandlers}
             />
             <CVATTooltip title={title} placement='right'>
-                <Icon {...dynamicIconProps} component={GroupIcon} />
+                {/* <Icon {...dynamicIconProps} component={GroupIcon} /> */}
+                <GroupTrackIcon1 {...dynamicIconProps} />
             </CVATTooltip>
         </>
     );

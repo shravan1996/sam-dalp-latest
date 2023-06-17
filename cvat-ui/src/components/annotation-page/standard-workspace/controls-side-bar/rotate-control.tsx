@@ -10,6 +10,7 @@ import { RotateIcon } from 'icons';
 import { Rotation } from 'reducers';
 import CVATTooltip from 'components/common/cvat-tooltip';
 import withVisibilityHandling from './handle-popover-visibility';
+import RotateImageIcon1 from '../../../../assets/rotate-image-icon.svg';
 
 export interface Props {
     clockwiseShortcut: string;
@@ -44,7 +45,8 @@ function RotateControl(props: Props): JSX.Element {
             )}
             trigger='hover'
         >
-            <Icon className='cvat-rotate-canvas-control' component={RotateIcon} />
+            {/* <Icon className='cvat-rotate-canvas-control' component={RotateImageIcon1} /> */}
+            <RotateImageIcon1 className='cvat-rotate-canvas-control'  style={{marginTop:'5px'}}/>
         </CustomPopover>
     );
 }

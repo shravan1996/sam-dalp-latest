@@ -32,6 +32,10 @@ import {
 
 import config from 'config';
 
+interface Props{
+    showModal: boolean
+}
+
 function renderContent(): JSX.Element {
     const { GITHUB_URL, GITHUB_IMAGE_URL, DISCORD_URL } = config;
 
@@ -93,29 +97,42 @@ function renderContent(): JSX.Element {
     );
 }
 
-export default function Feedback(): JSX.Element {
+export default function Feedback(props:Props): JSX.Element {
     const [visible, setVisible] = React.useState(false);
 
-    return (
-        <>
-            <Popover
-                placement='leftTop'
-                title={<Text className='cvat-text-color'>Help to make CVAT better</Text>}
-                content={renderContent()}
-                visible={visible}
-                overlayClassName='cvat-feedback-popover'
-            >
-                <Button
-                    style={visible ? { color: '#ff4d4f' } : {}}
-                    className='cvat-feedback-button'
-                    type='link'
-                    onClick={(): void => {
-                        setVisible(!visible);
-                    }}
-                >
-                    {visible ? <CloseCircleOutlined /> : <MessageOutlined />}
-                </Button>
-            </Popover>
-        </>
-    );
+    const {showModal} = props;
+    console.log(showModal );
+    console.log('feedback');
+
+
+    if (showModal===false){
+        return (
+            <p></p>
+            // <div>
+            //     <Popover
+            //         placement='leftTop'
+            //         title={<Text className='cvat-text-color'>Help to make DALP better</Text>}
+            //         content={renderContent()}
+            //         visible={visible}
+            //         overlayClassName='cvat-feedback-popover'
+            //     >
+            //         <Button
+            //             style={visible ? { color: '#ff4d4f' } : {}}
+            //             className='cvat-feedback-button'
+            //             type='link'
+            //             onClick={(): void => {
+            //                 setVisible(!visible);
+            //             }}
+            //         >
+            //             {visible ? <CloseCircleOutlined /> : <MessageOutlined />}
+            //         </Button>
+            //     </Popover>
+            // </div>
+        )
+    }else{
+
+        return (
+            <p></p>
+        )
+    }
 }

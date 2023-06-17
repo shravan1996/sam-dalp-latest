@@ -10,6 +10,7 @@
     padding-bottom: $grid-unit-size;
     height: 100%;
     width: 100%;
+    overflow-y:scroll; // new
 
     > div:nth-child(1) {
         div > {
@@ -31,10 +32,14 @@
     }
 
     .cvat-job-page-list-item {
-        width: 25%;
+        width:30%; // new
+        height:400px; // new
+        padding:12px; // new
         border-width: $grid-unit-size * 0.5;
         display: flex;
         flex-direction: column;
+        font-family:'Lexend'; // new
+        border-radius:10px; // new
 
         .ant-card-cover {
             flex: 1;
@@ -62,7 +67,7 @@
 
         .cvat-jobs-page-job-item-card-preview-wrapper {
             height: 100%;
-            width: 100%;
+            width:  80%; //100%;
 
             > .cvat-jobs-page-job-item-card-preview {
                 .ant-empty-image {
@@ -93,12 +98,20 @@
             top: 0;
             right: 0;
             margin: $grid-unit-size;
+            padding:22px; // new
             width: $grid-unit-size * 4;
             background: white;
             border-radius: 4px;
             text-align: center;
-            opacity: 0.5;
-            padding: $grid-unit-size;
+            //opacity: 0.5;
+            //padding: $grid-unit-size;
+        }
+
+        .cvat-job-card-more-button {
+            position: absolute;
+            bottom: $grid-unit-size * 2;
+            right: $grid-unit-size;
+            font-size: 16px;
         }
 
         .cvat-job-page-list-item-id {
@@ -124,14 +137,18 @@
     .cvat-jobs-page-list {
         display: flex;
         flex-wrap: wrap;
+        width:200%; // new
+
+        justify-content: space-between;
+        align-content:space-between;
     }
 
-    .cvat-job-card-more-button {
+    {/*.cvat-job-card-more-button {
         position: absolute;
         bottom: $grid-unit-size * 2;
         right: $grid-unit-size;
         font-size: 16px;
-    }
+    }*/}
 }
 
 .cvat-jobs-page-top-bar {

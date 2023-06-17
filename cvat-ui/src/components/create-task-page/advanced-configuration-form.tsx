@@ -388,7 +388,7 @@ class AdvancedConfigurationForm extends React.PureComponent<Props> {
         const { dumpers } = this.props;
         return (
             <Form.Item
-                initialValue='CVAT for video 1.1'
+                initialValue='DALP for video 1.1'
                 name='format'
                 label='Choose format'
             >

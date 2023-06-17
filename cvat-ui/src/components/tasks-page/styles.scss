@@ -77,7 +77,9 @@
 
 .cvat-tasks-list {
     height: 100%;
-    overflow-y: auto;
+    font-family:'Lexend'; // new
+    overflow-y: auto; // auto
+    width:100%; // new
 }
 
 .cvat-tasks-list-item {

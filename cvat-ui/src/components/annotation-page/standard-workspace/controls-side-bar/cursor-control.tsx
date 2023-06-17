@@ -10,6 +10,7 @@ import { ActiveControl } from 'reducers';
 import { Canvas } from 'cvat-canvas-wrapper';
 import { Canvas3d } from 'cvat-canvas3d-wrapper';
 import CVATTooltip from 'components/common/cvat-tooltip';
+import CursorIcon1 from '../../../../assets/cursor-icon1.svg';
 
 export interface Props {
     canvasInstance: Canvas | Canvas3d;
@@ -22,13 +23,17 @@ function CursorControl(props: Props): JSX.Element {
 
     return (
         <CVATTooltip title={`Cursor ${cursorShortkey}`} placement='right'>
-            <Icon
+            {/*<Icon
                 component={CursorIcon}
                 className={
                     activeControl === ActiveControl.CURSOR ?
                         'cvat-active-canvas-control cvat-cursor-control' :
                         'cvat-cursor-control'
                 }
+                onClick={activeControl !== ActiveControl.CURSOR ? (): void => canvasInstance.cancel() : undefined}
+            />*/}
+            <CursorIcon1
+                style={{marginTop:'9px',marginBottom:'12px',marginLeft:'7px'}}
                 onClick={activeControl !== ActiveControl.CURSOR ? (): void => canvasInstance.cancel() : undefined}
             />
         </CVATTooltip>

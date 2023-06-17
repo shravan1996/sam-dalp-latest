@@ -15,7 +15,7 @@ export interface Props {
 
 function TaskListComponent(props: Props): JSX.Element {
     const { currentTasksIndexes } = props;
-    const taskViews = currentTasksIndexes.map((tid, id): JSX.Element => <TaskItem idx={id} taskID={tid} key={tid} />);
+    const taskViews = currentTasksIndexes.map((tid, id): JSX.Element => <TaskItem  idx={id} taskID={tid} key={tid} />);
 
     return (
         <>

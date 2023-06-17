@@ -33,7 +33,7 @@ import Select from 'antd/lib/select';
 import { getCore } from 'cvat-core-wrapper';
 import config from 'config';
 
-import { CVATLogo } from 'icons';
+import { DalpLogoHeader1,DalpLogo1 } from 'icons';
 import ChangePasswordDialog from 'components/change-password-modal/change-password-modal';
 import CVATTooltip from 'components/common/cvat-tooltip';
 import { switchSettingsDialog as switchSettingsDialogAction } from 'actions/settings-actions';
@@ -174,7 +174,7 @@ function HeaderContainer(props: Props): JSX.Element {
         Modal.info({
             title: `${tool.name}`,
             content: (
-                <div>
+                <div style={{fontFamily:'Lexend'}}>
                     <p>{`${tool.description}`}</p>
                     <p>
                         <Text strong>Server version:</Text>
@@ -257,6 +257,7 @@ function HeaderContainer(props: Props): JSX.Element {
         menuItems.push([(
             <Menu.Item
                 icon={<ControlOutlined />}
+                style={{fontFamily:'Lexend'}}
                 key='admin_page'
                 onClick={(): void => {
                     window.open(`${tool.server.host}/admin`, '_blank');
@@ -271,6 +272,7 @@ function HeaderContainer(props: Props): JSX.Element {
         <Menu.SubMenu
             disabled={organizationsFetching}
             key='organization'
+            style={{fontFamily:'Lexend'}}
             title='Organization'
             icon={organizationsFetching ? <LoadingOutlined /> : <TeamOutlined />}
         >
@@ -283,6 +285,7 @@ function HeaderContainer(props: Props): JSX.Element {
             { organizationsList.length > 5 ? (
                 <Menu.Item
                     key='switch_organization'
+                    style={{fontFamily:'Lexend'}}
                     onClick={() => {
                         Modal.confirm({
                             title: 'Select an organization',
@@ -328,6 +331,7 @@ function HeaderContainer(props: Props): JSX.Element {
                                 'cvat-header-menu-active-organization-item' : 'cvat-header-menu-organization-item'}
                             key='$personal'
                             onClick={resetOrganization}
+                            style={{fontFamily:'Lexend'}}
                         >
                             Personal workspace
                         </Menu.Item>
@@ -336,6 +340,7 @@ function HeaderContainer(props: Props): JSX.Element {
                                 className={currentOrganization?.slug === organization.slug ?
                                     'cvat-header-menu-active-organization-item' : 'cvat-header-menu-organization-item'}
                                 key={organization.slug}
+                                style={{fontFamily:'Lexend'}}
                                 onClick={() => setNewOrganization(organization)}
                             >
                                 {organization.slug}
@@ -411,88 +416,144 @@ function HeaderContainer(props: Props): JSX.Element {
         return location.pathname.match(regex) ?
             `${baseClass} cvat-active-header-button` : baseClass;
     };
+    // new
+    const pathName = window.location.pathname;
+    const path1 = document.getElementById('projects-header');
+    const path2 = document.getElementById('tasks-header');
+    const path3 = document.getElementById('jobs-header');
+    const path4 = document.getElementById('cloud-header');
+
+
+    if(pathName.includes('projects') && path1!=null)  path1.style.color= '#111827'
+    else { if(path1!=null) path1.style.color= 'rgba(17, 24, 39, 0.6)' }
+
+    if(pathName.includes('tasks') && path2!=null)  path2.style.color= '#111827'
+    else { if(path2!=null) path2.style.color= 'rgba(17, 24, 39, 0.6)' }
+
+    if(pathName.includes('jobs') && path3!=null)  path3.style.color= '#111827'
+    else { if(path3!=null) path3.style.color= 'rgba(17, 24, 39, 0.6)' }
+
+    if(pathName.includes('cloudstorages') && path4!=null)  path4.style.color= '#111827'
+    else { if(path4!=null) path4.style.color= 'rgba(17, 24, 39, 0.6)' }
 
     return (
-        <Layout.Header className='cvat-header'>
-            <div className='cvat-left-header'>
-                <Icon className='cvat-logo-icon' component={CVATLogo} />
-                <Button
-                    className={getButtonClassName('projects')}
-                    type='link'
-                    value='projects'
-                    href='/projects?page=1'
-                    onClick={(event: React.MouseEvent): void => {
-                        event.preventDefault();
-                        history.push('/projects');
-                    }}
-                >
-                    Projects
-                </Button>
-                <Button
-                    className={getButtonClassName('tasks')}
-                    type='link'
-                    value='tasks'
-                    href='/tasks?page=1'
-                    onClick={(event: React.MouseEvent): void => {
-                        event.preventDefault();
-                        history.push('/tasks');
-                    }}
-                >
-                    Tasks
-                </Button>
-                <Button
-                    className={getButtonClassName('jobs')}
-                    type='link'
-                    value='jobs'
-                    href='/jobs?page=1'
-                    onClick={(event: React.MouseEvent): void => {
-                        event.preventDefault();
-                        history.push('/jobs');
-                    }}
-                >
-                    Jobs
-                </Button>
-                <Button
-                    className={getButtonClassName('cloudstorages')}
-                    type='link'
-                    value='cloudstorages'
-                    href='/cloudstorages?page=1'
-                    onClick={(event: React.MouseEvent): void => {
-                        event.preventDefault();
-                        history.push('/cloudstorages');
-                    }}
-                >
-                    Cloud Storages
-                </Button>
-                {isModelsPluginActive ? (
-                    <Button
-                        className={getButtonClassName('models')}
-                        type='link'
-                        value='models'
-                        href='/models'
-                        onClick={(event: React.MouseEvent): void => {
-                            event.preventDefault();
-                            history.push('/models');
-                        }}
-                    >
-                        Models
-                    </Button>
-                ) : null}
-                {isAnalyticsPluginActive && user.isSuperuser ? (
-                    <Button
-                        className={getButtonClassName('analytics')}
-                        type='link'
-                        href={`${tool.server.host}/analytics`}
-                        onClick={(event: React.MouseEvent): void => {
-                            event.preventDefault();
-                            window.open(`${tool.server.host}/analytics`, '_blank');
-                        }}
-                    >
-                        Analytics
-                    </Button>
-                ) : null}
+        <Layout.Header className='cvat-header' style={{height:'70px',fontFamily:'Lexend'}}>
+            <div className='cvat-left-header ml-8 '>
+            <button onClick={(event)=>{
+                event.preventDefault();
+                history.push('/projects');
+                }}>
+                <Icon className='cvat-logo-icon header-icon mr-24' component={DalpLogoHeader1} />
+            </button>
             </div>
-            <div className='cvat-right-header'>
+        <div className='cvat-right-header '>
+            <div>
+                    <Button
+                        className={getButtonClassName('projects')}
+                        style={{fontWeight:'bold',color:'rgba(17, 24, 39, 0.6)'}}
+                        type='link'
+                        onClick={(event: React.MouseEvent): void => {
+                            event.preventDefault();
+                            console.log(window.location.pathname);
+                            history.push('/projects');
+                        }}
+                        id='projects-header'
+                    >
+                        Projects
+                    </Button>
+                    <Button
+                        className={getButtonClassName('tasks')}
+                        style={{fontWeight:'bold',marginLeft:'30px',color:'rgba(17, 24, 39, 0.6)'}}
+                        type='link'
+                        value='tasks'
+                        href='/tasks?page=1'
+                        onClick={(event: React.MouseEvent): void => {
+                            event.preventDefault();
+                            history.push('/tasks');
+                        }}
+                        id='tasks-header'
+                    >
+                        Tasks
+                    </Button>
+                    <Button
+                        className={getButtonClassName('jobs')}
+                        style={{fontWeight:'bold',marginLeft:'30px',color:'rgba(17, 24, 39, 0.6)'}}
+                        type='link'
+                        value='jobs'
+                        href='/jobs?page=1'
+                        onClick={(event: React.MouseEvent): void => {
+                            event.preventDefault();
+                            history.push('/jobs');
+                        }}
+                        id='jobs-header'
+                    >
+                        Jobs
+                    </Button>
+                    <Button
+                        className={getButtonClassName('cloudstorages')}
+                        style={{fontWeight:'bold',marginLeft:'30px',color:'rgba(17, 24, 39, 0.6)'}}
+                        type='link'
+                        value='cloudstorages'
+                        href='/cloudstorages?page=1'
+                        onClick={(event: React.MouseEvent): void => {
+                            event.preventDefault();
+                            history.push('/cloudstorages');
+                        }}
+                        id='cloud-header'
+                    >
+                        Cloud Storages
+                    </Button>
+                    {isModelsPluginActive ? (
+                        <Button
+                            className={getButtonClassName('models')}
+                            type='link'
+                            value='models'
+                            href='/models'
+                            onClick={(event: React.MouseEvent): void => {
+                                event.preventDefault();
+                                history.push('/models');
+                            }}
+                        >
+                            Models
+                        </Button>
+                    ) : null}
+                    {isAnalyticsPluginActive && user.isSuperuser ? (
+                        <Button
+                            className={getButtonClassName('analytics')}
+                            type='link'
+                            href={`${tool.server.host}/analytics`}
+                            onClick={(event: React.MouseEvent): void => {
+                                event.preventDefault();
+                                // false positive
+                                // eslint-disable-next-line
+                                window.open(`${tool.server.host}/analytics`, '_blank');
+                            }}
+                        >
+                            Analytics
+                        </Button>
+                    ) : null}
+
+                </div>
+
+
+
+                <CVATTooltip overlay='Click to open repository'>
+                    <Button
+                        icon={<DalpLogo1 />}
+                        size='large'
+                        className='cvat-open-repository-button cvat-header-button'
+                        style={{marginRight:'42px',marginTop:'22px'}}
+                        type='link'
+                        href={'https://dalp.ai/'}
+                        onClick={(event: React.MouseEvent): void => {
+                            event.preventDefault();
+                            // false alarm
+                            // eslint-disable-next-line security/detect-non-literal-fs-filename
+                            window.open('https://dalp.ai/', '_blank');
+                        }}
+                    />
+                </CVATTooltip >
+
                 <CVATTooltip overlay='Click to open repository'>
                     <Button
                         icon={<GithubOutlined />}

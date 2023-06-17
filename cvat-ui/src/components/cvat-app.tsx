@@ -11,6 +11,7 @@ import Layout from 'antd/lib/layout';
 import Modal from 'antd/lib/modal';
 import notification from 'antd/lib/notification';
 import Spin from 'antd/lib/spin';
+import { LoadingOutlined } from '@ant-design/icons'; // new
 import { DisconnectOutlined } from '@ant-design/icons';
 import Space from 'antd/lib/space';
 import Text from 'antd/lib/typography/Text';
@@ -115,6 +116,8 @@ interface CVATAppState {
     healthIinitialized: boolean;
     backendIsHealthy: boolean;
 }
+
+const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />; // new
 
 class CVATApplication extends React.PureComponent<CVATAppProps & RouteComponentProps, CVATAppState> {
     constructor(props: CVATAppProps & RouteComponentProps) {
@@ -555,7 +558,10 @@ class CVATApplication extends React.PureComponent<CVATAppProps & RouteComponentP
             );
         }
 
-        return <Spin size='large' className='cvat-spinner' tip='Connecting...' />;
+        return(
+            //  <Spin size='large' className='cvat-spinner' tip='Connecting...' />
+             <Spin indicator={antIcon} size='large' className='cvat-spinner' /> // new
+        )
     }
 }
 

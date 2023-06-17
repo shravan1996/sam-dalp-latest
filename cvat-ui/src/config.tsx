@@ -7,11 +7,11 @@ import React from 'react';
 
 const UNDEFINED_ATTRIBUTE_VALUE = '__undefined__';
 const NO_BREAK_SPACE = '\u00a0';
-const CHANGELOG_URL = 'https://github.com/opencv/cvat/blob/develop/CHANGELOG.md';
-const LICENSE_URL = 'https://github.com/opencv/cvat/blob/develop/LICENSE';
-const GITTER_URL = 'https://gitter.im/opencv-cvat';
-const DISCORD_URL = 'https://discord.gg/fNR3eXfk6C';
-const GITHUB_URL = 'https://github.com/opencv/cvat';
+const CHANGELOG_URL =''; //'https://github.com/opencv/cvat/blob/develop/CHANGELOG.md';
+const LICENSE_URL =''; //'https://github.com/opencv/cvat/blob/develop/LICENSE';
+const GITTER_URL ='' ;//'https://gitter.im/opencv-cvat';
+const DISCORD_URL =''; //'https://discord.gg/fNR3eXfk6C';
+const GITHUB_URL = 'https://github.com/shravan1996/main-dalp-ai'; // https://github.com/opencv/cvat';
 const GITHUB_IMAGE_URL = 'https://github.com/opencv/cvat/raw/develop/site/content/en/images/cvat.jpg';
 const GUIDE_URL = 'https://opencv.github.io/cvat/docs';
 const UPGRADE_GUIDE_URL = 'https://opencv.github.io/cvat/docs/administration/advanced/upgrade_guide';
@@ -54,7 +54,7 @@ const DEFAULT_AWS_S3_REGIONS: string[][] = [
 
 const SERVER_UNAVAILABLE_COMPONENT = (
     <>
-        Make sure the CVAT backend and all necessary services
+        Make sure the DALP backend and all necessary services
         (Database, Redis and Open Policy Agent) are running and available.
         If you upgraded from version 2.2.0 or earlier, manual actions may be needed,
         see the&nbsp;

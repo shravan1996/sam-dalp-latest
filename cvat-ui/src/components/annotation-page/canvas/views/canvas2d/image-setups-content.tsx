@@ -40,8 +40,8 @@ export default function ImageSetupsContent(): JSX.Element {
     } = useSelector((state: CombinedState): PlayerSettingsState => state.settings.player);
 
     return (
-        <div className='cvat-canvas-image-setups-content'>
-            <Text>Image grid</Text>
+        <div className='cvat-canvas-image-setups-content' style={{backgroundColor:'white',padding:'9px',borderRadius:'7px'}}>
+        <Text style={{fontWeight:'bold'}}>Image grid</Text>
             <hr />
             <Row justify='space-between' align='middle' gutter={8}>
                 <Col span={1} />
@@ -119,69 +119,74 @@ export default function ImageSetupsContent(): JSX.Element {
                     />
                 </Col>
             </Row>
-            <Text>Color settings</Text>
+            <Text style={{fontWeight:'bold'}}>Color settings</Text>
             <hr />
             <Row justify='space-around'>
                 <Col span={24}>
-                    <Row className='cvat-image-setups-brightness'>
-                        <Col span={6}>
-                            <Text className='cvat-text-color'> Brightness </Text>
-                        </Col>
-                        <Col span={12}>
-                            <Slider
-                                min={50}
-                                max={200}
-                                value={brightnessLevel}
-                                onChange={(value: number | [number, number]): void => {
-                                    dispatch(changeBrightnessLevel(value as number));
-                                }}
-                            />
-                        </Col>
-                    </Row>
-                    <Row className='cvat-image-setups-contrast'>
-                        <Col span={6}>
-                            <Text className='cvat-text-color'> Contrast </Text>
-                        </Col>
-                        <Col span={12}>
-                            <Slider
-                                min={50}
-                                max={200}
-                                value={contrastLevel}
-                                onChange={(value: number | [number, number]): void => {
-                                    dispatch(changeContrastLevel(value as number));
-                                }}
-                            />
-                        </Col>
-                    </Row>
-                    <Row className='cvat-image-setups-saturation'>
-                        <Col span={6}>
-                            <Text className='cvat-text-color'> Saturation </Text>
-                        </Col>
-                        <Col span={12}>
-                            <Slider
-                                min={0}
-                                max={300}
-                                value={saturationLevel}
-                                onChange={(value: number | [number, number]): void => {
-                                    dispatch(changeSaturationLevel(value as number));
-                                }}
-                            />
-                        </Col>
-                    </Row>
-                    <Row className='cvat-image-setups-reset-color-settings' justify='space-around'>
-                        <Col>
-                            <Button
-                                className='cvat-image-setups-reset-color-settings-button'
-                                onClick={() => {
-                                    const defaultValue = 100;
-                                    dispatch(changeBrightnessLevel(defaultValue));
-                                    dispatch(changeContrastLevel(defaultValue));
-                                    dispatch(changeSaturationLevel(defaultValue));
-                                }}
-                            >
-                                Reset color settings
-                            </Button>
-                        </Col>
+                <Row justify="space-between" className='flex flex-row justify-between'>
+                        <>
+                            <Row className='cvat-image-setups-brightness'>
+                                <Col span={6}>
+                                    <Text className='cvat-text-color'> Brightness </Text>
+                                </Col>
+                                <Col span={12}>
+                                    <Slider
+                                        min={50}
+                                        max={200}
+                                        value={brightnessLevel}
+                                        onChange={(value: number | [number, number]): void => {
+                                            dispatch(changeBrightnessLevel(value as number));
+                                        }}
+                                    />
+                                </Col>
+                            </Row>
+                            <Row className='cvat-image-setups-contrast'>
+                                <Col span={6}>
+                                    <Text className='cvat-text-color'> Contrast </Text>
+                                </Col>
+                                <Col span={12}>
+                                    <Slider
+                                        min={50}
+                                        max={200}
+                                        value={contrastLevel}
+                                        onChange={(value: number | [number, number]): void => {
+                                            dispatch(changeContrastLevel(value as number));
+                                        }}
+                                    />
+                                </Col>
+                            </Row>
+                            <Row className='cvat-image-setups-saturation'>
+                                <Col span={6}>
+                                    <Text className='cvat-text-color'> Saturation </Text>
+                                </Col>
+                                <Col span={12}>
+                                    <Slider
+                                        min={0}
+                                        max={300}
+                                        value={saturationLevel}
+                                        onChange={(value: number | [number, number]): void => {
+                                            dispatch(changeSaturationLevel(value as number));
+                                        }}
+                                    />
+                                </Col>
+                            </Row>
+                        </>
+                        <Row className='cvat-image-setups-reset-color-settings' justify='space-around'>
+                            <Col>
+                                <Button
+                                    className='cvat-image-setups-reset-color-settings-button'
+                                    style={{fontWeight:'bold',borderRadius:'7px',backgroundColor:'rgba(17, 24, 39, 0.05)'}}
+                                    onClick={() => {
+                                        const defaultValue = 100;
+                                        dispatch(changeBrightnessLevel(defaultValue));
+                                        dispatch(changeContrastLevel(defaultValue));
+                                        dispatch(changeSaturationLevel(defaultValue));
+                                    }}
+                                >
+                                    Reset
+                                </Button>
+                            </Col>
+                        </Row>
                     </Row>
                 </Col>
             </Row>

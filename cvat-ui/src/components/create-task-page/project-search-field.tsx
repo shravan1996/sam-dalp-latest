@@ -89,6 +89,7 @@ export default function ProjectSearchField(props: Props): JSX.Element {
         <Autocomplete
             value={searchPhrase}
             placeholder='Select project'
+            style={{borderRadius:'6px'}}
             onSearch={handleSearch}
             onSelect={handleSelect}
             className='cvat-project-search-field'

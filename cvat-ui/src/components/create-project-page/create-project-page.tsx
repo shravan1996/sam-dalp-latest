@@ -11,7 +11,7 @@ import CreateProjectContent from './create-project-content';
 
 function CreateProjectPageComponent(): JSX.Element {
     return (
-        <Row justify='center' align='top' className='cvat-create-work-form-wrapper'>
+        <Row  align='top' className='cvat-create-project-form-wrapper'>
             <Col md={20} lg={16} xl={14} xxl={9}>
                 <Text className='cvat-title'>Create a new project</Text>
                 <CreateProjectContent />

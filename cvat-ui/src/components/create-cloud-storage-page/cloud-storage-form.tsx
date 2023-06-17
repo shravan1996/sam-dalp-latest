@@ -495,22 +495,22 @@ export default function CreateCloudStorageForm(props: Props): JSX.Element {
     const AWSS3Configuration = (): JSX.Element => {
         const internalCommonProps = {
             ...commonProps,
-            labelCol: { offset: 1 },
-            wrapperCol: { offset: 1 },
+            //labelCol: { offset: 1 },
+            //wrapperCol: { offset: 1 },
         };
 
         return (
             <>
                 <Form.Item
-                    label='Bucket name'
+                    label={ <p style={{fontSize:'17px',marginBottom:'0px',marginTop:'2px'}}>Bucket name</p> }
                     name='resource'
                     rules={[{ required: true, message: 'Please, specify a bucket name' }]}
                     {...internalCommonProps}
                 >
-                    <Input disabled={!!cloudStorage} maxLength={63} />
+                    <Input disabled={!!cloudStorage} />
                 </Form.Item>
                 <Form.Item
-                    label='Authorization type'
+                    label={<p style={{fontSize:'17px',marginBottom:'0px',marginTop:'2px'}}>Authorization type</p>}
                     name='credentials_type'
                     rules={[{ required: true, message: 'Please, specify credentials type' }]}
                     {...internalCommonProps}
@@ -524,7 +524,7 @@ export default function CreateCloudStorageForm(props: Props): JSX.Element {
                 </Form.Item>
                 {credentialsBlok()}
                 <Form.Item
-                    label='Endpoint URL'
+                    label={ <p style={{fontSize:'17px',marginBottom:'0px',marginTop:'2px'}}>Endpoint URL</p> }
                     help='You can specify an endpoint for your storage when using the AWS S3 cloud storage compatible API'
                     name='endpoint_url'
                     {...internalCommonProps}
@@ -543,14 +543,14 @@ export default function CreateCloudStorageForm(props: Props): JSX.Element {
     const AzureBlobStorageConfiguration = (): JSX.Element => {
         const internalCommonProps = {
             ...commonProps,
-            labelCol: { offset: 1 },
-            wrapperCol: { offset: 1 },
+            //labelCol: { offset: 1 },
+            //wrapperCol: { offset: 1 },
         };
 
         return (
             <>
                 <Form.Item
-                    label='Container name'
+                    label={ <p style={{fontSize:'17px',marginBottom:'0px',marginTop:'2px'}}>Container name</p> }
                     name='resource'
                     rules={[{ required: true, message: 'Please, specify a container name' }]}
                     {...internalCommonProps}
@@ -558,7 +558,7 @@ export default function CreateCloudStorageForm(props: Props): JSX.Element {
                     <Input disabled={!!cloudStorage} maxLength={63} />
                 </Form.Item>
                 <Form.Item
-                    label='Authorization type'
+                    label={ <p style={{fontSize:'17px',marginBottom:'0px',marginTop:'2px'}}>Authorization type</p> }
                     name='credentials_type'
                     rules={[{ required: true, message: 'Please, specify credentials type' }]}
                     {...internalCommonProps}
@@ -580,14 +580,14 @@ export default function CreateCloudStorageForm(props: Props): JSX.Element {
     const GoogleCloudStorageConfiguration = (): JSX.Element => {
         const internalCommonProps = {
             ...commonProps,
-            labelCol: { span: 6, offset: 1 },
-            wrapperCol: { offset: 1 },
+            //labelCol: { span: 6, offset: 1 },
+            //wrapperCol: { offset: 1 },
         };
 
         return (
             <>
                 <Form.Item
-                    label='Bucket name'
+                    label={ <p style={{fontSize:'17px',marginBottom:'0px',marginTop:'2px'}}>Bucket name</p> }
                     name='resource'
                     rules={[{ required: true, message: 'Please, specify a bucket name' }]}
                     {...internalCommonProps}
@@ -596,7 +596,7 @@ export default function CreateCloudStorageForm(props: Props): JSX.Element {
                     <Input disabled={!!cloudStorage} maxLength={222} />
                 </Form.Item>
                 <Form.Item
-                    label='Authorization type'
+                    label={ <p style={{fontSize:'17px',marginBottom:'0px',marginTop:'2px'}}>Authorization type</p> }
                     name='credentials_type'
                     rules={[{ required: true, message: 'Please, specify credentials type' }]}
                     {...internalCommonProps}
@@ -610,14 +610,14 @@ export default function CreateCloudStorageForm(props: Props): JSX.Element {
                 </Form.Item>
                 {credentialsBlok()}
                 <Form.Item
-                    label='Prefix'
+                    label={ <p style={{fontSize:'17px',marginBottom:'0px',marginTop:'2px'}}>Prefix</p> }
                     name='prefix'
                     {...internalCommonProps}
                 >
                     <Input />
                 </Form.Item>
                 <Form.Item
-                    label='Project ID'
+                    label={ <p style={{fontSize:'17px',marginBottom:'0px',marginTop:'2px'}}>Project ID</p> }
                     name='project_id'
                     {...internalCommonProps}
                 >
@@ -638,21 +638,23 @@ export default function CreateCloudStorageForm(props: Props): JSX.Element {
             layout='vertical'
             form={form}
             onFinish={(values: CloudStorageForm): void => handleOnFinish(values)}
+            style={{borderWidth:'0px'}}
         >
             <Form.Item
                 {...commonProps}
-                label='Display name'
+                label={ <p style={{fontSize:'17px',marginBottom:'0px',marginTop:'1px'}}>Display name</p> }
                 name='display_name'
                 rules={[{ required: true, message: 'Please, specify a display name' }]}
             >
-                <Input maxLength={63} />
-            </Form.Item>
-            <Form.Item {...commonProps} label='Description' name='description'>
-                <TextArea autoSize={{ minRows: 1, maxRows: 5 }} placeholder='Any useful description' />
+               {/* <Input maxLength={63} />
+                </Form.Item>
+                <Form.Item {...commonProps} label='Description' name='description'>
+                <TextArea autoSize={{ minRows: 1, maxRows: 5 }} placeholder='Any useful description' /> */}
+                <Input maxLength={63} style={{borderRadius:'6px',height:'32px'}} />
             </Form.Item>
             <Form.Item
                 {...commonProps}
-                label='Provider'
+                label={ <p style={{fontSize:'17px',marginBottom:'0px',marginTop:'2px'}}>Provider</p> }
                 name='provider_type'
                 rules={[{ required: true, message: 'Please, specify a cloud storage provider' }]}
             >
@@ -663,6 +665,7 @@ export default function CreateCloudStorageForm(props: Props): JSX.Element {
                         setCredentialsType(null);
                         form.resetFields(['credentials_type']);
                     }}
+                    style={{borderRadius:'6px',height:'35px'}}
                 >
                     <Select.Option value={ProviderType.AWS_S3_BUCKET}>
                         <span className='cvat-cloud-storage-select-provider'>
@@ -687,6 +690,12 @@ export default function CreateCloudStorageForm(props: Props): JSX.Element {
             {providerType === ProviderType.AWS_S3_BUCKET && AWSS3Configuration()}
             {providerType === ProviderType.AZURE_CONTAINER && AzureBlobStorageConfiguration()}
             {providerType === ProviderType.GOOGLE_CLOUD_STORAGE && GoogleCloudStorageConfiguration()}
+            <Form.Item {...commonProps}
+             label={ <p style={{fontSize:'17px',marginBottom:'0px',marginTop:'2px'}}>Description</p> }
+             name='description'
+             >
+                <TextArea style={{borderRadius:'6px',minHeight:'55px',height:'55px'}} autoSize={{ minRows: 1, maxRows: 5 }} placeholder='Any useful description' />
+            </Form.Item>
             <ManifestsManager form={form} manifestNames={manifestNames} setManifestNames={setManifestNames} />
             <Row justify='end'>
                 <Col>
@@ -695,6 +704,7 @@ export default function CreateCloudStorageForm(props: Props): JSX.Element {
                         onClick={() => onCancel()}
                         className='cvat-cloud-storage-reset-button'
                         disabled={loading}
+                        style={{borderRadius:'6px'}}
                     >
                         Cancel
                     </Button>
@@ -706,6 +716,7 @@ export default function CreateCloudStorageForm(props: Props): JSX.Element {
                         className='cvat-cloud-storage-submit-button'
                         loading={loading}
                         disabled={loading}
+                        style={{borderRadius:'6px',backgroundColor:'#7E96EA'}}
                     >
                         {cloudStorage ? 'Update' : 'Submit'}
                     </Button>

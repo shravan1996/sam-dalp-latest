@@ -116,6 +116,12 @@
 
 .cvat-task-top-bar {
     margin: $grid-unit-size * 2 0;
+    width:100%;
+    font-family:"Lexend"; // new
+
+    .cvat-back-to-project-button{
+        text-decoration: underline; // new
+    }
 }
 
 .cvat-task-preview-wrapper {

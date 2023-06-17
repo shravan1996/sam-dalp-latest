@@ -8,6 +8,7 @@ import { useHistory } from 'react-router';
 import Layout from 'antd/lib/layout';
 import Result from 'antd/lib/result';
 import Spin from 'antd/lib/spin';
+import { LoadingOutlined } from '@ant-design/icons';
 import notification from 'antd/lib/notification';
 
 import AttributeAnnotationWorkspace from 'components/annotation-page/attribute-annotation-workspace/attribute-annotation-workspace';
@@ -121,7 +122,7 @@ export default function AnnotationPageComponent(props: Props): JSX.Element {
     }, [job, fetching, prevJob, prevFetching]);
 
     if (job === null) {
-        return <Spin size='large' className='cvat-spinner' />;
+        return <Spin indicator={antIcon} size='large' className='cvat-spinner' /> // new;
     }
 
     if (typeof job === 'undefined') {

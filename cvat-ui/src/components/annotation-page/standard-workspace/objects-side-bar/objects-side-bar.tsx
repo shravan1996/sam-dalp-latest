@@ -88,31 +88,42 @@ function ObjectsSideBar(props: StateToProps & DispatchToProps & OwnProps): JSX.E
             collapsed={sidebarCollapsed}
         >
             {/* eslint-disable-next-line */}
-            <span
+            <div
                 className={`cvat-objects-sidebar-sider
                     ant-layout-sider-zero-width-trigger
-                    ant-layout-sider-zero-width-trigger-left`}
-                onClick={collapse}
+                    ant-layout-sider-zero-width-trigger-left flex flex-row justify-around`}
             >
-                {sidebarCollapsed ? <MenuFoldOutlined title='Show' /> : <MenuUnfoldOutlined title='Hide' />}
-            </span>
+             <span className={`cvat-objects-sidebar-sider
+                    ant-layout-sider-zero-width-trigger
+                    ant-layout-sider-zero-width-trigger-left `} onClick={collapse} >
 
-            <Tabs type='card' defaultActiveKey='objects' className='cvat-objects-sidebar-tabs'>
-                <Tabs.TabPane tab={<Text strong>Objects</Text>} key='objects'>
-                    {objectsList}
-                </Tabs.TabPane>
-                <Tabs.TabPane forceRender tab={<Text strong>Labels</Text>} key='labels'>
-                    <LabelsList />
-                </Tabs.TabPane>
+                    {sidebarCollapsed ? <MenuFoldOutlined title='Show'  /> : <MenuUnfoldOutlined title='Hide'   />}
+                </span>
+            </div>
+            <div className=' flex flex-col justify-between  h-full'>
+                <div className='mt-4'>
 
-                {is2D ? (
-                    <Tabs.TabPane tab={<Text strong>Issues</Text>} key='issues'>
-                        <IssuesListComponent />
-                    </Tabs.TabPane>
-                ) : null}
-            </Tabs>
+                    <Tabs type='card' defaultActiveKey='objects' className='cvat-objects-sidebar-tabs'>
+                        <Tabs.TabPane tab={<Text strong>Objects</Text>} key='objects'>
+                            {objectsList}
+                        </Tabs.TabPane>
+                        <Tabs.TabPane forceRender tab={<Text strong>Labels</Text>} key='labels'>
+                            <LabelsList />
+                        </Tabs.TabPane>
 
-            {!sidebarCollapsed && <AppearanceBlock />}
+                        {is2D ? (
+                            <Tabs.TabPane tab={<Text strong>Issues</Text>} key='issues'>
+                                <IssuesListComponent />
+                            </Tabs.TabPane>
+                        ) : null}
+                    </Tabs>
+                </div>
+
+                <div>
+                    {!sidebarCollapsed && <AppearanceBlock />}
+
+                </div>
+            </div>
         </Layout.Sider>
     );
 }

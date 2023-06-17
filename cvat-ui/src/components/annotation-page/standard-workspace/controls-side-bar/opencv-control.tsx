@@ -784,16 +784,16 @@ class OpenCVControlComponent extends React.PureComponent<Props & DispatchToProps
         const { libraryInitialized, initializationProgress, initializationError } = this.state;
 
         return (
-            <div className='cvat-opencv-control-popover-content'>
+            <div className='cvat-opencv-control-popover-content ' style={{borderRadius:'17px',backgroundColor:'white'}}>
                 <Row justify='start'>
                     <Col>
-                        <Text className='cvat-text-color' strong>
+                    <Text className='cvat-text-color' style={{fontFamily:'Lexend'}} strong>
                             OpenCV
                         </Text>
                     </Col>
                 </Row>
                 {libraryInitialized ? (
-                    <Tabs tabBarGutter={8}>
+                    <Tabs tabBarGutter={8} style={{fontFamily:'Lexend'}}>
                         <Tabs.TabPane key='drawing' tab='Drawing' className='cvat-opencv-control-tabpane'>
                             {this.renderDrawingContent()}
                         </Tabs.TabPane>
@@ -806,7 +806,7 @@ class OpenCVControlComponent extends React.PureComponent<Props & DispatchToProps
                     </Tabs>
                 ) : (
                     <>
-                        <Row justify='start' align='middle'>
+                        <Row justify='start' align='middle' style={{fontFamily:'Lexend',borderRadius:'7px'}}>
                             <Col>
                                 {
                                     initializationProgress >= 0 ?

@@ -44,8 +44,6 @@ export default function ProjectTopBar(props: DetailsComponentProps): JSX.Element
                         {/* <LeftOutlined style={{color:'#023E8A'}}/> */}
                         Back to projects
                     </Button>
-                </Dropdown>
-            </Col>
             </Col>
         </Row>
     );

@@ -13,7 +13,7 @@ import { Col, Row } from 'antd/lib/grid';
 import { Link, useLocation } from 'react-router-dom';
 import Title from 'antd/lib/typography/Title';
 import CVATSigningInput from 'components/signing-common/cvat-signing-input';
-import DalpLogo from '../../assets/cvat-logo.svg'  // impoting dalp logo
+import DalpLogo from '../../assets/dalp-logo.svg'  // importing dalp logo
 import LoginImage from '../../assets/login-image.svg'  // impoting login image
 
 

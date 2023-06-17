@@ -12,8 +12,7 @@ import { getProjectsAsync } from 'actions/projects-actions';
 import { CombinedState, Project } from 'reducers';
 import ProjectItem from './project-item';
 
-export default function ProjectListComponent(): JSX.Element {
-    interface Props{
+interface Props{
         modal: any;
     }
 
@@ -42,7 +41,7 @@ export default function ProjectListComponent(props: Props): JSX.Element {
     };
 
     return (
-        <div>
+    <div>
 
         <Row justify='center' align='middle' className='cvat-project-list-content '>
             <Col className='cvat-projects-list' {...dimensions}>

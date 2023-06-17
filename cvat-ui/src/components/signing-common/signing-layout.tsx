@@ -89,7 +89,7 @@ function SignInLayout(props: SignInLayoutComponentProps): JSX.Element {
                         {children}
                     </Row>
                 </Content>
-            </Layout>*/
+            </Layout>*/}
             <Row className='ant-row ant-row-start'>
                 <Col className='w-full -ml-40'>
                      {children}

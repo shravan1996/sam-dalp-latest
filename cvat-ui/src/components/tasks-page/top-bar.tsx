@@ -24,7 +24,7 @@ import {
 import DalpListIcon from '../../assets/dalp-list-icon.svg';
 
 import  ModalCloseIcon  from '../../assets/modal-close-icon.svg'; // importing x icon.
-import DalpLogo from '../../assets/cvat-logo.svg'  // impoting dalp logo
+import DalpLogo from '../../assets/dalp-logo.svg'  // importing dalp logo
 
 import CreateTaskIcon from '../../assets/create-task.svg';
 import CreateTaskIcon2 from '../../assets/create-task2.svg';

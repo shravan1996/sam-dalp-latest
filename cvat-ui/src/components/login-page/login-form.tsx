@@ -20,7 +20,7 @@ import {
 import CVATSigningInput, { CVATInputType } from 'components/signing-common/cvat-signing-input';
 import { CombinedState } from 'reducers';
 import { usePlugins } from 'utils/hooks';
-import DalpLogo from '../../assets/cvat-logo.svg'  // impoting dalp logo
+import DalpLogo from '../../assets/dalp-logo.svg'  // importing dalp logo
 import LoginImage from '../../assets/login-image.svg'  // impoting login image
 import BackIcon from '../../assets/back-icon.svg'; // importing bak icon
 

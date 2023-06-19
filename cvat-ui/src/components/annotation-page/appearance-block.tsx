@@ -131,6 +131,7 @@ function AppearanceBlock(props: Props): JSX.Element {
             className='cvat-objects-appearance-collapse'
         >
             <Collapse.Panel
+                style={{backgroundColor:'rgba(126, 150, 234, 0.1)'}}
                 header={(
                     <Text strong className='cvat-objects-appearance-collapse-header'>
                         Appearance
@@ -138,18 +139,19 @@ function AppearanceBlock(props: Props): JSX.Element {
                 )}
                 key='appearance'
             >
-                <div className='cvat-objects-appearance-content'>
-                    <Text type='secondary'>Color by</Text>
+                <div className='cvat-objects-appearance-content'  style={{backgroundColor:'white'}}>
+                    <Text type='secondary'  style={{color:'black'}}>Color by</Text>
                     <Radio.Group
                         className='cvat-appearance-color-by-radio-group'
                         value={colorBy}
                         onChange={changeShapesColorBy}
+                        style={{color:'black'}}
                     >
                         <Radio.Button value={ColorBy.LABEL}>{ColorBy.LABEL}</Radio.Button>
                         <Radio.Button value={ColorBy.INSTANCE}>{ColorBy.INSTANCE}</Radio.Button>
                         <Radio.Button value={ColorBy.GROUP}>{ColorBy.GROUP}</Radio.Button>
                     </Radio.Group>
-                    <Text type='secondary'>Opacity</Text>
+                    <Text type='secondary'  style={{color:'black'}}>Opacity</Text>
                     <Slider
                         className='cvat-appearance-opacity-slider'
                         onChange={changeShapesOpacity}
@@ -157,7 +159,7 @@ function AppearanceBlock(props: Props): JSX.Element {
                         min={0}
                         max={100}
                     />
-                    <Text type='secondary'>Selected opacity</Text>
+                    <Text type='secondary'  style={{color:'black'}}>Selected opacity</Text>
                     <Slider
                         className='cvat-appearance-selected-opacity-slider'
                         onChange={changeSelectedShapesOpacity}

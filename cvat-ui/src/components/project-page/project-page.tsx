@@ -8,6 +8,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory, useParams } from 'react-router';
 import Spin from 'antd/lib/spin';
+import { LoadingOutlined } from '@ant-design/icons'; // new
 import { Row, Col } from 'antd/lib/grid';
 import Result from 'antd/lib/result';
 import Button from 'antd/lib/button';
@@ -40,6 +41,11 @@ import {
     localStorageRecentKeyword, localStorageRecentCapacity, predefinedFilterValues, config,
 } from './project-tasks-filter-configuration';
 
+import DalpListIcon from '../../assets/dalp-list-icon.svg';
+import CreateTask from '../../assets/create-task.svg';
+import  ModalCloseIcon  from '../../assets/modal-close-icon.svg'; // importing x icon.
+import DalpLogo from '../../assets/dalp-logo.svg'  // importing dalp logo
+
 const core = getCore();
 
 const FilteringComponent = ResourceFilterHOC(
@@ -51,9 +57,13 @@ interface ParamType {
 }
 
 export default function ProjectPageComponent(): JSX.Element {
+    const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />; // new
     const id = +useParams<ParamType>().id;
     const dispatch = useDispatch();
     const history = useHistory();
+
+    const [showModal,setShowModal]=useState(false);
+    const handleOnClose =()=> setShowModal(false);
 
     const [projectInstance, setProjectInstance] = useState<Project | null>(null);
     const [fechingProject, setFetchingProject] = useState(true);
@@ -126,7 +136,7 @@ export default function ProjectPageComponent(): JSX.Element {
     }, [deletes]);
 
     if (fechingProject) {
-        return <Spin size='large' className='cvat-spinner' />;
+        return <Spin indicator={antIcon} size='large' className='cvat-spinner' /> ; // new
     }
 
     if (!projectInstance) {
@@ -242,7 +252,7 @@ export default function ProjectPageComponent(): JSX.Element {
                                 defaultValue={tasksQuery.search || ''}
                                 className='cvat-project-page-tasks-search-bar'
                                 placeholder='Search ...'
-                            />
+                            />*/
                             <div>
                                 <SortingComponent
                                     visible={visibility.sorting}

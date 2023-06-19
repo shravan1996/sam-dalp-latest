@@ -13,6 +13,8 @@ import Dropdown from 'antd/lib/dropdown';
 import Radio from 'antd/lib/radio';
 
 import CVATTooltip from 'components/common/cvat-tooltip';
+import SortByIcon from '../../assets/sort-by.svg';
+import SortByIcon2 from '../../assets/sort-by2.svg';
 
 interface Props {
     sortingFields: string[];
@@ -21,6 +23,8 @@ interface Props {
     disabled?: boolean;
     onVisibleChange(visible: boolean): void;
     onApplySorting(sorting: string | null): void;
+    hide: any;
+    changeHide:any
 }
 
 const ANCHOR_KEYWORD = '__anchor__';
@@ -53,7 +57,7 @@ const SortableItem = SortableElement(
         }
 
         return (
-            <div className='cvat-sorting-field'>
+            <div className='cvat-sorting-field '>
                 <Radio.Button disabled={valueIndex > anchorIndex}>{value}</Radio.Button>
                 <div>
                     <CVATTooltip overlay={appliedSorting[value]?.startsWith('-') ? 'Descending sort' : 'Ascending sort'}>
@@ -80,7 +84,7 @@ const SortableList = SortableContainer(
         appliedSorting: Record<string, string>;
         setAppliedSorting: (arg: Record<string, string>) => void;
     }) => (
-        <div className='cvat-resource-page-sorting-list'>
+        <div className='cvat-resource-page-sorting-list ml-[5px] mt-[5px]'>
             { items.map((value: string, index: number) => (
                 <SortableItem
                     key={`item-${value}`}
@@ -99,7 +103,7 @@ const SortableList = SortableContainer(
 function SortingModalComponent(props: Props): JSX.Element {
     const {
         sortingFields: sortingFieldsProp,
-        defaultFields, visible, onApplySorting, onVisibleChange, disabled,
+        defaultFields, visible, onApplySorting, onVisibleChange, disabled,hide,changeHide
     } = props;
     const [appliedSorting, setAppliedSorting] = useState<Record<string, string>>(
         defaultFields.reduce((acc: Record<string, string>, field: string) => {
@@ -174,34 +178,44 @@ function SortingModalComponent(props: Props): JSX.Element {
         onApplySorting(sortingString || null);
     }, [appliedSorting]);
 
+    function changingHide2(){
+        if(hide.two===true) {changeHide({'one':false,'two':false,'three':false,'four':false})}
+        else{changeHide({'one':false,'two':true,'three':false,'four':false})}
+        
+    }
+
+
     return (
-        <Dropdown
-            disabled={disabled}
-            destroyPopupOnHide
-            visible={visible}
-            placement='bottomLeft'
-            overlay={(
-                <SortableList
-                    onSortEnd={({ oldIndex, newIndex }: { oldIndex: number, newIndex: number }) => {
-                        if (oldIndex !== newIndex) {
-                            const sortingFieldsCopy = [...sortingFields];
-                            sortingFieldsCopy.splice(newIndex, 0, ...sortingFieldsCopy.splice(oldIndex, 1));
-                            setSortingFields(sortingFieldsCopy);
-                        }
-                    }}
-                    helperClass='cvat-sorting-dragged-item'
-                    items={sortingFields}
-                    appliedSorting={appliedSorting}
-                    setAppliedSorting={setAppliedSorting}
-                />
-            )}
-        >
-            <Button className='cvat-switch-sort-constructor-button' type='default' onClick={() => onVisibleChange(!visible)}>
-                Sort by
-                <OrderedListOutlined />
+        <div>
+            <Button className='cvat-switch-sort-constructor-button' style={{borderWidth:'0px'}} type='default' onClick={() =>{onVisibleChange(!visible); changingHide2()} }>
+                {(visible && hide.two) ? <SortByIcon2/> : <SortByIcon/>}
+
+
             </Button>
-        </Dropdown>
+
+            {(visible && hide.two) &&
+                <div style={{marginLeft:'5px'}}>
+                    <SortableList
+                        onSortEnd={({ oldIndex, newIndex }: { oldIndex: number, newIndex: number }) => {
+                            if (oldIndex !== newIndex) {
+                                const sortingFieldsCopy = [...sortingFields];
+                                sortingFieldsCopy.splice(newIndex, 0, ...sortingFieldsCopy.splice(oldIndex, 1));
+                                setSortingFields(sortingFieldsCopy);
+                            }
+                        }}
+                        helperClass='cvat-sorting-dragged-item'
+                        items={sortingFields}
+                        appliedSorting={appliedSorting}
+                        setAppliedSorting={setAppliedSorting}
+                    />
+
+                </div>
+
+            }
+        </div>
     );
 }
 
 export default React.memo(SortingModalComponent);
+
+// className='cvat-switch-sort-constructor-button'

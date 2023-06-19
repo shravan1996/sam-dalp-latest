@@ -12,6 +12,7 @@ import { Canvas3d } from 'cvat-canvas3d-wrapper';
 import { ActiveControl } from 'reducers';
 import CVATTooltip from 'components/common/cvat-tooltip';
 import GlobalHotKeys, { KeyMapItem } from 'utils/mousetrap-react';
+import MergeTrackIcon1 from '../../../../assets/merge-track-icon1.svg';
 
 export interface Props {
     mergeObjects(enabled: boolean): void;
@@ -70,7 +71,8 @@ function MergeControl(props: Props): JSX.Element {
                 handlers={shortcutHandlers}
             />
             <CVATTooltip title={`Merge shapes/tracks ${shortcuts.SWITCH_MERGE_MODE.displayValue}`} placement='right'>
-                <Icon {...dynamicIconProps} component={MergeIcon} />
+                {/* <Icon {...dynamicIconProps} component={MergeIcon} /> */}
+                <MergeTrackIcon1  {...dynamicIconProps} />
             </CVATTooltip>
         </>
     );

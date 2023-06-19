@@ -9,12 +9,15 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Row, Col } from 'antd/lib/grid';
 import Spin from 'antd/lib/spin';
 
+import { LoadingOutlined } from '@ant-design/icons'; // new
 import { CombinedState, Indexable } from 'reducers';
 import { getCloudStoragesAsync } from 'actions/cloud-storage-actions';
 import { updateHistoryFromQuery } from 'components/resource-sorting-filtering';
 import CloudStoragesListComponent from './cloud-storages-list';
 import EmptyCloudStorageListComponent from './empty-cloud-storages-list';
 import TopBarComponent from './top-bar';
+
+const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />; // new
 
 export default function StoragesPageComponent(): JSX.Element {
     const dispatch = useDispatch();
@@ -112,7 +115,7 @@ export default function StoragesPageComponent(): JSX.Element {
                 />
                 { fetching ? (
                     <Row className='cvat-cloud-storages-page' justify='center' align='middle'>
-                        <Spin size='large' />
+                        <Spin indicator={antIcon} size='large' className='cvat-spinner'/>
                     </Row>
                 ) : content }
             </Col>

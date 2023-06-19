@@ -34,7 +34,7 @@ export default function LocalFiles(props: Props): JSX.Element {
                 beforeUpload={onUpload}
             >
                 <p className='ant-upload-drag-icon'>
-                    <InboxOutlined />
+                    <CreateTaskFiles style={{marginLeft:'600px'}}/>
                 </p>
                 <p className='ant-upload-text'>Click or drag files to this area</p>
                 <p className='ant-upload-hint'>{ hintText }</p>

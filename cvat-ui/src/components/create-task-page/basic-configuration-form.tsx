@@ -88,6 +88,7 @@ export default class BasicConfigurationForm extends React.PureComponent<Props> {
                     <Input
                         ref={this.inputRef}
                         onChange={(e) => this.handleChangeName(e)}
+                        style={{borderRadius:'6px'}}
                     />
                 </Form.Item>
                 {many ? (

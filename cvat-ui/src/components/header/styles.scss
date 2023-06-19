@@ -4,6 +4,11 @@
 
 @import '../../base.scss';
 
+.cvat-header{
+    background-color:  rgba(2, 62, 138, 0.05);
+    border-bottom: 1px solid rgba(55, 65, 81, 0.3) ;
+}
+
 .cvat-header.ant-layout-header {
     display: flex;
     padding-left: 0;
@@ -16,7 +21,7 @@
 .ant-btn.cvat-header-button {
     color: $text-color;
     padding: 0 $grid-unit-size;
-    margin-right: $grid-unit-size;
+    margin-right: 4px; // $grid-unit-size
 }
 
 .cvat-left-header {
@@ -45,6 +50,10 @@
     justify-content: flex-end;
     align-items: center;
 
+    .button-weight{
+        font-weight:bold;
+    }
+
     > a.ant-btn {
         span[role='img'] {
             font-size: 24px;
@@ -57,6 +66,7 @@
     display: flex;
     align-items: center;
     border-left: 1px solid $border-color-1;
+    border-top:15px;
 
     .anticon.cvat-header-dropdown-icon {
         &.anticon-caret-down {

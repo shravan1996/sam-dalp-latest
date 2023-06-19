@@ -12,6 +12,7 @@ import { Canvas3d } from 'cvat-canvas3d-wrapper';
 import { ActiveControl } from 'reducers';
 import CVATTooltip from 'components/common/cvat-tooltip';
 import GlobalHotKeys, { KeyMapItem } from 'utils/mousetrap-react';
+import SplitTrackIcon1 from '../../../../assets/split-track-icon1.svg';
 
 export interface Props {
     canvasInstance: Canvas | Canvas3d;
@@ -70,7 +71,8 @@ function SplitControl(props: Props): JSX.Element {
                 handlers={shortcutHandlers}
             />
             <CVATTooltip title={`Split a track ${shortcuts.SWITCH_SPLIT_MODE.displayValue}`} placement='right'>
-                <Icon {...dynamicIconProps} component={SplitIcon} />
+                 {/* <Icon {...dynamicIconProps} component={SplitIcon} /> */}
+                 <SplitTrackIcon1 {...dynamicIconProps} />
             </CVATTooltip>
         </>
     );

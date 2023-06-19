@@ -179,6 +179,10 @@ COPY --chown=${USER} utils/ ${HOME}/utils
 COPY --chown=${USER} cvat/ ${HOME}/cvat
 COPY --chown=${USER} rqscheduler.py ${HOME}
 
+RUN chmod -R 777 ${HOME}/wait-for-it.sh
+RUN chmod -R 777 ${HOME}/manage.py
+RUN chmod -R 777 ${HOME}/backend_entrypoint.sh
+
 ARG COVERAGE_PROCESS_START
 RUN if [ "${COVERAGE_PROCESS_START}" ]; then \
         echo "import coverage; coverage.process_startup()" > /opt/venv/lib/python3.10/site-packages/coverage_subprocess.pth; \

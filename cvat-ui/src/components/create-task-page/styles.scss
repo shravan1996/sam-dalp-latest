@@ -5,12 +5,12 @@
 @import '../../base.scss';
 
 .cvat-create-work-form-wrapper {
-    text-align: center;
     padding-top: 40px;
     overflow-y: auto;
     height: 90%;
     position: fixed;
     width: 100%;
+    font-family:'Lexend'; // new
 
     > div:first-child {
         max-width: $grid-unit-size * 100;
@@ -25,7 +25,7 @@
         width: 100%;
         height: auto;
         border: 1px solid $border-color-1;
-        border-radius: 3px;
+        border-radius: 6px;// 15px; // new
         padding: 20px;
         background: $background-color-1;
         text-align: initial;

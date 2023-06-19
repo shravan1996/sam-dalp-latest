@@ -8,6 +8,7 @@
 .cvat-project-page {
     overflow-y: auto;
     height: 100%;
+    flex-direction:column; //
 }
 
 .cvat-project-page-tasks-bar {
@@ -21,7 +22,6 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            width: 100%;
 
             > div {
                 > *:not(:last-child) {
@@ -40,13 +40,14 @@
 }
 
 .cvat-project-details {
-    width: 100%;
     height: auto;
     border: 1px solid $border-color-1;
     border-radius: 3px;
     padding: $grid-unit-size * 2;
     margin: $grid-unit-size * 2 0;
+    margin-right:400px; // new
     background: $background-color-1;
+    font-family:'Lexend';
 
     .ant-row:nth-child(1) {
         margin-bottom: $grid-unit-size * 2;

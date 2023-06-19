@@ -5,7 +5,7 @@
 
 import React from 'react';
 
-import SVGCVATLogo from './assets/cvat-logo.svg';
+import SVGCVATLogo from './assets/dalp-logo.svg';
 import SVGCursorIcon from './assets/cursor-icon.svg';
 import SVGMoveIcon from './assets/move-icon.svg';
 import SVGRotateIcon from './assets/rotate-icon.svg';
@@ -63,6 +63,58 @@ import SVGClearIcon from './assets/clear-icon.svg';
 import SVGShowPasswordIcon from './assets/show-password.svg';
 import SVGPlusIcon from './assets/plus-icon.svg';
 import SVGCheckIcon from './assets/check-icon.svg';
+import SVGUpgradeIcon from './assets/upgrade-icon.svg';
+import SignUpImage from './assets/signup-image.svg';
+import LoginImage from './assets/login-image.svg';
+import DalpLogo from './assets/dalp-logo.svg';
+import DalpLogo2 from './assets/dalp-logo2.svg';
+import DalpLogoHeader from './assets/cvat-logo-header.svg';
+import DalpListIcon from './assets/dalp-list-icon.svg';
+import ModalCloseIcon from './assets/modal-close-icon.svg';
+
+import CreateTaskIcon from './assets/create-task.svg';
+import CreateTaskIcon2 from './assets/create-task2.svg';
+import CreateTaskFiles from './assets/create-task-files.svg';
+import QuickFiltersIcon from './assets/quick-filters.svg';
+import QuickFiltersIcon2 from './assets/quick-filters2.svg';
+import SortByIcon from './assets/sort-by.svg';
+import SortByIcon2 from './assets/sort-by2.svg';
+import FiltersIcon from './assets/filters.svg';
+import FiltersIcon2 from './assets/filters2.svg';
+import CreateProject from './assets/create-project.svg';
+import CreateProject2 from './assets/create-project2.svg';
+import CreateCloudStorage from './assets/create-cloud-storage.svg';
+import CreateCloudStorage2 from './assets/create-cloud-storage2.svg';
+import BackIcon from './assets/back-icon.svg';
+import AddManifestIcon from './assets/add-manifest-icon.svg';
+import NoCloudIcon from './assets/no-cloud-icon.svg';
+import NoTasksIcon from './assets/no-tasks-icon.svg';
+import MenuIcon from './assets/menu-icon.svg';
+import FullscreenIcon1 from './assets/fullscreen-icon1.svg';
+import InfoIcon1 from './assets/info-icon1.svg';
+import CursorIcon1 from './assets/cursor-icon1.svg';
+import MoveImageIcon from './assets/move-image-icon.svg';
+import RotateImageIcon from './assets/rotate-image-icon.svg';
+import FitControlIcon from './assets/fit-control-icon.svg';
+import ResizeControlIcon from './assets/resize-control-icon.svg';
+import PolylineIcon1 from './assets/polyline-icon1.svg';
+import PointsIcon1 from './assets/points-icon1.svg';
+import EllipseIcon1 from './assets/ellipse-icon1.svg';
+import CuboidIcon1 from './assets/cuboid-icon1.svg';
+import RectangleIcon1 from './assets/draw-rectangle1.svg';
+import PolygonIcon1 from './assets/draw-polygon1.svg';
+import MergeTrackIcon1 from './assets/merge-track-icon1.svg';
+import GroupTrackIcon1 from './assets/group-track-icon1.svg';
+import SplitTrackIcon1 from './assets/split-track-icon1.svg';
+import SaveIcon1 from './assets/save-icon1.svg';
+import FirstArrowIcon1 from './assets/first-arrow-icon1.svg';
+import LastArrowIcon1 from './assets/last-arrow-icon1.svg';
+import PrevButtonIcon1 from './assets/prev-button-icon1.svg';
+import NextButtonIcon1 from './assets/next-button-icon1.svg';
+import PlayButtonIcon1 from './assets/play-button-icon1.svg';
+
+
+
 
 export const CVATLogo = React.memo((): JSX.Element => <SVGCVATLogo />);
 export const CursorIcon = React.memo((): JSX.Element => <SVGCursorIcon />);
@@ -122,3 +174,52 @@ export const ClearIcon = React.memo((): JSX.Element => <SVGClearIcon />);
 export const ShowPasswordIcon = React.memo((): JSX.Element => <SVGShowPasswordIcon />);
 export const PlusIcon = React.memo((): JSX.Element => <SVGPlusIcon />);
 export const CheckIcon = React.memo((): JSX.Element => <SVGCheckIcon />);
+export const UpgradeIcon = React.memo((): JSX.Element => <SVGUpgradeIcon />);
+export const SignUpImage1 = React.memo((): JSX.Element => <SignUpImage />); // sign up image
+export const LoginImage1 = React.memo((): JSX.Element => <LoginImage />); // log in image
+export const DalpLogo1 = React.memo((): JSX.Element => <DalpLogo />); // dalp logo
+export const DalpLogo22 = React.memo((): JSX.Element => <DalpLogo2 />); // dalp logo
+export const DalpLogoHeader1 = React.memo((): JSX.Element => <DalpLogoHeader />); // dalp logo header
+export const DalpListIcon1 = React.memo((): JSX.Element => <DalpListIcon />); // dalp list icon
+export const ModalCloseIcon1 = React.memo((): JSX.Element => <ModalCloseIcon />); // modal close icon
+
+export const CreateTaskIcon1 = React.memo((): JSX.Element => <CreateTaskIcon />);
+export const CreateTaskIcon3 = React.memo((): JSX.Element => <CreateTaskIcon2 />);
+export const CreateTaskFiles1 = React.memo((): JSX.Element => <CreateTaskFiles />);
+export const QuickFiltersIcon1 = React.memo((): JSX.Element => <QuickFiltersIcon />);
+export const QuickFiltersIcon3 = React.memo((): JSX.Element => <QuickFiltersIcon2 />);
+export const SortByIcon1 = React.memo((): JSX.Element => <SortByIcon />);
+export const SortByIcon3 = React.memo((): JSX.Element => <SortByIcon2 />);
+export const FiltersIcon1 = React.memo((): JSX.Element => <FiltersIcon />);
+export const FiltersIcon3 = React.memo((): JSX.Element => <FiltersIcon2 />);
+export const CreateProject1 = React.memo((): JSX.Element => <CreateProject />);
+export const CreateProject3 = React.memo((): JSX.Element => <CreateProject2 />);
+export const CreateCloudStorage1 = React.memo((): JSX.Element => <CreateCloudStorage />);
+export const CreateCloudStorage3 = React.memo((): JSX.Element => <CreateCloudStorage2 />);
+export const BackIcon1 = React.memo((): JSX.Element => <BackIcon />);
+export const AddManifestIcon1 = React.memo((): JSX.Element => <AddManifestIcon />);
+export const NoCloudIcon1 = React.memo((): JSX.Element => <NoCloudIcon />);
+export const NoTasksIcon1 = React.memo((): JSX.Element => <NoTasksIcon />);
+export const MenuIcon1 = React.memo((): JSX.Element => <MenuIcon />);
+export const FullscreenIcon2 = React.memo((): JSX.Element => <FullscreenIcon1 />);
+export const InfoIcon2 = React.memo((): JSX.Element => <InfoIcon1 />);
+export const CursorIcon2 = React.memo((): JSX.Element => <CursorIcon1 />);
+export const MoveImageIcon1 = React.memo((): JSX.Element => <MoveImageIcon />);
+export const RotateImageIcon1 = React.memo((): JSX.Element => <RotateImageIcon />);
+export const FitControlIcon1 = React.memo((): JSX.Element => <FitControlIcon />);
+export const ResizeControlIcon1 = React.memo((): JSX.Element => <ResizeControlIcon />);
+export const PolylineIcon2 = React.memo((): JSX.Element => <PolylineIcon1 />);
+export const PointsIcon2 = React.memo((): JSX.Element => <PointsIcon1 />);
+export const EllipseIcon2 = React.memo((): JSX.Element => <EllipseIcon1 />);
+export const CuboidIcon2 = React.memo((): JSX.Element => <CuboidIcon1 />);
+export const RectangleIcon2 = React.memo((): JSX.Element => <RectangleIcon1 />);
+export const PolygonIcon2 = React.memo((): JSX.Element => <PolygonIcon1 />);
+export const MergeTrackIcon2 = React.memo((): JSX.Element => <MergeTrackIcon1 />);
+export const GroupTrackIcon2 = React.memo((): JSX.Element => <GroupTrackIcon1 />);
+export const SplitTrackIcon2 = React.memo((): JSX.Element => <SplitTrackIcon1 />);
+export const SaveIcon2 = React.memo((): JSX.Element => <SaveIcon1 />);
+export const FirstArrowIcon2 = React.memo((): JSX.Element => <FirstArrowIcon1 />);
+export const LastArrowIcon2 = React.memo((): JSX.Element => <LastArrowIcon1 />);
+export const PrevButtonIcon2 = React.memo((): JSX.Element => <PrevButtonIcon1 />);
+export const NextButtonIcon2 = React.memo((): JSX.Element => <NextButtonIcon1 />);
+export const PlayButtonIcon2 = React.memo((): JSX.Element => <PlayButtonIcon1 />);

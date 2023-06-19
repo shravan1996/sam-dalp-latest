@@ -61,13 +61,13 @@ export default function Location(props: Props): JSX.Element {
         <Form.Item
             label={(
                 <>
-                    {label}
+                    {<p style={{fontSize:'17px',marginBottom:'0px',marginTop:'2px'}}>Region</p> }
                     <Tooltip title='More information'>
                         <Button
                             className='cvat-cloud-storage-help-button'
                             type='link'
                             target='_blank'
-                            href={href}
+                            //href={href}
                         >
                             <QuestionCircleOutlined />
                         </Button>

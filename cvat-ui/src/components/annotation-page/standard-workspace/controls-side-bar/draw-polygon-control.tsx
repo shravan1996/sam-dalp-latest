@@ -12,6 +12,7 @@ import { ShapeType } from 'reducers';
 
 import DrawShapePopoverContainer from 'containers/annotation-page/standard-workspace/controls-side-bar/draw-shape-popover';
 import withVisibilityHandling from './handle-popover-visibility';
+import PolygonIcon1 from '../../../../assets/draw-polygon1.svg';
 
 export interface Props {
     canvasInstance: Canvas;
@@ -46,7 +47,8 @@ function DrawPolygonControl(props: Props): JSX.Element {
             placement='right'
             content={<DrawShapePopoverContainer shapeType={ShapeType.POLYGON} />}
         >
-            <Icon {...dynamicIconProps} component={PolygonIcon} />
+            {/* <Icon {...dynamicIconProps} component={PolygonIcon} /> */}
+            <PolygonIcon1 {...dynamicIconProps}  />
         </CustomPopover>
     );
 }

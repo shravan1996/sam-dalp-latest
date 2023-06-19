@@ -274,8 +274,8 @@ function JobListComponent(props: Props): JSX.Element {
     }, []);
 
     return (
-        <div className='cvat-task-job-list'>
-            <Row justify='space-between' align='middle'>
+        <div className='cvat-task-job-list' style={{fontFamily:'Lexend'}}>
+            <Row justify='space-between' align='middle' style={{fontFamily:'Lexend'}}>
                 <Col>
                     <Text className='cvat-text-color cvat-jobs-header'> Jobs </Text>
                     <CVATTooltip trigger='click' title='Copied to clipboard!'>
@@ -312,7 +312,7 @@ function JobListComponent(props: Props): JSX.Element {
                     </CVATTooltip>
                 </Col>
                 <Col>
-                    <Text className='cvat-text-color'>{`${completed} of ${data.length} jobs`}</Text>
+                    <Text className='cvat-text-color'>{`${completed}/${data.length}`}</Text>
                 </Col>
             </Row>
             <Table

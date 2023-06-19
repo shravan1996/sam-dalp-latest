@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { Row, Col } from 'antd/lib/grid';
 import Spin from 'antd/lib/spin';
+import { LoadingOutlined } from '@ant-design/icons'; // new
 import Result from 'antd/lib/result';
 import Text from 'antd/lib/typography/Text';
 
@@ -20,6 +21,7 @@ interface ParamType {
 }
 
 export default function UpdateCloudStoragePageComponent(): JSX.Element {
+    const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />; // new
     const dispatch = useDispatch();
     const cloudStorageId = +useParams<ParamType>().id;
     const isFetching = useSelector((state: CombinedState) => state.cloudStorages.fetching);
@@ -34,7 +36,7 @@ export default function UpdateCloudStoragePageComponent(): JSX.Element {
     }, [isFetching]);
 
     if (!cloudStorage && !isInitialized) {
-        return <Spin size='large' className='cvat-spinner' />;
+        return <Spin indicator={antIcon} size='large' className='cvat-spinner' /> ; // new
     }
 
     if (!cloudStorage) {

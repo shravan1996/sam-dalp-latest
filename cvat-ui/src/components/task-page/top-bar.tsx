@@ -31,17 +31,19 @@ export default function DetailsComponent(props: DetailsComponentProps): JSX.Elem
                         type='link'
                         size='large'
                     >
-                        <LeftOutlined />
+                        {/* <LeftOutlined style={{color:'#023E8A'}}/> */}
                         Back to project
                     </Button>
                 ) : (
                     <Button
                         className='cvat-back-to-tasks-button'
                         onClick={() => history.push('/tasks')}
+                        style={{color:'#023E8A',textDecoration:'underline'}}
                         type='link'
+                        style={{color:'#023E8A',textDecoration:'underline'}}
                         size='large'
                     >
-                        <LeftOutlined />
+                        {/* <LeftOutlined style={{color:'#023E8A'}}/> */}
                         Back to tasks
                     </Button>
                 )}

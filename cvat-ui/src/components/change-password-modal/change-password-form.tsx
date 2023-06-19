@@ -23,7 +23,7 @@ interface Props {
 
 function ChangePasswordFormComponent({ fetching, onSubmit }: Props): JSX.Element {
     return (
-        <Form onFinish={onSubmit} className='cvat-change-password-form'>
+        <Form onFinish={onSubmit} className='cvat-change-password-form' style={{fontFamily:'Lexend'}}>
             <Form.Item
                 hasFeedback
                 name='oldPassword'
@@ -38,6 +38,7 @@ function ChangePasswordFormComponent({ fetching, onSubmit }: Props): JSX.Element
                     autoComplete='current-password'
                     prefix={<LockOutlined style={{ color: 'rgba(0, 0, 0, 0.25)' }} />}
                     placeholder='Current password'
+                    style={{borderRadius:'6px'}}
                 />
             </Form.Item>
 
@@ -85,6 +86,7 @@ function ChangePasswordFormComponent({ fetching, onSubmit }: Props): JSX.Element
                     className='cvat-change-password-form-button'
                     loading={fetching}
                     disabled={fetching}
+                    style={{backgroundColor:' #7E96EA',borderRadius:'8px'}}
                 >
                     Submit
                 </Button>

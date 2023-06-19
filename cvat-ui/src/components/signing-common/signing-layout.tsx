@@ -10,6 +10,7 @@ import { CVATLogo } from 'icons';
 import Icon from '@ant-design/icons';
 import Title from 'antd/lib/typography/Title';
 import SVGSigningBackground from '../../assets/signing-background.svg';
+import SignImage from '../../assets/signup-image.svg';
 
 interface SignInLayoutComponentProps {
     children: JSX.Element | JSX.Element[];
@@ -50,6 +51,7 @@ export const formSizes: FormSizes = {
 
 function SignInLayout(props: SignInLayoutComponentProps): JSX.Element {
     const { children } = props;
+    console.log(children)
     const { Content, Header } = Layout;
     const titleSizes = {
         xs: { span: 0 },
@@ -68,9 +70,9 @@ function SignInLayout(props: SignInLayoutComponentProps): JSX.Element {
         xxl: { span: 22 },
     };
     return (
-        <Layout>
+        <Layout className='w-screen h-screen layout'>
             <SVGSigningBackground className='cvat-signing-background' />
-            <Header className='cvat-signing-header'>
+            {/*<Header className='cvat-signing-header'>
                 <Row justify='center' align='middle'>
                     <Col {...logoSizes}>
                         <Icon className='cvat-logo-icon' component={CVATLogo} />
@@ -87,7 +89,12 @@ function SignInLayout(props: SignInLayoutComponentProps): JSX.Element {
                         {children}
                     </Row>
                 </Content>
-            </Layout>
+            </Layout>*/}
+            <Row className='ant-row ant-row-start'>
+                <Col className='w-full -ml-40'>
+                     {children}
+                </Col>
+            </Row>
         </Layout>
     );
 }

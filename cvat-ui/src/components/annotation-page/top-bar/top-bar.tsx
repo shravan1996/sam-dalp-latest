@@ -12,6 +12,7 @@ import LeftGroup from './left-group';
 import PlayerButtons from './player-buttons';
 import PlayerNavigation from './player-navigation';
 import RightGroup from './right-group';
+// import ControlsSideBarComponent from '../standard-workspace/controls-side-bar/controls-side-bar';
 
 interface Props {
     playing: boolean;
@@ -123,7 +124,7 @@ export default function AnnotationTopBarComponent(props: Props): JSX.Element {
     } = props;
 
     return (
-        <Row justify='space-between'>
+        <Row justify='space-between' className='bg-white '>
             <LeftGroup
                 saving={saving}
                 undoAction={undoAction}

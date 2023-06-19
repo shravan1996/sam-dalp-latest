@@ -9,6 +9,7 @@ import { Row, Col } from 'antd/lib/grid';
 
 import { TasksQuery } from 'reducers';
 import Empty from 'antd/lib/empty';
+import NoTasksIcon from '../../assets/no-tasks-icon.svg';
 
 interface Props {
     query: TasksQuery;
@@ -19,7 +20,7 @@ function EmptyListComponent(props: Props): JSX.Element {
 
     return (
         <div className='cvat-empty-tasks-list'>
-            <Empty description={!query.filter && !query.search && !query.page ? (
+            {/* <Empty  description={!query.filter && !query.search && !query.page ? (
                 <>
                     <Row justify='center' align='middle'>
                         <Col>
@@ -39,8 +40,22 @@ function EmptyListComponent(props: Props): JSX.Element {
                         </Col>
                     </Row>
                 </>
-            ) : (<Text>No results matched your search</Text>)}
-            />
+            ) : (
+                    <div className='flex flex-row'>
+                        <NoTasksIcon/>
+                        <Text style={{marginLeft:'5px',color:'rgba(17, 24, 39, 0.6)',fontFamily:'Lexend'}}>No tasks are currently available here, Initiate a new task from the sidebar</Text>
+
+                    </div>
+
+                )}
+            /> */}
+
+                    <div className='flex flex-row mt-[210px] ml-[530px]'>
+                        <NoTasksIcon/>
+                        <Text style={{marginLeft:'5px',marginTop:'8px',color:'rgba(17, 24, 39, 0.6)',fontFamily:'Lexend'}}>No tasks are currently available here, Initiate a new task from the sidebar</Text>
+                    </div>
+
+
         </div>
     );
 }

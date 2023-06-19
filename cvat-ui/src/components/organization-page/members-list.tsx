@@ -6,6 +6,7 @@ import React from 'react';
 import Pagination from 'antd/lib/pagination';
 import Spin from 'antd/lib/spin';
 
+import { LoadingOutlined } from '@ant-design/icons'; // new
 import { useDispatch, useSelector } from 'react-redux';
 import { CombinedState } from 'reducers';
 import { removeOrganizationMemberAsync, updateOrganizationMemberAsync } from 'actions/organization-actions';
@@ -24,6 +25,7 @@ export interface Props {
 }
 
 function MembersList(props: Props): JSX.Element {
+    const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />; // new
     const {
         organizationInstance, fetching, members, pageSize, pageNumber, fetchMembers, setPageNumber, setPageSize,
     } = props;
@@ -33,7 +35,7 @@ function MembersList(props: Props): JSX.Element {
     const removingMember = useSelector((state: CombinedState) => state.organizations.removingMember);
 
     return fetching || inviting || updatingMember || removingMember ? (
-        <Spin className='cvat-spinner' />
+        <Spin indicator={antIcon} size='large' className='cvat-spinner' />
     ) : (
         <>
             <div>

@@ -8,6 +8,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useHistory, useParams } from 'react-router';
 import { Row, Col } from 'antd/lib/grid';
 import Spin from 'antd/lib/spin';
+import { LoadingOutlined } from '@ant-design/icons'; // new
 import Result from 'antd/lib/result';
 import notification from 'antd/lib/notification';
 
@@ -26,6 +27,8 @@ const core = getCore();
 function TaskPageComponent(): JSX.Element {
     const history = useHistory();
     const id = +useParams<{ id: string }>().id;
+
+    const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />; // new
 
     const [taskInstance, setTaskInstance] = useState<Task | null>(null);
     const [fetchingTask, setFetchingTask] = useState(true);
@@ -77,7 +80,7 @@ function TaskPageComponent(): JSX.Element {
     }, [deletes]);
 
     if (fetchingTask) {
-        return <Spin size='large' className='cvat-spinner' />;
+        return <Spin indicator={antIcon} size='large' className='cvat-spinner' /> ; // new
     }
 
     if (!taskInstance) {

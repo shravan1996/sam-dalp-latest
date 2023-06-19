@@ -22,6 +22,7 @@ import patterns from 'utils/validation-patterns';
 import LabelsEditor from 'components/labels-editor/labels-editor';
 import SourceStorageField from 'components/storage/source-storage-field';
 import TargetStorageField from 'components/storage/target-storage-field';
+import './styles.scss';
 
 interface AdvancedConfiguration {
     sourceStorage: StorageData;
@@ -81,7 +82,7 @@ function AdvancedConfigurationForm(props: AdvancedConfigurationProps): JSX.Eleme
         onChangeTargetStorageLocation,
     } = props;
     return (
-        <Form layout='vertical' ref={formRef} initialValues={initialValues}>
+        <Form layout='vertical' ref={formRef} initialValues={initialValues} style={{fontFamily:'Lexend'}}>
             <Form.Item
                 name='bug_tracker'
                 label='Issue tracker'
@@ -198,7 +199,7 @@ export default function CreateProjectContent(): JSX.Element {
     }, []);
 
     return (
-        <Row justify='start' align='middle' className='cvat-create-project-content'>
+        <Row justify='start' align='middle' className='cvat-create-project-content' style={{fontFamily:'Lexend'}}>
             <Col span={24}>
                 <NameConfigurationForm formRef={nameFormRef} inputRef={nameInputRef} />
             </Col>
@@ -227,12 +228,12 @@ export default function CreateProjectContent(): JSX.Element {
             <Col span={24}>
                 <Row justify='end' gutter={5}>
                     <Col>
-                        <Button className='cvat-submit-open-project-button' type='primary' onClick={onSubmitAndOpen}>
+                    <Button style={{backgroundColor:'#7E96EA',borderRadius:'10px'}} className='cvat-submit-open-project-button ' type='primary' onClick={onSubmitAndOpen}>
                             Submit & Open
                         </Button>
                     </Col>
                     <Col>
-                        <Button className='cvat-submit-continue-project-button' type='primary' onClick={onSubmitAndContinue}>
+                        <Button  style={{backgroundColor:'#7E96EA',borderRadius:'10px'}}  className='cvat-submit-continue-project-button' type='primary' onClick={onSubmitAndContinue}>
                             Submit & Continue
                         </Button>
                     </Col>

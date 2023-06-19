@@ -56,18 +56,18 @@ function DrawShapePopoverComponent(props: Props): JSX.Element {
 
     const is2D = jobInstance.dimension === DimensionType.DIMENSION_2D;
     return (
-        <div className='cvat-draw-shape-popover-content'>
-            <Row justify='start'>
+        <div className='cvat-draw-shape-popover-content' style={{backgroundColor:'white'}}>
+            <Row justify='start' style={{backgroundColor:'white'}}>
                 <Col>
-                    <Text className='cvat-text-color' strong>{`Draw new ${shapeType}`}</Text>
+                <Text className='cvat-text-color'  strong>{`Draw new ${shapeType}`}</Text>
                 </Col>
             </Row>
-            <Row justify='start'>
+            <Row justify='start' style={{backgroundColor:'white'}}>
                 <Col>
                     <Text className='cvat-text-color'>Label</Text>
                 </Col>
             </Row>
-            <Row justify='center'>
+            <Row justify='center' style={{backgroundColor:'white'}}>
                 <Col span={24}>
                     <LabelSelector
                         style={{ width: '100%' }}
@@ -79,19 +79,19 @@ function DrawShapePopoverComponent(props: Props): JSX.Element {
             </Row>
             {is2D && shapeType === ShapeType.RECTANGLE && (
                 <>
-                    <Row>
+                    <Row style={{backgroundColor:'white'}}>
                         <Col>
                             <Text className='cvat-text-color'> Drawing method </Text>
                         </Col>
                     </Row>
-                    <Row justify='space-around'>
+                    <Row justify='space-around' style={{backgroundColor:'white'}}>
                         <Col>
                             <Radio.Group
                                 style={{ display: 'flex' }}
                                 value={rectDrawingMethod}
                                 onChange={onChangeRectDrawingMethod}
                             >
-                                <Radio value={RectDrawingMethod.CLASSIC} style={{ width: 'auto' }}>
+                                <Radio value={RectDrawingMethod.CLASSIC} style={{ width: 'auto'}}>
                                     By 2 Points
                                 </Radio>
                                 <Radio value={RectDrawingMethod.EXTREME_POINTS} style={{ width: 'auto' }}>
@@ -104,12 +104,12 @@ function DrawShapePopoverComponent(props: Props): JSX.Element {
             )}
             {is2D && shapeType === ShapeType.CUBOID && (
                 <>
-                    <Row>
+                    <Row style={{backgroundColor:'white'}}>
                         <Col>
                             <Text className='cvat-text-color'> Drawing method </Text>
                         </Col>
                     </Row>
-                    <Row justify='space-around'>
+                    <Row justify='space-around' style={{backgroundColor:'white'}}>
                         <Col>
                             <Radio.Group
                                 style={{ display: 'flex' }}
@@ -128,7 +128,7 @@ function DrawShapePopoverComponent(props: Props): JSX.Element {
                 </>
             )}
             {is2D && [ShapeType.POLYGON, ShapeType.POLYLINE, ShapeType.POINTS].includes(shapeType) ? (
-                <Row justify='space-around' align='middle'>
+                <Row justify='space-around' align='middle' style={{backgroundColor:'white'}}>
                     <Col span={14}>
                         <Text className='cvat-text-color'> Number of points: </Text>
                     </Col>
@@ -149,7 +149,7 @@ function DrawShapePopoverComponent(props: Props): JSX.Element {
                     </Col>
                 </Row>
             ) : null}
-            <Row justify='space-around'>
+            <Row justify='space-around' style={{backgroundColor:'white'}}>
                 <Col span={12}>
                     <CVATTooltip title={`Press ${repeatShapeShortcut} to draw again`}>
                         <Button className={`cvat-draw-${shapeType}-shape-button`} onClick={onDrawShape}>Shape</Button>

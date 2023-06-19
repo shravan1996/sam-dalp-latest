@@ -51,11 +51,12 @@ function CreateOrganizationForm(): JSX.Element {
             onFinish={onFinish}
             className='cvat-create-organization-form'
             layout='vertical'
+            style={{borderWidth:'0px'}}
         >
             <Form.Item
                 hasFeedback
                 name='slug'
-                label='Short name'
+                label={ <p style={{fontSize:'17px',marginBottom:'0px',marginTop:'1px'}}>Short name</p> }
                 rules={[
                     { required: true, message: 'Short name is a required field' },
                     { max: MAX_SLUG_LEN, message: `Short name must not exceed ${MAX_SLUG_LEN} characters` },
@@ -67,27 +68,27 @@ function CreateOrganizationForm(): JSX.Element {
             <Form.Item
                 hasFeedback
                 name='name'
-                label='Full name'
+                label={ <p style={{fontSize:'17px',marginBottom:'0px',marginTop:'1px'}}>Full name</p> }
                 rules={[{ max: MAX_NAME_LEN, message: `Full name must not exceed ${MAX_NAME_LEN} characters` }]}
             >
                 <Input />
             </Form.Item>
-            <Form.Item hasFeedback name='description' label='Description'>
+            <Form.Item hasFeedback name='description' label={ <p style={{fontSize:'17px',marginBottom:'0px',marginTop:'1px'}}>Description</p> }>
                 <Input.TextArea rows={3} />
             </Form.Item>
-            <Form.Item hasFeedback name='email' label='Email' rules={[{ type: 'email', message: 'The input is not a valid E-mail' }]}>
+            <Form.Item hasFeedback name='email' label={ <p style={{fontSize:'17px',marginBottom:'0px',marginTop:'1px'}}>Email</p> } rules={[{ type: 'email', message: 'The input is not a valid E-mail' }]}>
                 <Input autoComplete='email' placeholder='support@organization.com' />
             </Form.Item>
-            <Form.Item hasFeedback name='phoneNumber' label='Phone number' rules={[{ ...validationPatterns.validatePhoneNumber }]}>
+            <Form.Item hasFeedback name='phoneNumber' label={ <p style={{fontSize:'17px',marginBottom:'0px',marginTop:'1px'}}>Phone number</p> } rules={[{ ...validationPatterns.validatePhoneNumber }]}>
                 <Input autoComplete='phoneNumber' placeholder='+44 5555 555555' />
             </Form.Item>
-            <Form.Item hasFeedback name='location' label='Location'>
+            <Form.Item hasFeedback name='location' label={ <p style={{fontSize:'17px',marginBottom:'0px',marginTop:'1px'}}>Location</p> }>
                 <Input autoComplete='location' placeholder='Country, State/Province, Address, Postal code' />
             </Form.Item>
             <Form.Item>
                 <Space className='cvat-create-organization-form-buttons-block' align='end'>
-                    <Button className='cvat-cancel-new-organization-button' onClick={() => history.goBack()}>Cancel</Button>
-                    <Button className='cvat-submit-new-organization-button' loading={creating} disabled={creating} htmlType='submit' type='primary'>
+                    <Button className='cvat-cancel-new-organization-button'  style={{borderRadius:'6px'}} onClick={() => history.goBack()}>Cancel</Button>
+                    <Button className='cvat-submit-new-organization-button' loading={creating} style={{borderRadius:'6px',backgroundColor:'#7E96EA'}} disabled={creating} htmlType='submit' type='primary'>
                         Submit
                     </Button>
                 </Space>

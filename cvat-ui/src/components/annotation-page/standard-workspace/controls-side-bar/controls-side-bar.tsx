@@ -203,7 +203,7 @@ export default function ControlsSideBarComponent(props: Props): JSX.Element {
     }
 
     return (
-        <Layout.Sider className='cvat-canvas-controls-sidebar' theme='light' width={44}>
+        <Layout.Sider className='cvat-canvas-controls-sidebar' theme='light' width={51}>
             <GlobalHotKeys keyMap={subKeyMap} handlers={handlers} />
             <ObservedCursorControl
                 cursorShortkey={normalizedKeyMap.CANCEL}

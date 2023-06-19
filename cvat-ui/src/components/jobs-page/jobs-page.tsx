@@ -7,6 +7,7 @@ import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
 import Spin from 'antd/lib/spin';
+import { LoadingOutlined } from '@ant-design/icons'; // new
 import { Col, Row } from 'antd/lib/grid';
 import Pagination from 'antd/lib/pagination';
 import Empty from 'antd/lib/empty';
@@ -19,14 +20,22 @@ import { getJobsAsync } from 'actions/jobs-actions';
 
 import TopBarComponent from './top-bar';
 import JobsContentComponent from './jobs-content';
+import NoTasksIcon from '../../assets/no-tasks-icon.svg';
 
 function JobsPageComponent(): JSX.Element {
+    const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />; // new
     const dispatch = useDispatch();
     const history = useHistory();
     const [isMounted, setIsMounted] = useState(false);
     const query = useSelector((state: CombinedState) => state.jobs.query);
     const fetching = useSelector((state: CombinedState) => state.jobs.fetching);
     const count = useSelector((state: CombinedState) => state.jobs.count);
+
+    const [modal,setModal]=useState(false)
+
+    const pull_data = (data:any) => {
+       setModal(data);
+    }
 
     const queryParams = new URLSearchParams(history.location.search);
     const updatedQuery = { ...query };
@@ -50,7 +59,7 @@ function JobsPageComponent(): JSX.Element {
         }
     }, [query]);
 
-    const content = count ? (
+    const content = count && !modal ? (
         <>
             <JobsContentComponent />
             <Row justify='space-around' about='middle'>
@@ -72,11 +81,15 @@ function JobsPageComponent(): JSX.Element {
                 </Col>
             </Row>
         </>
-    ) : <Empty description={<Text>No results matched your search...</Text>} />;
+    ) : <div className='flex flex-row mt-[210px] justify-center self-center '>
+            <NoTasksIcon className='mb-[10px]'/>
+            <Text style={{marginLeft:'5px',marginTop:'8px',color:'rgba(17, 24, 39, 0.6)',fontFamily:'Lexend'}}>No jobs are currently available here.</Text>
+        </div>;
 
     return (
         <div className='cvat-jobs-page'>
             <TopBarComponent
+                func={pull_data}
                 query={updatedQuery}
                 onApplySearch={(search: string | null) => {
                     dispatch(
@@ -107,7 +120,8 @@ function JobsPageComponent(): JSX.Element {
                 }}
             />
             { fetching ? (
-                <Spin size='large' className='cvat-spinner' />
+                // <Spin size='large' className='cvat-spinner' />
+                <Spin indicator={antIcon} size='large' className='cvat-spinner' /> // new
             ) : content }
             <FeedbackComponent />
         </div>

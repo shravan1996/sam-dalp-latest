@@ -8,6 +8,7 @@ import { useSelector } from 'react-redux';
 import Empty from 'antd/lib/empty';
 import Spin from 'antd/lib/spin';
 
+import { LoadingOutlined } from '@ant-design/icons'; // new
 import { CombinedState } from 'reducers';
 import TopBarComponent from './top-bar';
 import MembersList from './members-list';
@@ -32,6 +33,7 @@ function fetchMembers(
 }
 
 function OrganizationPage(): JSX.Element | null {
+    const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />; // new
     const organization = useSelector((state: CombinedState) => state.organizations.current);
     const fetching = useSelector((state: CombinedState) => state.organizations.fetching);
     const updating = useSelector((state: CombinedState) => state.organizations.updating);
@@ -48,7 +50,7 @@ function OrganizationPage(): JSX.Element | null {
     }, [pageSize, pageNumber, organization]);
 
     if (fetching || updating) {
-        return <Spin className='cvat-spinner' />;
+        return <Spin indicator={antIcon} size='large' className='cvat-spinner' />;
     }
 
     return (

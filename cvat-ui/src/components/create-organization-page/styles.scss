@@ -5,11 +5,12 @@
 @import '../../base.scss';
 
 .cvat-create-organization-page {
-    text-align: center;
+    //text-align: center;
     padding-top: $grid-unit-size * 5;
     overflow-y: auto;
     height: 90%;
-    width: 100%;
+    width: 144%; //100%;
+    font-family:'Lexend'; // new
 
     > div:first-child {
         > span {

@@ -103,7 +103,7 @@ function ProjectActionsMenuComponent(props: Props): JSX.Element {
     );
 
     return (
-        <Menu selectable={false} className='cvat-project-actions-menu'>
+        <Menu selectable={false} style={{fontFamily:'Lexend'}} className='cvat-project-actions-menu'>
             { menuItems.sort((menuItem1, menuItem2) => menuItem1[1] - menuItem2[1])
                 .map((menuItem) => menuItem[0]) }
         </Menu>

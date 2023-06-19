@@ -47,7 +47,7 @@ function JobCardComponent(props: Props): JSX.Element {
         <Card
             onMouseEnter={() => setExpanded(true)}
             onMouseLeave={() => setExpanded(false)}
-            style={{ height }}
+            style={{ height:'240px',width:'300px',marginBottom:'40px' }}
             className='cvat-job-page-list-item'
             cover={(
                 <>
@@ -57,27 +57,55 @@ function JobCardComponent(props: Props): JSX.Element {
                         loadingClassName='cvat-job-item-loading-preview'
                         emptyPreviewClassName='cvat-job-item-empty-preview'
                         previewWrapperClassName='cvat-jobs-page-job-item-card-preview-wrapper'
-                        previewClassName='cvat-jobs-page-job-item-card-preview'
+                        previewClassName='cvat-jobs-page-job-item-card-preview rounded-3xl'
                     />
-                    <div className='cvat-job-page-list-item-id'>
+                    <div className='cvat-job-page-list-item-dimension'>
+
+                    <Dropdown overlay={(
+                            <Menu onClick={(action: MenuInfo) => {
+                                if (action.key === 'task') {
+                                    history.push(`/tasks/${job.taskId}`);
+                                } else if (action.key === 'project') {
+                                    history.push(`/projects/${job.projectId}`);
+                                } else if (action.key === 'bug_tracker') {
+                                    // false alarm
+                                    // eslint-disable-next-line security/detect-non-literal-fs-filename
+                                    window.open(job.bugTracker, '_blank', 'noopener noreferrer');
+                                }
+                            }}
+                            style={{fontFamily:'Lexend'}}
+                            >
+                                <Menu.Item key='task' disabled={job.taskId === null}>Go to the task</Menu.Item>
+                                <Menu.Item key='project' disabled={job.projectId === null}>Go to the project</Menu.Item>
+                                <Menu.Item key='bug_tracker' disabled={!job.bugTracker}>Go to the bug tracker</Menu.Item>
+                                <Menu.Item key='export_job' onClick={() => dispatch(exportActions.openExportDatasetModal(job))}>Export job</Menu.Item>
+                            </Menu>
+                        )}
+                    >
+                        <MoreOutlined className='cvat-job-card-more-button' />
+                    </Dropdown>
+                    </div>
+                    {/* <div className='cvat-job-page-list-item-id'>
                         ID:
                         {` ${job.id}`}
                     </div>
-                    <div className='cvat-job-page-list-item-dimension'>{job.dimension.toUpperCase()}</div>
+                    <div className='cvat-job-page-list-item-dimension'>{job.dimension.toUpperCase()}</div> */}
                 </>
             )}
         >
-            <Descriptions column={1} size='small'>
-                <Descriptions.Item label='Stage'>{job.stage}</Descriptions.Item>
+            <Descriptions className='flex flex-col justify-start' column={1} style={{color:'rgba(17, 24, 39, 0.6)'}} size='small'>
+                <Descriptions.Item  label='ID'> {` ${job.id} (${job.dimension.toUpperCase()})`}</Descriptions.Item>
                 <Descriptions.Item label='State'>{job.state}</Descriptions.Item>
-                { expanded ? (
+                <Descriptions.Item label='Stage'>{job.stage}</Descriptions.Item>
+
+                { false ? (
                     <Descriptions.Item label='Size'>{job.stopFrame - job.startFrame + 1}</Descriptions.Item>
                 ) : null}
                 { expanded && job.assignee ? (
                     <Descriptions.Item label='Assignee'>{job.assignee.username}</Descriptions.Item>
                 ) : null}
             </Descriptions>
-            <Dropdown overlay={(
+            {/*<Dropdown overlay={(
                 <Menu onClick={(action: MenuInfo) => {
                     if (action.key === 'task') {
                         history.push(`/tasks/${job.taskId}`);
@@ -96,7 +124,7 @@ function JobCardComponent(props: Props): JSX.Element {
             )}
             >
                 <MoreOutlined className='cvat-job-card-more-button' />
-            </Dropdown>
+            </Dropdown> */}
         </Card>
     );
 }

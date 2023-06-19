@@ -238,9 +238,9 @@ class DetailsComponent extends React.PureComponent<Props, State> {
 
         return (
             <Descriptions className='cvat-task-parameters' bordered layout='vertical' size='small'>
-                <Descriptions.Item label='Overlap size'>{overlap}</Descriptions.Item>
-                <Descriptions.Item label='Segment size'>{segmentSize}</Descriptions.Item>
-                <Descriptions.Item label='Image quality'>{imageQuality}</Descriptions.Item>
+                <Descriptions.Item label={<p style={{fontWeight:'bold'}}>Overlap size</p>} >{overlap}</Descriptions.Item>
+                <Descriptions.Item label={<p style={{fontWeight:'bold'}}>Segment size</p>} >{segmentSize}</Descriptions.Item>
+                <Descriptions.Item label={<p style={{fontWeight:'bold'}}>Image quality</p>} >{imageQuality}</Descriptions.Item>
             </Descriptions>
         );
     }
@@ -269,7 +269,7 @@ class DetailsComponent extends React.PureComponent<Props, State> {
                     )}
                 </Col>
                 <Col span={10}>
-                    <Text type='secondary'>Assigned to</Text>
+                <Text className='cvat-text-color'>Assigned to</Text>
                     {assigneeSelect}
                 </Col>
             </Row>
@@ -432,14 +432,14 @@ class DetailsComponent extends React.PureComponent<Props, State> {
         } = this.props;
 
         return (
-            <div className='cvat-task-details'>
+            <div className='cvat-task-details ' style={{fontFamily:'Lexend'}}>
                 <Row justify='start' align='middle'>
                     <Col className='cvat-task-details-task-name'>{this.renderTaskName()}</Col>
                 </Row>
                 <Row justify='space-between' align='top'>
                     <Col md={8} lg={7} xl={7} xxl={6}>
                         <Row justify='start' align='middle'>
-                            <Col span={24}>
+                        <Col span={24} style={{borderRadius:'7px'}}>
                                 <Preview
                                     task={taskInstance}
                                     loadingClassName='cvat-task-item-loading-preview'

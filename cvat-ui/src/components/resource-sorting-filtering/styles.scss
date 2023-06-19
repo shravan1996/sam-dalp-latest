@@ -37,17 +37,23 @@
 }
 
 .cvat-resource-page-filters-builder {
-    background: white;
+    // background: white;
     padding: $grid-unit-size;
     border-radius: 4px;
-    box-shadow: $box-shadow-base;
+    //box-shadow: $box-shadow-base;
     display: flex;
     flex-direction: column;
     align-items: flex-end;
 
+
+    // margin-left:8px; // new
+
     // redefine default awesome react query builder styles below
     .query-builder {
         margin: $grid-unit-size;
+
+        display:flex;
+        flex-direction: column;
 
         .group.group-or-rule {
             background: none !important;
@@ -68,6 +74,11 @@
             opacity: 1 !important;
         }
 
+        .group--header{
+            display:flex;
+            flex-direction: column;
+        }
+
         .group--conjunctions {
             div.ant-btn-group {
                 button.ant-btn {
@@ -82,6 +93,12 @@
     }
 }
 
+// new
+.cvat-resource-page-predefined-filters-list{
+    margin-right:60px;
+    width:80%;
+}
+
 .cvat-resource-page-sorting-list,
 .cvat-resource-page-predefined-filters-list,
 .cvat-resource-page-recent-filters-list {
@@ -90,7 +107,7 @@
     border-radius: 4px;
     display: flex;
     flex-direction: column;
-    box-shadow: $box-shadow-base;
+    // box-shadow: $box-shadow-base;
 
     .ant-checkbox-wrapper {
         margin-bottom: $grid-unit-size;
@@ -99,7 +116,8 @@
 }
 
 .cvat-resource-page-sorting-list {
-    width: $grid-unit-size * 24;
+    // width: $grid-unit-size * 24;
+    width:100%;
 }
 
 .cvat-sorting-field {
@@ -112,11 +130,15 @@
         width: $grid-unit-size * 16;
         user-select: none;
         cursor: move;
+        border-radius:4px ; // new
+        background-color: #F2F2F2; // new
+        font-weight: bold; // new
     }
 }
 
 .cvat-sorting-anchor {
     width: 100%;
+    border-width:0px; // new
     pointer-events: none;
 
     &:first-child {
@@ -136,4 +158,7 @@
     justify-content: right;
     align-items: center;
     display: flex;
+    font-family: 'Lexend';
+    background-color: #F5F5F5;
+    margin-right:115px; // new
 }

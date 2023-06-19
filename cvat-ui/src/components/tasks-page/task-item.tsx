@@ -38,7 +38,7 @@ class TaskItemComponent extends React.PureComponent<TaskItemProps & RouteCompone
                     loadingClassName='cvat-task-item-loading-preview'
                     emptyPreviewClassName='cvat-task-item-empty-preview'
                     previewWrapperClassName='cvat-task-item-preview-wrapper'
-                    previewClassName='cvat-task-item-preview'
+                    previewClassName='cvat-task-item-preview rounded-[12px]'
                 />
             </Col>
         );
@@ -110,14 +110,16 @@ class TaskItemComponent extends React.PureComponent<TaskItemProps & RouteCompone
         return (
             <Col span={6}>
                 <Row justify='space-between' align='top'>
-                    <Col>
-                        <svg height='8' width='8' className={progressColor}>
-                            <circle cx='4' cy='4' r='4' strokeWidth='0' />
-                        </svg>
-                        {progressText}
+                <Col className='flex flex-row'>
+                        <div >
+                            <svg height='8' width='8' className={progressColor}>
+                                <circle cx='4' cy='4' r='4' strokeWidth='0' />
+                            </svg>
+                            {progressText}
+                        </div>
                     </Col>
                     <Col>
-                        <Text type='secondary'>{`${numOfCompleted} of ${numOfJobs} jobs`}</Text>
+                        <Text type='secondary'>{`${numOfCompleted}/${numOfJobs} jobs`}</Text>
                     </Col>
                 </Row>
                 <Row>
@@ -147,13 +149,13 @@ class TaskItemComponent extends React.PureComponent<TaskItemProps & RouteCompone
         return (
             <Col span={4}>
                 <Row justify='end'>
-                    <Col>
+                <Col className='flex flex-row'>
                         <Button
-                            className='cvat-item-open-task-button'
-                            type='primary'
-                            size='large'
-                            ghost
-                            href={`/tasks/${id}`}
+                            className='cvat-item-open-task-button rounded-[16px]'
+                            style={{color:'#023E8A',borderWidth:'0px',fontWeight:'bold'}}
+                            // size='large'
+                            // ghost
+                            // href={`/tasks/${id}`}
                             onClick={(e: React.MouseEvent): void => {
                                 e.preventDefault();
                                 history.push(`/tasks/${id}`);
@@ -161,16 +163,22 @@ class TaskItemComponent extends React.PureComponent<TaskItemProps & RouteCompone
                         >
                             Open
                         </Button>
+                        <Dropdown overlay={<ActionsMenuContainer taskInstance={taskInstance} />}>
+                            <Col className='cvat-item-open-task-actions'>
+                                {/* <Text className='cvat-text-color'>Actions</Text> */}
+                                <MoreOutlined className='cvat-menu-icon' />
+                            </Col>
+                        </Dropdown>
                     </Col>
                 </Row>
-                <Row justify='end'>
+                {/*<Row justify='end'>
                     <Dropdown overlay={<ActionsMenuContainer taskInstance={taskInstance} />}>
                         <Col className='cvat-item-open-task-actions'>
                             <Text className='cvat-text-color'>Actions</Text>
                             <MoreOutlined className='cvat-menu-icon' />
                         </Col>
                     </Dropdown>
-                </Row>
+                        </Row>*/}
             </Col>
         );
     }
@@ -188,7 +196,7 @@ class TaskItemComponent extends React.PureComponent<TaskItemProps & RouteCompone
         }
 
         return (
-            <Row className='cvat-tasks-list-item' justify='center' align='top' style={{ ...style }}>
+            <Row className='cvat-tasks-list-item ' justify='center' align='top' style={{ ...style,borderRadius:'7px',borderWidth:'0px' }}>
                 {this.renderPreview()}
                 {this.renderDescription()}
                 {this.renderProgress()}

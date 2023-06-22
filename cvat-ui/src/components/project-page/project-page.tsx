@@ -44,7 +44,7 @@ import {
 import DalpListIcon from '../../assets/dalp-list-icon.svg';
 import CreateTask from '../../assets/create-task.svg';
 import  ModalCloseIcon  from '../../assets/modal-close-icon.svg'; // importing x icon.
-import DalpLogo from '../../assets/dalp-logo.svg'  // importing dalp logo
+import DalpLogo from '../../assets/cvat-logo.svg'  // importing dalp logo
 
 const core = getCore();
 
@@ -199,61 +199,51 @@ export default function ProjectPageComponent(): JSX.Element {
         <Empty description='No tasks found' />
     );
 
-    return (
-        <Row justify='center' align='top' className='cvat-project-page'>
-            { updatingProject ? <CVATLoadingSpinner size='large' /> : null }
-            <Col
-                md={22}
-                lg={18}
-                xl={16}
-                xxl={14}
-                style={updatingProject ? {
-                    pointerEvents: 'none',
-                    opacity: 0.7,
-                } : {}}
-            >
-                <ProjectTopBar projectInstance={projectInstance} />
-                <DetailsComponent
-                    onUpdateProject={(project: Project) => {
-                        setUpdatingProject(true);
-                        project.save().then((updatedProject: Project) => {
-                            if (mounted.current) {
-                                dispatch(getProjectTasksAsync({ ...updatedQuery, projectId: id }));
-                                setProjectInstance(updatedProject);
-                            }
-                        }).catch((error: Error) => {
-                            if (mounted.current) {
-                                notification.error({
-                                    message: 'Could not update the project',
-                                    description: error.toString(),
-                                });
-                            }
-                        }).finally(() => {
-                            if (mounted.current) {
-                                setUpdatingProject(false);
-                            }
-                        });
-                    }}
-                    project={projectInstance}
-                />
-                <Row justify='space-between' align='middle' className='cvat-project-page-tasks-bar'>
-                    <Col span={24}>
-                        <div className='cvat-project-page-tasks-filters-wrapper'>
-                            <Input.Search
-                                enterButton
-                                onSearch={(_search: string) => {
-                                    dispatch(getProjectTasksAsync({
-                                        ...tasksQuery,
-                                        page: 1,
-                                        projectId: id,
-                                        search: _search,
-                                    }));
-                                }}
-                                defaultValue={tasksQuery.search || ''}
-                                className='cvat-project-page-tasks-search-bar'
-                                placeholder='Search ...'
-                            />*/
+    function Modal({visible,onClose}) {
+
+
+        if (!visible) return null;
+        return(
+            <div className='fixed backdrop-blur-sm inset-0 bg-black bg-opacity-60 flex flex-row  justify-start'>
+                <div className='bg-white flex flex-col justify-start  w-[300px] rounded-tr-[30px] rounded-br-[30px] p-[10px]'>
+                    <DalpLogo className='w-1/2 ml-4'/>
+                    <div className=' ml-4'>
                             <div>
+                                <Dropdown
+                                    trigger={['click']}
+                                    overlay={(
+                                        <CvatDropdownMenuPaper>
+                                            <Button
+                                                type='primary'
+                                                icon={<PlusOutlined />}
+                                                className='cvat-create-task-button'
+                                                onClick={() => history.push(`/tasks/create?projectId=${id}`)}
+                                            >
+                                                Create a new task
+                                            </Button>
+                                            <Button
+                                                type='primary'
+                                                icon={<span className='anticon'><MultiPlusIcon /></span>}
+                                                className='cvat-create-multi-tasks-button'
+                                                onClick={() => history.push(`/tasks/create?projectId=${id}&many=true`)}
+                                            >
+                                                Create multi tasks
+                                            </Button>
+                                        </CvatDropdownMenuPaper>
+                                    )}
+                                >
+                                    <Button
+                                        type='primary'
+                                        style={{backgroundColor:'white',borderColor:'white'}}
+                                        className='cvat-create-task-dropdown'
+                                        icon={<CreateTask />}
+                                    />
+                                </Dropdown>
+
+                            </div>
+
+                            <hr className='mt-8 mb-8'/>
+                            <div className='-ml-[20px]'>
                                 <SortingComponent
                                     visible={visibility.sorting}
                                     onVisibleChange={(visible: boolean) => (
@@ -270,7 +260,12 @@ export default function ProjectPageComponent(): JSX.Element {
                                         }));
                                     }}
                                 />
-                                <FilteringComponent
+
+                            </div>
+
+                            <hr className='mt-8 mb-8'/>
+
+                            <FilteringComponent
                                     value={updatedQuery.filter}
                                     predefinedVisible={visibility.predefined}
                                     builderVisible={visibility.builder}
@@ -296,44 +291,105 @@ export default function ProjectPageComponent(): JSX.Element {
                                             filter,
                                         }));
                                     }}
-                                />
-                            </div>
-                            <Dropdown
-                                trigger={['click']}
-                                overlay={(
-                                    <CvatDropdownMenuPaper>
-                                        <Button
-                                            type='primary'
-                                            icon={<PlusOutlined />}
-                                            className='cvat-create-task-button'
-                                            onClick={() => history.push(`/tasks/create?projectId=${id}`)}
-                                        >
-                                            Create a new task
-                                        </Button>
-                                        <Button
-                                            type='primary'
-                                            icon={<span className='anticon'><MultiPlusIcon /></span>}
-                                            className='cvat-create-multi-tasks-button'
-                                            onClick={() => history.push(`/tasks/create?projectId=${id}&many=true`)}
-                                        >
-                                            Create multi tasks
-                                        </Button>
-                                    </CvatDropdownMenuPaper>
-                                )}
-                            >
-                                <Button
-                                    type='primary'
-                                    className='cvat-create-task-dropdown'
-                                    icon={<PlusOutlined />}
-                                />
-                            </Dropdown>
+                            />
+
                         </div>
-                    </Col>
+
+                </div>
+                <div className='w-4 h-4 ml-4 mt-8'>
+                    <button type='button' onClick={onClose}>
+                        <ModalCloseIcon/>
+                    </button>
+                </div>
+
+            </div>
+        )
+     }
+
+    //
+    return (
+        <Row justify='start' align='top' className={'cvat-project-page ' }>
+             <Modal onClose={handleOnClose} visible={showModal}/>
+             {showModal ? '' :
+
+                <Row justify='space-between' align='middle' className='cvat-project-page-tasks-bar pl-8' >
+                        <Col span={24}>
+
+                            <button onClick={()=>setShowModal(true)} className='hover:scale:95 transition text-xl'>
+                                <DalpListIcon/>
+                            </button>
+                            <div className='cvat-project-page-tasks-filters-wrapper'>
+                                <Input.Search
+                                    enterButton
+                                    onSearch={(_search: string) => {
+                                        dispatch(getProjectTasksAsync({
+                                            ...tasksQuery,
+                                            page: 1,
+                                            projectId: id,
+                                            search: _search,
+                                        }));
+                                    }}
+                                    defaultValue={tasksQuery.search || ''}
+                                    className='cvat-project-page-tasks-search-bar ml-8'
+                                    placeholder='Search ...'
+                                />
+                                <div>
+
+
+                                </div>
+
+                            </div>
+                        </Col>
                 </Row>
-                { tasksFetching ? (
-                    <Spin size='large' className='cvat-spinner' />
-                ) : content }
-            </Col>
+             }
+
+
+            { updatingProject ? <CVATLoadingSpinner size='large' /> : null }
+            { showModal ? '' :
+
+                <Col
+                    md={22}
+                    lg={18}
+                    xl={16}
+                    xxl={14}
+                    className='self-center'
+                    style={updatingProject ? {
+                        pointerEvents: 'none',
+                        opacity: 0.7,
+                    } : {}}
+                >
+                    <ProjectTopBar projectInstance={projectInstance} />
+                    <DetailsComponent
+                        onUpdateProject={(project: Project) => {
+                            setUpdatingProject(true);
+                            project.save().then((updatedProject: Project) => {
+                                if (mounted.current) {
+                                    dispatch(getProjectTasksAsync({ ...updatedQuery, projectId: id }));
+                                    setProjectInstance(updatedProject);
+                                }
+                            }).catch((error: Error) => {
+                                if (mounted.current) {
+                                    notification.error({
+                                        message: 'Could not update the project',
+                                        description: error.toString(),
+                                    });
+                                }
+                            }).finally(() => {
+                                if (mounted.current) {
+                                    setUpdatingProject(false);
+                                }
+                            });
+                        }}
+                        project={projectInstance}
+                    />
+                    <h3 style={{color:'rgba(17, 24, 39, 0.6)',fontFamily:'Lexend',marginTop:'10px',marginBottom:'15px'}}>Tasks</h3>
+
+                    { tasksFetching ? (
+                        <Spin indicator={antIcon} size='large' className='cvat-spinner' /> // new
+                    ) : content }
+                </Col>
+
+            }
 
             <MoveTaskModal />
             <ModelRunnerDialog />

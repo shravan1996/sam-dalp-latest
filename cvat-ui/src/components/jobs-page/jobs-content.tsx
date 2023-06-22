@@ -20,7 +20,7 @@ function JobsContentComponent(): JSX.Element {
 
     return (
         <Row justify='center' align='middle'>
-            <Col className='cvat-jobs-page-list' {...dimensions}>
+            <Col className='cvat-jobs-page-list mt-[20px]' {...dimensions}>
                 {jobs.map((job: any, idx: number): JSX.Element => (
                     <JobCard preview={previews[idx]} job={job} key={job.id} />
                 ))}

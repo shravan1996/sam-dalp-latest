@@ -41,6 +41,7 @@
 
 .cvat-project-details {
     height: auto;
+    width: 100%; // new
     border: 1px solid $border-color-1;
     border-radius: 3px;
     padding: $grid-unit-size * 2;

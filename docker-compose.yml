@@ -9,10 +9,13 @@ services:
     restart: always
     environment:
       POSTGRES_USER: root
+      POSTGRES_PASSWORD: Password123
       POSTGRES_DB: cvat
       POSTGRES_HOST_AUTH_METHOD: trust
+    ports:
+      - 5432:5432
     volumes:
-      - cvat_db:/var/lib/postgresql/data
+      - ./.cvat_db:/var/lib/postgresql/data
     networks:
       - cvat
 

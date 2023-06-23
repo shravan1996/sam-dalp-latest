@@ -43,7 +43,7 @@ export default function ProjectListComponent(props: Props): JSX.Element {
     return (
     <div>
 
-        <Row justify='center' align='middle' className='cvat-project-list-content '>
+        <Row justify='center' align='middle' className='cvat-project-list-content mt-[20px]'>
             <Col className='cvat-projects-list' {...dimensions}>
 
                 {projects.map(

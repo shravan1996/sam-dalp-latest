@@ -15,7 +15,7 @@ import {
 import DalpListIcon from '../../assets/dalp-list-icon.svg';
 
 import  ModalCloseIcon  from '../../assets/modal-close-icon.svg'; // importing x icon.
-import DalpLogo from '../../assets/dalp-logo.svg'  // impoting dalp logo
+import DalpLogo from '../../assets/cvat-logo.svg'  // impoting dalp logo
 
 const FilteringComponent = ResourceFilterHOC(
     config, localStorageRecentKeyword, localStorageRecentCapacity, predefinedFilterValues,

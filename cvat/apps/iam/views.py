@@ -2,15 +2,15 @@
 # Copyright (C) 2022-2023 CVAT.ai Corporation
 #
 # SPDX-License-Identifier: MIT
-
 import functools
 import hashlib
 
 from django.utils.functional import SimpleLazyObject
 from django.http import Http404, HttpResponseBadRequest, HttpResponseRedirect
-from rest_framework import views, serializers
+from rest_framework import views, serializers, status
 from rest_framework.exceptions import ValidationError, NotFound
 from rest_framework.permissions import AllowAny
+from rest_framework.authtoken.models import Token
 from django.conf import settings
 from django.http import HttpResponse
 from django.views.decorators.http import etag as django_etag
@@ -26,6 +26,10 @@ from furl import furl
 from drf_spectacular.types import OpenApiTypes
 from drf_spectacular.utils import OpenApiResponse, extend_schema, inline_serializer, extend_schema_view
 from drf_spectacular.contrib.rest_auth import get_token_serializer_class
+from django.utils.decorators import method_decorator
+
+from cvat.apps.iam.serializers import UserDetailSerializer
+from .models import UserDetail
 
 from .authentication import Signer
 
@@ -144,18 +148,103 @@ class LoginViewEx(LoginView):
             pass
 
         self.login()
-        return self.get_response()
+        response = self.get_response()
+        key = response.data.get('key')
+
+        try:
+            token, created = Token.objects.get_or_create(user=user)
+            if created:
+                token.key = key
+                token.created = timezone.now()
+                token.save()
+        except:
+            pass
+        # key = data.get('key')
+        return Response(response.data)
 
 class RegisterViewEx(RegisterView):
     def get_response_data(self, user):
         data = self.get_serializer(user).data
         data['email_verification_required'] = True
         data['key'] = None
+
         if allauth_settings.EMAIL_VERIFICATION != \
             allauth_settings.EmailVerificationMethod.MANDATORY:
             data['email_verification_required'] = False
             data['key'] = user.auth_token.key
+
+        try:
+            token, created = Token.objects.get_or_create(user=user)
+            if created:
+                token.key = data['key']
+                token.created = timezone.now()
+                token.save()
+        except:
+            pass
+
+        category = self.request.data.get('category')
+        data['category'] = category.lower()
         return data
+
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        user = self.perform_create(serializer)
+        headers = self.get_success_headers(serializer.data)
+        data = self.get_response_data(user)
+
+        category = serializer.validated_data.get('category')
+        if category:
+            user_detail = UserDetail.objects.create(
+                category=category.upper(),
+                user=user
+            )
+        else:
+            raise ValidationError('Please provide `url` parameter')
+
+        if data:
+            response = Response(
+                data,
+                status=status.HTTP_201_CREATED,
+                headers=headers,
+            )
+        else:
+            response = Response(status=status.HTTP_204_NO_CONTENT, headers=headers)
+
+        return response
+
+class UserDetailUpdateView(views.APIView):
+    permission_classes = [AllowAny]
+    authentication_classes = []
+
+    def post(self, request, format=None):
+        auth_header = request.headers.get('Authorization')
+        token = ""
+
+        if auth_header and auth_header.startswith('Bearer '):
+            token = auth_header.split(' ')[1]
+
+        if not token:
+            raise ValidationError('Unauthorized Request')
+
+        try:
+            user_token = Token.objects.select_related('user').get(key=token)
+            user = user_token.user
+
+            user_detail = UserDetail.objects.filter(user=user).first()
+            serializer = UserDetailSerializer(
+                user_detail, data=request.data, partial=True
+            )
+
+            if serializer.is_valid():
+                serializer.save()
+                response = serializer.data
+                del response["user"]
+                return Response(response)
+
+            raise ValidationError(serializer.errors)
+        except Token.DoesNotExist:
+            raise ValidationError('Unauthorized Request')
 
 def _etag(etag_func):
     """

@@ -160,7 +160,7 @@ function UserLogsComponent (props : any) {
                       timeZone: 'Asia/Kolkata',
                     })
                   : '--';
-
+              
                 return (
                   <StyledTableRow key={row.username}>
                     <StyledTableCell component="th" scope="row" sx={{ marginRight: -10, paddingRight: 0 }}>

@@ -518,7 +518,7 @@ function HeaderContainer(props: Props): JSX.Element {
                     >
                         User Logs
                     </Button>
-                    {isModelsPluginActive ? (
+                    {isModelsPluginActive && false ? (
                         <Button
                             className={getButtonClassName('models')}
                             type='link'

@@ -35,6 +35,9 @@ interface Props {
     changeFrame(frame: number): void;
 }
 
+const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />; // new
+
+
 export default function AnnotationPageComponent(props: Props): JSX.Element {
     const {
         job, fetching, workspace, frameNumber, getJob, closeJob, saveLogs, changeFrame,

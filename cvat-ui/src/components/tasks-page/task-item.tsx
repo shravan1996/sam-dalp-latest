@@ -111,15 +111,15 @@ class TaskItemComponent extends React.PureComponent<TaskItemProps & RouteCompone
             <Col span={6}>
                 <Row justify='space-between' align='top'>
                 <Col className='flex flex-row'>
-                        <div >
-                            <svg height='8' width='8' className={progressColor}>
+                        <div className='flex flex-row'>
+                            <svg height='8' width='8' className={`mt-[6px] ${progressColor}`}>
                                 <circle cx='4' cy='4' r='4' strokeWidth='0' />
                             </svg>
                             {progressText}
                         </div>
                     </Col>
                     <Col>
-                        <Text type='secondary'>{`${numOfCompleted}/${numOfJobs} jobs`}</Text>
+                        <Text type='secondary'>{`${numOfCompleted}/${numOfJobs}`}</Text>
                     </Col>
                 </Row>
                 <Row>
@@ -151,7 +151,7 @@ class TaskItemComponent extends React.PureComponent<TaskItemProps & RouteCompone
                 <Row justify='end'>
                 <Col className='flex flex-row'>
                         <Button
-                            className='cvat-item-open-task-button rounded-[16px]'
+                            className='cvat-item-open-task-button rounded-[16px] mt-[5px]'
                             style={{color:'#023E8A',borderWidth:'0px',fontWeight:'bold'}}
                             // size='large'
                             // ghost

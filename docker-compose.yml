@@ -9,10 +9,13 @@ services:
     restart: always
     environment:
       POSTGRES_USER: root
+      POSTGRES_PASSWORD: Password123
       POSTGRES_DB: cvat
       POSTGRES_HOST_AUTH_METHOD: trust
+    ports:
+      - 5432:5432
     volumes:
-      - cvat_db:/var/lib/postgresql/data
+      - ./.cvat_db:/var/lib/postgresql/data
     networks:
       - cvat
 
@@ -223,13 +226,13 @@ services:
       - '--entryPoints.web.address=:8080'
       - '--providers.file.directory=/etc/traefik/rules'
     # Uncomment to get Traefik dashboard
-    #   - "--entryPoints.dashboard.address=:8090"
-    #   - "--api.dashboard=true"
-    # labels:
-    #   - traefik.enable=true
-    #   - traefik.http.routers.dashboard.entrypoints=dashboard
-    #   - traefik.http.routers.dashboard.service=api@internal
-    #   - traefik.http.routers.dashboard.rule=Host(`${CVAT_HOST:-localhost}`)
+      - "--entryPoints.dashboard.address=:8090"
+      - "--api.dashboard=true"
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.dashboard.entrypoints=dashboard
+      - traefik.http.routers.dashboard.service=api@internal
+      - traefik.http.routers.dashboard.rule=Host(`${CVAT_HOST:-localhost}`)
     ports:
       - 8080:8080
       - 8090:8090

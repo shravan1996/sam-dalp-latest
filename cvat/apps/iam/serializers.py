@@ -6,17 +6,105 @@
 from dj_rest_auth.registration.serializers import RegisterSerializer
 from dj_rest_auth.serializers import PasswordResetSerializer, LoginSerializer
 from rest_framework.exceptions import ValidationError
+from django.core.validators import RegexValidator
 from rest_framework import serializers
 from allauth.account import app_settings
 from allauth.account.utils import filter_users_by_email
+from django.core.validators import EmailValidator
+from cvat.apps.iam.models import UserDetail
 
 from django.conf import settings
 
 from cvat.apps.iam.forms import ResetPasswordFormEx
+import re
+
+class UserDetailSerializer(serializers.ModelSerializer):
+    username = serializers.SerializerMethodField()
+    email = serializers.SerializerMethodField()
+    first_name = serializers.SerializerMethodField()
+    last_name = serializers.SerializerMethodField()
+
+    def get_username(self, obj):
+        return obj.username()
+
+    def get_email(self, obj):
+        return obj.email()
+
+    def get_first_name(self, obj):
+        return obj.first_name()
+
+    def get_last_name(self, obj):
+        return obj.last_name()
+
+    category = serializers.CharField(required=True, write_only=True)
+    # mobile_number_pattern = "^[6-9]\d{9}$"
+    # zipcode_pattern = "^[1-9]\d{5}$"
+
+    # mobile_number_validator = RegexValidator(mobile_number_pattern, 'Invalid Mobile Number')
+    # zipcode_validator = RegexValidator(zipcode_pattern, 'Invalid Zip Code')
+
+    address = serializers.CharField(required=False, allow_blank=True)
+    city = serializers.CharField(required=False, allow_blank=True)
+    state = serializers.CharField(required=False, allow_blank=True)
+    district = serializers.CharField(required=False, allow_blank=True)
+    # zipcode = serializers.CharField(
+    #     required=False,
+    #     allow_blank=True,
+    #     validators=[
+    #         RegexValidator(
+    #             regex=r'^[1-9]\d{5}$',
+    #             message='Invalid Zipcode',
+    #             code='invalid_zipcode'
+    #         )
+    #     ]
+    # )
+    dob = serializers.DateField(required=False)
+    # mobile_number = serializers.CharField(
+    #     required=False,
+    #     allow_blank=True,
+    #     validators=[
+    #         RegexValidator(
+    #             regex=r'^[6-9]\d{9}$',
+    #             message='Invalid Mobile. Must Contain 10 Digits And Start With 6-9',
+    #             code='invalid_mobile_number'
+    #         )
+    #     ]
+    # )
+    gender = serializers.CharField(required=False, allow_blank=True)
+    primary_language = serializers.CharField(required=False, allow_blank=True)
+    english_proficiency = serializers.CharField(required=False, allow_blank=True)
+    education = serializers.CharField(required=False, allow_blank=True)
+    prior_experience = serializers.ListField(child=serializers.CharField(), allow_empty=True, required=False)
+
+    class Meta:
+        model = UserDetail
+        fields = '__all__'
+
+    def validate_category(self, category):
+        valid_categories = ['ANNOTATOR', 'PROJECT MANAGER']
+        if category.upper() not in valid_categories:
+            raise serializers.ValidationError('Invalid category')
+        return category
+
+    def validate_mobile_number(self, value):
+        if value and not re.match(r'^[6-9]\d{9}$', value):
+            raise serializers.ValidationError('Invalid Mobile. Must Contain 10 Digits And Start With 6-9')
+        return value
+
+    def validate_zipcode(self, value):
+        if value and not re.match(r'^[1-9]\d{5}$', value):
+            raise serializers.ValidationError('Invalid Zipcode')
+        return value
+
+    def validate_prior_experience(self, value):
+        if value and 'none' in value and len(value) > 1:
+            raise serializers.ValidationError('Only Option `None` Can Be Selected.')
+        return value
 
 class RegisterSerializerEx(RegisterSerializer):
     first_name = serializers.CharField(required=False)
     last_name = serializers.CharField(required=False)
+    category = serializers.CharField(required=True, write_only=True)
 
     def get_cleaned_data(self):
         data = super().get_cleaned_data()
@@ -26,6 +114,12 @@ class RegisterSerializerEx(RegisterSerializer):
         })
 
         return data
+
+    def validate_category(self, category):
+        valid_categories = ['ANNOTATOR', 'PROJECT MANAGER']
+        if category.upper() not in valid_categories:
+            raise serializers.ValidationError('Invalid category')
+        return category
 
 class PasswordResetSerializerEx(PasswordResetSerializer):
     @property

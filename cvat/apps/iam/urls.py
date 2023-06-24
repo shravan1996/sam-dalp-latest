@@ -10,6 +10,7 @@ from dj_rest_auth.views import (
     LogoutView, PasswordChangeView,
     PasswordResetView, PasswordResetConfirmView)
 from allauth.account import app_settings as allauth_settings
+from cvat.apps.iam.views import UserDetailUpdateView
 
 from cvat.apps.iam.views import (
     SigningView, RegisterViewEx, RulesView,
@@ -26,6 +27,7 @@ urlpatterns = [
 if settings.IAM_TYPE == 'BASIC':
     urlpatterns += [
         path('register', RegisterViewEx.as_view(), name='rest_register'),
+        path('profile/update', UserDetailUpdateView.as_view(), name='get_queryset'),
         # password
         path('password/reset', PasswordResetView.as_view(),
             name='rest_password_reset'),

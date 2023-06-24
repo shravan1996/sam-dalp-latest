@@ -18,6 +18,8 @@ import Text from 'antd/lib/typography/Text';
 import ReactMarkdown from 'react-markdown';
 import 'antd/dist/antd.css';
 
+import ProfileSettingsComponent from './profile-settings/profile-settings';
+import UpdateProfile from 'containers/update-profile-page/update-profile-page';
 import LogoutComponent from 'components/logout-component';
 import LoginPageContainer from 'containers/login-page/login-page';
 import LoginWithTokenComponent from 'components/login-with-token/login-with-token';
@@ -108,6 +110,7 @@ interface CVATAppProps {
     authActionsInitialized: boolean;
     notifications: NotificationsState;
     user: any;
+    userDetails: any;
     isModelPluginActive: boolean;
     pluginComponents: PluginsState['components'];
 }
@@ -235,6 +238,10 @@ class CVATApplication extends React.PureComponent<CVATAppProps & RouteComponentP
         }
     }
 
+
+
+
+
     public componentDidUpdate(): void {
         const {
             verifyAuthorized,
@@ -310,6 +317,17 @@ class CVATApplication extends React.PureComponent<CVATAppProps & RouteComponentP
 
         if (!pluginsInitialized && !pluginsFetching) {
             initPlugins();
+        }
+
+        if (user && user.isVerified) {
+            if (!this.props.userDetails) {
+                const { getProfileDetails } = this.props;
+                try {
+                    getProfileDetails();
+                } catch (err) {
+                    console.log(err);
+                }
+            }
         }
     }
 
@@ -452,10 +470,13 @@ class CVATApplication extends React.PureComponent<CVATAppProps & RouteComponentP
                         <ShortcutsContextProvider>
                             <Layout>
                                 <Header />
-                                <Layout.Content style={{ height: '100%' }}>
+                                <Layout.Content >
                                     <ShortcutsDialog />
                                     <GlobalHotKeys keyMap={subKeyMap} handlers={handlers}>
                                         <Switch>
+
+                                            <Route exact path='/profile/settings' component={ProfileSettingsComponent} />
+                                            <Route exact path='/auth/profile' component={UpdateProfile} />
                                             <Route exact path='/auth/logout' component={LogoutComponent} />
                                             <Route exact path='/projects' component={ProjectsPageComponent} />
                                             <Route exact path='/projects/create' component={CreateProjectPageComponent} />

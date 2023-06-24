@@ -125,5 +125,18 @@
     "@types/react-router-dom": "^5.3.3",
     "@types/prettier": "2.4.1"
   },
-  "dependencies": {}
+  "dependencies": {
+    "@emotion/react": "11.11.0",
+    "@emotion/styled": "11.11.0",
+    "@mui/icons-material": "5.11.16",
+    "@mui/material": "5.13.2",
+    "@types/react-datepicker": "4.11.2",
+    "@types/react-select": "5.0.1",
+    "@types/yup": "0.32.0",
+    "axios": "1.4.0",
+    "formik": "2.2.9",
+    "react-datepicker": "4.12.0",
+    "styled-components": "6.0.0-rc.2",
+    "yup": "1.1.1"
+  }
 }

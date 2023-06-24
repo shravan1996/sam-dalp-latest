@@ -456,6 +456,21 @@ async function resetPassword(newPassword1: string, newPassword2: string, uid: st
     }
 }
 
+export async function updateProfile(data :string
+    ): Promise<any> {
+        let response = null;
+        try {
+            response = await Axios.post(`${config.backendAPI}/auth/profile/update`, data, {
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            }).then((res) => {return res;});
+        }catch (errorData) {
+            throw generateError(errorData);
+        }
+        return response.data;
+    }
+
 async function getSelf(): Promise<SerializedUser> {
     const { backendAPI } = config;
 

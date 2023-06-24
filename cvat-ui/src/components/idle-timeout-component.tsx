@@ -19,9 +19,10 @@ function IdleTimerComponent() : JSX.Element {
     };
 
     const { start, pause } = useIdleTimer({
-        timeout: 5*60*1000,     // = 5minutes
-        onIdle: (            console.log('User is idle');
+        timeout: 5 * 60 * 1000, // = 5minutes
+        onIdle: () => {
             performLogout();
+            console.log('User is idle');
         },
         onActive: () => {
             console.log('User is active');

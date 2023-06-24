@@ -8,6 +8,7 @@ import React from 'react';
 import Text from 'antd/lib/typography/Text';
 import Upload, { RcFile } from 'antd/lib/upload';
 import { InboxOutlined } from '@ant-design/icons';
+import CreateTaskFiles from '../../assets/create-task-files.svg';
 
 interface Props {
     files: File[];

@@ -15,7 +15,7 @@ import {
 } from './webhooks-filter-configuration';
 
 import  ModalCloseIcon  from '../../assets/modal-close-icon.svg'; // importing x icon.
-import DalpLogo from '../../assets/dalp-logo.svg'  // importing dalp logo
+import DalpLogo from '../../assets/cvat-logo.svg'  // importing dalp logo
 import DalpListIcon from '../../assets/dalp-list-icon.svg';
 
 

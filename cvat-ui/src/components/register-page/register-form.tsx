@@ -17,7 +17,7 @@ import { UserAgreement } from 'reducers';
 import { Row, Col } from 'antd/lib/grid';
 import CVATSigningInput, { CVATInputType } from 'components/signing-common/cvat-signing-input';
 import SignUpImage from '../../assets/signup-image.svg'; // importing signup image from assets
-import DalpLogo from '../../assets/dalp-logo.svg'  // importing dalp logo
+import DalpLogo from '../../assets/cvat-logo.svg'  // importing dalp logo
 import BackIcon from '../../assets/back-icon.svg'; // importing bak icon
 import {Select} from 'antd'; // importing select
 

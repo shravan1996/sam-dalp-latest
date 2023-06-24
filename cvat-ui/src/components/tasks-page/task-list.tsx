@@ -19,7 +19,7 @@ function TaskListComponent(props: Props): JSX.Element {
 
     return (
         <>
-            <Row justify='center' align='middle'>
+            <Row justify='center' align='middle'  className='mt-[20px]'>
                 <Col className='cvat-tasks-list' md={22} lg={18} xl={16} xxl={14}>
                     {taskViews}
                 </Col>

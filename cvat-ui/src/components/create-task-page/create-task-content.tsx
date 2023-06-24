@@ -872,6 +872,7 @@ class CreateTaskContent extends React.PureComponent<Props & RouteComponentProps,
                     <Button
                         className='cvat-submit-open-task-button hover:bg-cyan-600'
                         type='primary'
+                        style={{backgroundColor:'#7E96EA',borderRadius:'10px'}}
                         onClick={this.handleSubmitAndOpen}
                         disabled={!!uploadFileErrorMessage}
                     >

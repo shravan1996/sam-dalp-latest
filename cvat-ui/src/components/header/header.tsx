@@ -503,7 +503,7 @@ function HeaderContainer(props: Props): JSX.Element {
                     >
                         Cloud Storages
                     </Button>
-                    {isModelsPluginActive ? (
+                    {isModelsPluginActive && false ? (
                         <Button
                             className={getButtonClassName('models')}
                             type='link'

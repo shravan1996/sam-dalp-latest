@@ -22,6 +22,9 @@ export enum AuthActionTypes {
     LOGOUT = 'LOGOUT',
     LOGOUT_SUCCESS = 'LOGOUT_SUCCESS',
     LOGOUT_FAILED = 'LOGOUT_FAILED',
+    UPDATE_PROFILE = 'UPDATE_PROFILE',
+    UPDATE_PROFILE_SUCCESS = 'UPDATE_PROFILE_SUCCESS',
+    UPDATE_PROFILE_FAILED = 'UPDATE_PROFILE_FAILED',
     CHANGE_PASSWORD = 'CHANGE_PASSWORD',
     CHANGE_PASSWORD_SUCCESS = 'CHANGE_PASSWORD_SUCCESS',
     CHANGE_PASSWORD_FAILED = 'CHANGE_PASSWORD_FAILED',
@@ -51,6 +54,9 @@ export const authActions = {
     logout: () => createAction(AuthActionTypes.LOGOUT),
     logoutSuccess: () => createAction(AuthActionTypes.LOGOUT_SUCCESS),
     logoutFailed: (error: any) => createAction(AuthActionTypes.LOGOUT_FAILED, { error }),
+    updateProfile: () => createAction(AuthActionTypes.UPDATE_PROFILE),
+    updateProfileSuccess: (userDetails : any) => createAction(AuthActionTypes.UPDATE_PROFILE_SUCCESS, { userDetails }),
+    updateProfileFailed: (error: any) => createAction(AuthActionTypes.UPDATE_PROFILE_FAILED, {error}),
     changePassword: () => createAction(AuthActionTypes.CHANGE_PASSWORD),
     changePasswordSuccess: () => createAction(AuthActionTypes.CHANGE_PASSWORD_SUCCESS),
     changePasswordFailed: (error: any) => createAction(AuthActionTypes.CHANGE_PASSWORD_FAILED, { error }),
@@ -127,6 +133,23 @@ export const logoutAsync = (): ThunkAction => async (dispatch) => {
         dispatch(authActions.logoutFailed(error));
     }
 };
+
+export const updateProfileAsync = (values: any): ThunkAction => async (dispatch) => {
+    dispatch(authActions.updateProfile());
+    let data;
+    try {
+        if (!values) {
+            data = JSON.stringify({});
+        }
+        data = JSON.stringify(values);
+        console.log("auth-actions", data);
+        const userDetails = await cvat.server.updateProfile(data);
+        dispatch(authActions.updateProfileSuccess(userDetails));
+    } catch (error) {
+        console.log(error);
+        dispatch(authActions.updateProfileFailed(error));
+    }
+}
 
 export const authorizedAsync = (): ThunkAction => async (dispatch) => {
     try {

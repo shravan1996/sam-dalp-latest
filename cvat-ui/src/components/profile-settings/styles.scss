@@ -1,0 +1,53 @@
+@import '../../base.scss';
+
+.project-details-page {
+    padding-top: $grid-unit-size * 2;
+    padding-bottom: $grid-unit-size;
+    height: 100%;
+    width: 100%;
+    font-family:'Lexend';
+
+
+
+
+    .project-details-container{
+        background-color: white;
+        // border: 1px solid rgba(55, 65, 81, 0.3);
+        border-radius: 10px;
+        display: flex;
+        justify-content: space-between;
+
+
+
+        .cvat-credentials-action-button {
+            width: 50%;
+            background-color: #7E96EA;
+            height: 30px;
+            color: white;
+            font-size: 14px;
+            font-weight: bold;
+            border: none;
+            box-shadow: none;
+            margin:9px 0px 15px 0px;
+            border-radius: 15px;
+
+            &:hover,
+            &:focus {
+                background-color: #355be4;
+                color: white;
+            }
+        }
+
+
+
+
+    }
+
+}
+
+h2,h5{
+    color:#111827;
+}
+p{
+    color:#929396;
+}

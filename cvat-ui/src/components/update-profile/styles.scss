@@ -1,0 +1,37 @@
+
+
+
+.ant-layout-content {
+    overflow-y: auto;
+}
+
+.project-details-container{
+    background-color: rgba(17, 24, 39, 0.04);
+    border: 1px solid rgba(55, 65, 81, 0.3);
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+
+    .cvat-credentials-action-button {
+        width: 100%;
+        background-color: #7E96EA;
+        height: 30px;
+        color: white;
+        font-size: 16px;
+        font-weight: bold;
+        border: none;
+        box-shadow: none;
+        margin:20px 0px 20px 0px;
+        border-radius: 15px;
+
+        &:hover,
+        &:focus {
+            background-color: #355be4;
+            color: white;
+        }
+    }
+
+
+
+
+}

@@ -36,40 +36,12 @@ class UserDetailSerializer(serializers.ModelSerializer):
     def get_last_name(self, obj):
         return obj.last_name()
 
-    category = serializers.CharField(required=True, write_only=True)
-    # mobile_number_pattern = "^[6-9]\d{9}$"
-    # zipcode_pattern = "^[1-9]\d{5}$"
-
-    # mobile_number_validator = RegexValidator(mobile_number_pattern, 'Invalid Mobile Number')
-    # zipcode_validator = RegexValidator(zipcode_pattern, 'Invalid Zip Code')
-
+    category = serializers.CharField(read_only=True)
     address = serializers.CharField(required=False, allow_blank=True)
     city = serializers.CharField(required=False, allow_blank=True)
     state = serializers.CharField(required=False, allow_blank=True)
     district = serializers.CharField(required=False, allow_blank=True)
-    # zipcode = serializers.CharField(
-    #     required=False,
-    #     allow_blank=True,
-    #     validators=[
-    #         RegexValidator(
-    #             regex=r'^[1-9]\d{5}$',
-    #             message='Invalid Zipcode',
-    #             code='invalid_zipcode'
-    #         )
-    #     ]
-    # )
     dob = serializers.DateField(required=False)
-    # mobile_number = serializers.CharField(
-    #     required=False,
-    #     allow_blank=True,
-    #     validators=[
-    #         RegexValidator(
-    #             regex=r'^[6-9]\d{9}$',
-    #             message='Invalid Mobile. Must Contain 10 Digits And Start With 6-9',
-    #             code='invalid_mobile_number'
-    #         )
-    #     ]
-    # )
     gender = serializers.CharField(required=False, allow_blank=True)
     primary_language = serializers.CharField(required=False, allow_blank=True)
     english_proficiency = serializers.CharField(required=False, allow_blank=True)

@@ -221,7 +221,7 @@ class UserDetailUpdateView(views.APIView):
         auth_header = request.headers.get('Authorization')
         token = ""
 
-        if auth_header and auth_header.startswith('Bearer '):
+        if auth_header and auth_header.startswith('Token '):
             token = auth_header.split(' ')[1]
 
         if not token:
@@ -240,6 +240,7 @@ class UserDetailUpdateView(views.APIView):
                 serializer.save()
                 response = serializer.data
                 del response["user"]
+                del response["id"]
                 return Response(response)
 
             raise ValidationError(serializer.errors)

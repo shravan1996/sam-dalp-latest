@@ -375,6 +375,7 @@ async function register(
     firstName: string,
     lastName: string,
     email: string,
+    category:string,
     password: string,
     confirmations: Record<string, string>,
 ): Promise<SerializedRegister> {
@@ -385,11 +386,13 @@ async function register(
             first_name: firstName,
             last_name: lastName,
             email,
+            category,
             password1: password,
             password2: password,
             confirmations,
         });
         setAuthData(response);
+        console.log('category: ',category)
     } catch (errorData) {
         throw generateError(errorData);
     }

@@ -80,6 +80,7 @@ export const registerAsync = (
     firstName: string,
     lastName: string,
     email: string,
+    category: string,
     password: string,
     confirmations: UserConfirmation[],
 ): ThunkAction => async (dispatch) => {
@@ -91,6 +92,7 @@ export const registerAsync = (
             firstName,
             lastName,
             email,
+            category,
             password,
             confirmations,
         );

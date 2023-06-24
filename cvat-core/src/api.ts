@@ -57,13 +57,14 @@ function build() {
                 const result = await PluginRegistry.apiWrapper(cvat.server.userAgreements);
                 return result;
             },
-            async register(username, firstName, lastName, email, password, userConfirmations) {
+            async register(username, firstName, lastName, email, category, password, userConfirmations) {
                 const result = await PluginRegistry.apiWrapper(
                     cvat.server.register,
                     username,
                     firstName,
                     lastName,
                     email,
+                    category,
                     password,
                     userConfirmations,
                 );

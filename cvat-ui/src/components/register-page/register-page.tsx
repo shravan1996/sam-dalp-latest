@@ -20,6 +20,7 @@ interface RegisterPageComponentProps {
         firstName: string,
         lastName: string,
         email: string,
+        category: string,
         password: string,
         confirmations: UserConfirmation[],
     ) => void;
@@ -42,6 +43,7 @@ function RegisterPageComponent(props: RegisterPageComponentProps & RouteComponen
                                     registerData.firstName,
                                     registerData.lastName,
                                     registerData.email,
+                                    registerData.category,
                                     registerData.password,
                                     registerData.confirmations,
                                 );

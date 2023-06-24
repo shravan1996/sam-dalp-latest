@@ -63,6 +63,7 @@ export default function implementAPI(cvat) {
         firstName,
         lastName,
         email,
+        category,
         password,
         userConfirmations,
     ) => {
@@ -71,6 +72,7 @@ export default function implementAPI(cvat) {
             firstName,
             lastName,
             email,
+            category,
             password,
             userConfirmations,
         );

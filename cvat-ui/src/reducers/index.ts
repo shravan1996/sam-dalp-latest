@@ -20,6 +20,7 @@ export interface AuthState {
     initialized: boolean;
     fetching: boolean;
     user: any;
+    userDetails:any;
     authActionsFetching: boolean;
     authActionsInitialized: boolean;
     showChangePasswordDialog: boolean;

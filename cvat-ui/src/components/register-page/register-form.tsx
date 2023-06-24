@@ -19,6 +19,7 @@ import CVATSigningInput, { CVATInputType } from 'components/signing-common/cvat-
 import SignUpImage from '../../assets/signup-image.svg'; // importing signup image from assets
 import DalpLogo from '../../assets/dalp-logo.svg'  // importing dalp logo
 import BackIcon from '../../assets/back-icon.svg'; // importing bak icon
+import {Select} from 'antd'; // importing select
 
 export interface UserConfirmation {
     name: string;
@@ -30,6 +31,7 @@ export interface RegisterData {
     firstName: string;
     lastName: string;
     email: string;
+    category:string;
     password: string;
     confirmations: UserConfirmation[];
 }
@@ -137,13 +139,20 @@ function RegisterFormComponent(props: Props): JSX.Element {
                 <Form
                     form={form}
                     onFinish={(values: Record<string, string | boolean>) => {
+                        const category = values['category'] as string ;
+                        console.log('category : ',category); // new
+
                         const agreements = Object.keys(values)
                             .filter((key: string):boolean => key.startsWith('agreement:'));
                         const confirmations = agreements
                             .map((key: string): UserConfirmation => ({ name: key.split(':')[1], value: (values[key] as boolean) }));
-                        const rest = Object.entries(values)
-                            .filter((entry: (string | boolean)[]) => !agreements.includes(entry[0] as string));
+                        const values1 = { // added values1 instead of values
+                            ...values, category
+                        }
 
+                        const rest = Object.entries(values)
+                        .filter((entry: (string | boolean)[]) => !agreements.includes(entry[0] as string));
+                            console.log('values1: ', values1);
                         onSubmit({
                             ...(Object.fromEntries(rest) as any as RegisterData),
                             confirmations,
@@ -265,6 +274,25 @@ function RegisterFormComponent(props: Props): JSX.Element {
                             autoComplete='new-password'
                         />
                     </Form.Item>
+
+                    <Form.Item
+                        className='cvat-credentials-form-item'
+                        style={{ padding: '6px 8px 0 8px', marginTop: '40px' }}
+                        name='category'
+                        rules={[
+                            {
+                                required: true,
+                                message: 'Please specify a category',
+                            },
+                        ]}
+                    >
+                        <Select placeholder='Select a category'>
+                            <Select.Option value='Project-Co-ordinator'>Project Co-ordinator</Select.Option>
+                            <Select.Option value='Annotator'>Annotator</Select.Option>
+                        </Select>
+                    </Form.Item>
+
+
                     {userAgreements.map((userAgreement: UserAgreement): JSX.Element => (
                         <Form.Item
                             className='cvat-agreements-form-item'

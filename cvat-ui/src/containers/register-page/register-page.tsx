@@ -20,6 +20,7 @@ interface DispatchToProps {
         firstName: string,
         lastName: string,
         email: string,
+        category: string,
         password: string,
         userAgreement: UserConfirmation[],
     ) => void;

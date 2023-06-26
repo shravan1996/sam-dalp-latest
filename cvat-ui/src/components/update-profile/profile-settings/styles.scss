@@ -1,11 +1,12 @@
-@import '../../base.scss';
+@import '../../../base.scss';
 
-.project-details-page {
+.project-details-page2 {
     padding-top: $grid-unit-size * 2;
     padding-bottom: $grid-unit-size;
     height: 100%;
     width: 100%;
     font-family:'Lexend';
+   
 
 
 
@@ -20,7 +21,7 @@
 
 
         .cvat-credentials-action-button {
-            width: 50%;
+            width: 20%;
             background-color: #7E96EA;
             height: 30px;
             color: white;

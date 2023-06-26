@@ -9,7 +9,7 @@ import { connect, Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 
 import { getAboutAsync } from 'actions/about-actions';
-import { authorizedAsync, loadAuthActionsAsync } from 'actions/auth-actions';
+import { authorizedAsync, loadAuthActionsAsync, updateProfileAsync} from 'actions/auth-actions';
 import { getFormatsAsync } from 'actions/formats-actions';
 import { getModelsAsync } from 'actions/models-actions';
 import { getPluginsAsync } from 'actions/plugins-actions';
@@ -52,6 +52,7 @@ interface StateToProps {
     allowResetPassword: boolean;
     notifications: NotificationsState;
     user: any;
+    userDetails: any;
     keyMap: KeyMap;
     isModelPluginActive: boolean;
     pluginComponents: PluginsState['components'];
@@ -70,6 +71,7 @@ interface DispatchToProps {
     switchSettingsDialog: () => void;
     loadAuthActions: () => void;
     loadOrganizations: () => void;
+    getProfileDetails: (value: any) => void;
 }
 
 function mapStateToProps(state: CombinedState): StateToProps {
@@ -103,6 +105,7 @@ function mapStateToProps(state: CombinedState): StateToProps {
         allowResetPassword: auth.allowResetPassword,
         notifications: state.notifications,
         user: auth.user,
+        userDetails: auth.userDetails,
         keyMap: shortcuts.keyMap,
         pluginComponents: plugins.components,
         isModelPluginActive: plugins.list.MODELS,
@@ -123,6 +126,7 @@ function mapDispatchToProps(dispatch: any): DispatchToProps {
         switchSettingsDialog: (): void => dispatch(switchSettingsDialog()),
         loadAuthActions: (): void => dispatch(loadAuthActionsAsync()),
         loadOrganizations: (): void => dispatch(getOrganizationsAsync()),
+        getProfileDetails: (values: any): void => dispatch(updateProfileAsync(values)),
     };
 }
 

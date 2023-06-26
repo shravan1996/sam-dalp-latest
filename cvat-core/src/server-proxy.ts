@@ -460,19 +460,19 @@ async function resetPassword(newPassword1: string, newPassword2: string, uid: st
 }
 
 export async function updateProfile(data :string
-    ): Promise<any> {
-        let response = null;
-        try {
-            response = await Axios.post(`${config.backendAPI}/auth/profile/update`, data, {
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            }).then((res) => {return res;});
-        }catch (errorData) {
-            throw generateError(errorData);
-        }
-        return response.data;
+): Promise<any> {
+    let response = null;
+    try {
+        response = await Axios.post(`${config.backendAPI}/auth/profile/update`, data, {
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        }).then((res) => {return res;});
+    }catch (errorData) {
+        throw generateError(errorData);
     }
+    return response.data;
+}
 
 async function getSelf(): Promise<SerializedUser> {
     const { backendAPI } = config;
@@ -694,7 +694,7 @@ async function deleteTask(id: number, organizationID: string | null = null): Pro
     try {
         await Axios.delete(`${backendAPI}/tasks/${id}`, {
             params: {
-                ...(organizationID ? { org: organizationID } : {}),
+            ...(organizationID ? { org: organizationID } : {}),
             },
         });
     } catch (errorData) {
@@ -2118,8 +2118,8 @@ async function updateWebhook(webhookID: number, webhookData: any): Promise<any> 
 
     try {
         const response = await Axios.patch(`${backendAPI}/webhooks/${webhookID}`, webhookData, {
-            params,
-        });
+                params,
+            });
         return response.data;
     } catch (errorData) {
         throw generateError(errorData);
@@ -2194,6 +2194,7 @@ export default Object.freeze({
         formats,
         login,
         logout,
+        updateProfile,
         changePassword,
         requestPasswordReset,
         resetPassword,

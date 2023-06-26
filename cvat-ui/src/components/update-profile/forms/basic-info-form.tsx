@@ -118,6 +118,25 @@ export default function BasicInfoForm(props: any): JSX.Element {
         })
     };
 
+
+    let totalInputs = 0;
+    let filledInputs = 0;
+
+
+
+    if(userDetails!==null){
+
+          for (let key in userDetails) {
+                let value = userDetails[key];
+                totalInputs++;
+                if(value)   filledInputs++;
+          }
+
+    }
+
+
+    const percentage = (filledInputs / totalInputs) * 100 ;
+
     return <>
         <Formik
             initialValues={iv}
@@ -125,9 +144,16 @@ export default function BasicInfoForm(props: any): JSX.Element {
             validationSchema={vs}
         >
             <Form>
-                <div className='title-form'>
-                    <div>BASIC INFORMATION</div>
-                    <h2>Please enter your basic details</h2>
+                <div className='title-form flex flex-row justify-between'>
+                    <div>
+                        <div>BASIC INFORMATION</div>
+                        <h2>Please enter your basic details</h2>
+
+                    </div>
+                    <div>
+                        {percentage===100 && <p style={{color:'#15f505',marginRight:'16px'}}>Completed</p>}
+
+                    </div>
                 </div>
                 <div className="form-row">
                     <InputWrapper>

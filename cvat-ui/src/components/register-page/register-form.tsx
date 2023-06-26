@@ -286,7 +286,7 @@ function RegisterFormComponent(props: Props): JSX.Element {
                             },
                         ]}
                     >
-                        <Select placeholder='Select a category'>
+                        <Select placeholder='Select a category' className='rounded-lg'>
                             <Select.Option value='Project-Co-ordinator'>Project Co-ordinator</Select.Option>
                             <Select.Option value='Annotator'>Annotator</Select.Option>
                         </Select>

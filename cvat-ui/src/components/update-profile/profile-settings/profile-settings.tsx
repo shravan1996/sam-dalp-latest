@@ -9,10 +9,22 @@ import { useSelector } from 'react-redux';
 import { CombinedState } from 'reducers';
 import { ArrowRightOutlined } from '@ant-design/icons';
 import {Link} from 'react-router-dom';
+import { connect } from 'react-redux';
+
+
+interface UserProps{
+    userDetails: any ;
+    changeProfile: any;
+    toggle: any;
+}
 
 
 
-export default function ProfileSettingsComponent(): JSX.Element {
+function ProfileSettingsComponent(props: UserProps): JSX.Element {
+
+    const {userDetails, changeProfile, toggle} = props;
+
+    console.log("userDetails-profile" , userDetails)
 
     const changeSwitch = (checked: boolean) => {
         console.log(`switch to ${checked}`);
@@ -21,16 +33,16 @@ export default function ProfileSettingsComponent(): JSX.Element {
 
 
     return(
-        <div className='project-details-page '>
+        <div className='project-details-page2 '>
 
 
 
-                <div className='mt-[20px] mx-[60px] mr-[100px] flex flex-row justify-between ' >
-                    <h1 className='font-[700]'>Profile Settings</h1>
-                    <Link to='/profile/settings' style={{color:'#355be4',display:'flex'}} className='underline' >
+                <div className='title-form-page ml-[5px]  mx-[60px] mr-[100px] flex flex-row justify-between  ' >
+                    <div className='font-[700] ml-[60px]'>Profile Settings</div>
+                    <button onClick={()=>changeProfile(false)} style={{color:'#355be4',display:'flex'}} className='underline mr-[110px] text-[16px]' >
+                        Back to profile
+                    </button>
 
-                        <p  style={{color:'#355be4'}}>Back to profile</p>
-                    </Link>
 
                 </div>
 
@@ -38,8 +50,8 @@ export default function ProfileSettingsComponent(): JSX.Element {
 
                     <div className='container-11 flex flex-row justify-between'>
                         <div>
-                            <h2 className='font-normal '>Aravind kumar</h2>
-                            <p >Aravind.kumar@gmail.com</p>
+                            <h2 className='font-normal '>{userDetails?.username}</h2>
+                            <p >{userDetails?.email}</p>
                         </div>
                         <p style={{color:'#023E8A'}}>Request change</p>
 
@@ -53,15 +65,15 @@ export default function ProfileSettingsComponent(): JSX.Element {
                         </div>
                         <div>
                             <h5>State</h5>
-                            <p>Tamilnadu</p>
+                            <p>{userDetails?.state}</p>
                         </div>
                         <div>
                             <h5>Your primary language</h5>
-                            <p>English</p>
+                            <p>{userDetails?.primary_language}</p>
                         </div>
                         <div>
                             <h5>Your language region</h5>
-                            <p>India</p>
+                            <p>{userDetails?.state}</p>
                         </div>
                         <div>
                             <h5>Contract type</h5>
@@ -89,7 +101,7 @@ export default function ProfileSettingsComponent(): JSX.Element {
                     <div>
                         <h2 className='font-normal '>Deactivate Account</h2>
                         <p className='mt-[3px]' >Click the button to withdraw from all existing application and deactivate your account</p>
-                        <div className='mt-[30px] rounded-xl ml-[45px]'>
+                        <div className='mt-[30px] rounded-xl ml-[2px]'>
                                 <Button
                                     type='primary'
                                     htmlType='submit'
@@ -114,3 +126,9 @@ export default function ProfileSettingsComponent(): JSX.Element {
     )
 
 }
+
+const mapStateToProps = (state: any) => ({
+    userDetails: state.auth.userDetails,
+  });
+
+  export default connect(mapStateToProps)(ProfileSettingsComponent);

@@ -116,7 +116,7 @@ export const loginAsync = (credential: string, password: string): ThunkAction =>
         await cvat.server.login(credential, password);
         const users = await cvat.users.get({ self: true });
         dispatch(authActions.loginSuccess(users[0]));
-    } catch (error) {
+    } catch (error :any) {
         const hasEmailVerificationBeenSent = error.message.includes('Unverified email');
         dispatch(authActions.loginFailed(error, hasEmailVerificationBeenSent));
     }

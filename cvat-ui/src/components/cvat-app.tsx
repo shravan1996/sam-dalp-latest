@@ -4,8 +4,8 @@
 // SPDX-License-Identifier: MIT
 
 import React from 'react';
-import { Redirect, Route, Switch } from 'react-router';
-import { RouteComponentProps, withRouter } from 'react-router-dom';
+import {  Route, Switch } from 'react-router';
+import { RouteComponentProps, withRouter ,Redirect} from 'react-router-dom';
 import { Col, Row } from 'antd/lib/grid';
 import Layout from 'antd/lib/layout';
 import Modal from 'antd/lib/modal';
@@ -18,7 +18,7 @@ import Text from 'antd/lib/typography/Text';
 import ReactMarkdown from 'react-markdown';
 import 'antd/dist/antd.css';
 
-import ProfileSettingsComponent from './profile-settings/profile-settings';
+
 import UpdateProfile from 'containers/update-profile-page/update-profile-page';
 import LogoutComponent from 'components/logout-component';
 import LoginPageContainer from 'containers/login-page/login-page';
@@ -91,6 +91,8 @@ interface CVATAppProps {
     switchSettingsDialog: () => void;
     loadAuthActions: () => void;
     loadOrganizations: () => void;
+    getProfileDetails: () => void;
+    getProfileUpdate: any;
     keyMap: KeyMap;
     userInitialized: boolean;
     userFetching: boolean;
@@ -133,6 +135,7 @@ class CVATApplication extends React.PureComponent<CVATAppProps & RouteComponentP
     }
 
     public componentDidMount(): void {
+
         const core = getCore();
         const { history, location } = this.props;
         const {
@@ -236,6 +239,8 @@ class CVATApplication extends React.PureComponent<CVATAppProps & RouteComponentP
                 onOk: () => stopNotifications(true),
             });
         }
+
+
     }
 
 
@@ -243,6 +248,8 @@ class CVATApplication extends React.PureComponent<CVATAppProps & RouteComponentP
 
 
     public componentDidUpdate(): void {
+
+        console.log('component did UPDATE starts here')
         const {
             verifyAuthorized,
             loadFormats,
@@ -329,6 +336,9 @@ class CVATApplication extends React.PureComponent<CVATAppProps & RouteComponentP
                 }
             }
         }
+
+
+
     }
 
     private showMessages(): void {
@@ -463,6 +473,31 @@ class CVATApplication extends React.PureComponent<CVATAppProps & RouteComponentP
             .filter(({ data: { shouldBeRendered } }) => shouldBeRendered(this.props, this.state))
             .map(({ component: Component }) => Component);
 
+        const {userDetails} = this.props
+        const profilePercentage = ()=>{
+
+            if(!userDetails) return 0;
+
+            let totalInputs = 0;
+            let filledInputs = 0;
+
+
+            if(userDetails!==null)
+                for (let key in userDetails) {
+                        let value = userDetails[key];
+                        totalInputs++;
+                        if(value)   filledInputs++;
+                }
+
+            const percentage = Math.floor((filledInputs / totalInputs) ) ;
+            return percentage ;
+
+        }
+
+        const percentageProfile = profilePercentage() ;
+        let checker = false
+
+
         if (readyForRender) {
             if (user && user.isVerified) {
                 return (
@@ -470,71 +505,76 @@ class CVATApplication extends React.PureComponent<CVATAppProps & RouteComponentP
                         <ShortcutsContextProvider>
                             <Layout>
                                 <Header />
-                                <Layout.Content >
-                                    <ShortcutsDialog />
-                                    <GlobalHotKeys keyMap={subKeyMap} handlers={handlers}>
-                                        <Switch>
+                                    {/* { (percentageProfile !=1 && !checker) ? <UpdateProfile checker={checker} />    : */}
 
-                                            <Route exact path='/profile/settings' component={ProfileSettingsComponent} />
-                                            <Route exact path='/auth/profile' component={UpdateProfile} />
-                                            <Route exact path='/auth/logout' component={LogoutComponent} />
-                                            <Route exact path='/projects' component={ProjectsPageComponent} />
-                                            <Route exact path='/projects/create' component={CreateProjectPageComponent} />
-                                            <Route exact path='/projects/:id' component={ProjectPageComponent} />
-                                            <Route exact path='/projects/:id/webhooks' component={WebhooksPage} />
-                                            <Route exact path='/tasks' component={TasksPageContainer} />
-                                            <Route exact path='/tasks/create' component={CreateTaskPageContainer} />
-                                            <Route exact path='/tasks/:id' component={TaskPageComponent} />
-                                            <Route exact path='/tasks/:tid/jobs/:jid' component={AnnotationPageContainer} />
-                                            <Route exact path='/jobs' component={JobsPageComponent} />
-                                            <Route exact path='/cloudstorages' component={CloudStoragesPageComponent} />
-                                            <Route
-                                                exact
-                                                path='/cloudstorages/create'
-                                                component={CreateCloudStoragePageComponent}
-                                            />
-                                            <Route
-                                                exact
-                                                path='/cloudstorages/update/:id'
-                                                component={UpdateCloudStoragePageComponent}
-                                            />
-                                            <Route
-                                                exact
-                                                path='/organizations/create'
-                                                component={CreateOrganizationComponent}
-                                            />
-                                            <Route exact path='/organization/webhooks' component={WebhooksPage} />
-                                            <Route exact path='/webhooks/create' component={CreateWebhookPage} />
-                                            <Route exact path='/webhooks/update/:id' component={UpdateWebhookPage} />
-                                            <Route exact path='/organization' component={OrganizationPage} />
-                                            { routesToRender }
-                                            {isModelPluginActive && (
-                                                <Route
-                                                    path='/models'
-                                                >
-                                                    <Switch>
-                                                        <Route exact path='/models' component={ModelsPageComponent} />
-                                                        <Route exact path='/models/create' component={CreateModelPage} />
-                                                    </Switch>
-                                                </Route>
-                                            )}
-                                            <Redirect
-                                                push
-                                                to={new URLSearchParams(location.search).get('next') || '/tasks'}
-                                            />
-                                        </Switch>
-                                    </GlobalHotKeys>
-                                    <ExportDatasetModal />
-                                    <ExportBackupModal />
-                                    <ImportDatasetModal />
-                                    <ImportBackupModal />
-                                    { loggedInModals.map((Component, idx) => (
-                                        <Component key={idx} targetProps={this.props} targetState={this.state} />
-                                    ))}
-                                    <OrganizationWatcher />
-                                    {/* eslint-disable-next-line */}
-                                    <a id='downloadAnchor' target='_blank' style={{ display: 'none' }} download />
-                                </Layout.Content>
+                                        <Layout.Content >
+
+                                            <ShortcutsDialog />
+                                            <GlobalHotKeys keyMap={subKeyMap} handlers={handlers}>
+                                                <Switch>
+
+
+                                                    <Route exact path='/auth/profile' component={UpdateProfile} />
+                                                    <Route exact path='/auth/logout' component={LogoutComponent} />
+                                                    <Route exact path='/projects' component={ProjectsPageComponent} />
+                                                    <Route exact path='/projects/create' component={CreateProjectPageComponent} />
+                                                    <Route exact path='/projects/:id' component={ProjectPageComponent} />
+                                                    <Route exact path='/projects/:id/webhooks' component={WebhooksPage} />
+                                                    <Route exact path='/tasks' component={TasksPageContainer} />
+                                                    <Route exact path='/tasks/create' component={CreateTaskPageContainer} />
+                                                    <Route exact path='/tasks/:id' component={TaskPageComponent} />
+                                                    <Route exact path='/tasks/:tid/jobs/:jid' component={AnnotationPageContainer} />
+                                                    <Route exact path='/jobs' component={JobsPageComponent} />
+                                                    <Route exact path='/cloudstorages' component={CloudStoragesPageComponent} />
+                                                    <Route
+                                                        exact
+                                                        path='/cloudstorages/create'
+                                                        component={CreateCloudStoragePageComponent}
+                                                    />
+                                                    <Route
+                                                        exact
+                                                        path='/cloudstorages/update/:id'
+                                                        component={UpdateCloudStoragePageComponent}
+                                                    />
+                                                    <Route
+                                                        exact
+                                                        path='/organizations/create'
+                                                        component={CreateOrganizationComponent}
+                                                    />
+                                                    <Route exact path='/organization/webhooks' component={WebhooksPage} />
+                                                    <Route exact path='/webhooks/create' component={CreateWebhookPage} />
+                                                    <Route exact path='/webhooks/update/:id' component={UpdateWebhookPage} />
+                                                    <Route exact path='/organization' component={OrganizationPage} />
+                                                    { routesToRender }
+                                                    {isModelPluginActive && (
+                                                        <Route
+                                                            path='/models'
+                                                        >
+                                                            <Switch>
+                                                                <Route exact path='/models' component={ModelsPageComponent} />
+                                                                <Route exact path='/models/create' component={CreateModelPage} />
+                                                            </Switch>
+                                                        </Route>
+                                                    )}
+                                                    <Redirect
+                                                        push
+                                                        to={new URLSearchParams(location.search).get('next') || '/tasks'}
+                                                    />
+                                                </Switch>
+                                            </GlobalHotKeys>
+                                            <ExportDatasetModal />
+                                            <ExportBackupModal />
+                                            <ImportDatasetModal />
+                                            <ImportBackupModal />
+                                            { loggedInModals.map((Component, idx) => (
+                                                <Component key={idx} targetProps={this.props} targetState={this.state} />
+                                            ))}
+                                            <OrganizationWatcher />
+                                            {/* eslint-disable-next-line */}
+                                            <a id='downloadAnchor' target='_blank' style={{ display: 'none' }} download />
+                                            { percentageProfile!=1 && <Redirect to='/auth/profile'/>}
+                                        </Layout.Content>
+
                             </Layout>
                         </ShortcutsContextProvider>
                     </GlobalErrorBoundary>

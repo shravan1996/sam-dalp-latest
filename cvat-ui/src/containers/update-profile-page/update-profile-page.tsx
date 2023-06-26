@@ -29,8 +29,12 @@ function mapStateToProps(state: CombinedState): StateToProps {
         userDetails: state.auth.userDetails,
         fetching: state.auth.fetching,
         hasEmailVerificationBeenSent: state.auth.hasEmailVerificationBeenSent,
+        
     };
 }
+
+
+
 
 // function mapDispatchToProps(dispatch: any): DispatchToProps {
 //     return {

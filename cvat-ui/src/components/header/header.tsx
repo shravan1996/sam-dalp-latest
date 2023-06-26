@@ -41,6 +41,7 @@ import { logoutAsync, authActions } from 'actions/auth-actions';
 import { CombinedState } from 'reducers';
 import { usePlugins } from 'utils/hooks';
 import SettingsModal from './settings-modal/settings-modal';
+import { Link } from 'react-router-dom';
 
 const core = getCore();
 
@@ -268,6 +269,7 @@ function HeaderContainer(props: Props): JSX.Element {
         ), 0]);
     }
 
+
     menuItems.push([(
         <Menu.SubMenu
             disabled={organizationsFetching}
@@ -393,6 +395,19 @@ function HeaderContainer(props: Props): JSX.Element {
             disabled={logoutFetching}
         >
             Logout
+        </Menu.Item>
+    ), 50]);
+
+    menuItems.push([(
+        <Menu.Item
+            key='profile-setup'
+            icon={<UserOutlined /> }
+            onClick={() => {
+                history.push('/auth/profile');
+            }}
+
+        >
+            Profile Setup
         </Menu.Item>
     ), 50]);
 

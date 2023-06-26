@@ -1,6 +1,7 @@
 import React from "react";
 import { parseISO } from 'date-fns';
 import './styles/styles.css';
+import { useHistory } from 'react-router-dom';
 
 interface UserProps {
     setSection:any;
@@ -27,9 +28,13 @@ function PreviewPage(props: UserProps): JSX.Element {
 
     console.log("userDetails" , userDetails)
 
+
+    const history = useHistory() ;
+
+
     // const handleSubmit = () => onUpdateProfile(userDetails);
     return (
-        <div className="outer-container">
+        <div className="outer-container w-[1200px] ml-[70px]">
             <div className="preview-container">
                 <div className="title-preview">
                     <div> Preview</div>
@@ -173,7 +178,7 @@ function PreviewPage(props: UserProps): JSX.Element {
                 </section>
                 <section className="preview-action-btn">
                 {/* <button type="button" onClick= {()=>{setSection(1)}} className="back-button-form">Back</button> */}
-                <button type="submit" className="preview-submit-btn" onClick={() => alert('Updated Successfully!')} >Submit</button>
+                <button type="submit" className="preview-submit-btn" onClick={() =>{alert('Updated Successfully!' ); history.push('/'); }} >Submit</button>
                 </section>
             </div>
         </div>

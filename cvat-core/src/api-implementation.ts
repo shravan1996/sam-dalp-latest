@@ -63,8 +63,8 @@ export default function implementAPI(cvat) {
         firstName,
         lastName,
         email,
-        category,
         password,
+        category,
         userConfirmations,
     ) => {
         const user = await serverProxy.server.register(
@@ -72,8 +72,8 @@ export default function implementAPI(cvat) {
             firstName,
             lastName,
             email,
-            category,
             password,
+            category,
             userConfirmations,
         );
 
@@ -87,6 +87,12 @@ export default function implementAPI(cvat) {
     cvat.server.logout.implementation = async () => {
         await serverProxy.server.logout();
     };
+
+
+    cvat.server.updateProfile.implementation = async (data) => {
+        const result = await serverProxy.server.updateProfile(data);
+        return result;
+    }
 
     cvat.server.changePassword.implementation = async (oldPassword, newPassword1, newPassword2) => {
         await serverProxy.server.changePassword(oldPassword, newPassword1, newPassword2);

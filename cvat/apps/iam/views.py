@@ -199,11 +199,14 @@ class RegisterViewEx(RegisterView):
             data['email_verification_required'] = False
             data['key'] = user.auth_token.key
 
-        Token.objects.create(
-            user=user,
-            key=data.get('key'),
-            created=timezone.now(),
-        )
+        try:
+            token, created = Token.objects.get_or_create(user=user)
+            if created:
+                token.key = data.get('key')
+                token.created = timezone.now()
+                token.save()
+        except:
+            pass
         return data
 
 class LogoutViewEx(LogoutView):

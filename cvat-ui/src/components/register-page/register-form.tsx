@@ -267,6 +267,7 @@ function RegisterFormComponent(props: Props): JSX.Element {
                                 message: 'Please input your password!',
                             }, validatePassword,
                         ]}
+
                     >
                         <CVATSigningInput
                             type={CVATInputType.PASSWORD}
@@ -287,8 +288,8 @@ function RegisterFormComponent(props: Props): JSX.Element {
                             },
                         ]}
                     >
-                        <div className='rounded-lg'>
-                            <Select placeholder='Select a category' size={'large'} style={{ width: '98%', borderWidth: '0px !important', height:'40px'}}>
+                        <div className='rounded-lg pb-[3px] border-2 h-[55px]  w-[99%]  text-[45px] font-[400] leading-8 text-[#c5bfbf]'>
+                            <Select placeholder='Select a category' size={'large'} bordered={false} style={{ width: '98%',  height:'40px'}}>
                                 <Select.Option value='Project-Co-ordinator'>Project Co-ordinator</Select.Option>
                                 <Select.Option value='Annotator'>Annotator</Select.Option>
                             </Select>

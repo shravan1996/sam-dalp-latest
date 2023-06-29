@@ -103,10 +103,10 @@ export default function TopBarComponent(props: VisibleTopBarProps): JSX.Element 
                                     setProject(currentValue=>!currentValue);
                                     changingHide1()
                                 }}>
-                                    {(project && hide.one) ? <CreateTaskIcon2/> : <CreateTaskIcon/>}
+                                    {(hide.one) ? <CreateTaskIcon2/> : <CreateTaskIcon/>}
 
                                 </button>
-                                {(project && hide.one) &&
+                                {( hide.one) &&
                                     <div className='flex flex-col' style={{marginTop:'12px'}}>
                                         <button
                                             className='cvat-create-task-button '

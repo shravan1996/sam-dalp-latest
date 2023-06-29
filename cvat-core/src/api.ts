@@ -78,6 +78,10 @@ function build() {
                 const result = await PluginRegistry.apiWrapper(cvat.server.logout);
                 return result;
             },
+            async userLogs(duration) {
+                const result = await PluginRegistry.apiWrapper(cvat.server.userLogs, duration);
+                return result;
+            },
             async updateProfile(data) {
                 const result = await PluginRegistry.apiWrapper(cvat.server.updateProfile, data);
                 return result;

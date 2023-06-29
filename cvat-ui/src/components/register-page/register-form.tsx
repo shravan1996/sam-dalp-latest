@@ -21,6 +21,7 @@ import DalpLogo from '../../assets/cvat-logo.svg'  // importing dalp logo
 import BackIcon from '../../assets/back-icon.svg'; // importing bak icon
 import {Select} from 'antd'; // importing select
 
+
 export interface UserConfirmation {
     name: string;
     value: boolean;
@@ -108,7 +109,7 @@ function RegisterFormComponent(props: Props): JSX.Element {
     const [form] = Form.useForm();
     const [usernameEdited, setUsernameEdited] = useState(false);
     return (
-        <div className='signin-page flex flex-row justify-start flex-wrap bg-white overflow-auto order-first'>
+        <div className='signin-page flex flex-row justify-start flex-wrap bg-white overflow-hidden order-first'>
 
 
             <div className='signin-image pl-[15px] shadow-2xl shadow-[#6D88DF]    flex flex-col justify-start    rounded-tr-[30%]  '>
@@ -121,7 +122,7 @@ function RegisterFormComponent(props: Props): JSX.Element {
                 {/* <Row justify='space-between' className='cvat-credentials-navigation mt-[20px] ml-[10px]'> */}
 
                 {/* </Row> */}
-                <Col className='flex flex-row justify-start mb-[25px] mt-[40px]'>
+                <Col className='flex flex-row justify-start mb-[20px] mt-[40px]'>
                     <div>
                         <Col style={{width:'50px',height:'30px',marginRight:'40px',marginTop:'9px'}}>
                             <Link to='/auth/login' ><BackIcon /></Link>
@@ -163,8 +164,8 @@ function RegisterFormComponent(props: Props): JSX.Element {
                     <Row gutter={8}>
                         <Col span={12} >
                             <Form.Item
-                                className='cvat-credentials-form-item  w-2/4 '
-                                style={{padding:'6px 8px 0 8px',width:'230px',fontSize:'6px'}}
+                                className='cvat-credentials-form-item  w-2/4 h-[40px]'
+                                style={{padding:'0 8px 0 8px',width:'230px',fontSize:'6px'}}
                                 name='firstName'
                                 rules={[
                                     {
@@ -185,8 +186,8 @@ function RegisterFormComponent(props: Props): JSX.Element {
                         </Col>
                         <Col span={12}>
                             <Form.Item
-                                className='cvat-credentials-form-item w-2/4 '
-                                style={{padding:'6px 8px 0 8px',width:'230px',marginLeft:'85px'}}
+                                className='cvat-credentials-form-item w-2/4 h-[40px] '
+                                style={{padding:'0 8px 0 8px',width:'230px',marginLeft:'85px'}}
                                 name='lastName'
                                 rules={[
                                     {
@@ -206,8 +207,8 @@ function RegisterFormComponent(props: Props): JSX.Element {
                         </Col>
                     </Row>
                     <Form.Item
-                        className='cvat-credentials-form-item w-3/4 '
-                        style={{padding:'6px 8px 0 8px'}}
+                        className='cvat-credentials-form-item w-3/4 h-[40px]  '
+                        style={{padding:'0 8px 0 8px'}}
                         name='email'
                         rules={[
                             {
@@ -235,8 +236,8 @@ function RegisterFormComponent(props: Props): JSX.Element {
                         />
                     </Form.Item>
                     <Form.Item
-                        className='cvat-credentials-form-item  w-3/4'
-                        style={{padding:'6px 8px 0 8px',marginTop:'40px'}}
+                        className='cvat-credentials-form-item  w-3/4 h-[40px] '
+                        style={{padding:'0 8px 0 8px',marginTop:'40px'}}
                         name='username'
                         rules={[
                             {
@@ -257,8 +258,8 @@ function RegisterFormComponent(props: Props): JSX.Element {
                         />
                     </Form.Item>
                     <Form.Item
-                        className='cvat-credentials-form-item cvat-register-form-last-field  w-3/4 '
-                        style={{padding:'6px 8px 0 8px',marginTop:'40px'}}
+                        className='cvat-credentials-form-item cvat-register-form-last-field  w-3/4 h-[40px]  '
+                        style={{padding:'0 8px 0 8px',marginTop:'40px'}}
                         name='password'
                         rules={[
                             {
@@ -276,8 +277,8 @@ function RegisterFormComponent(props: Props): JSX.Element {
                     </Form.Item>
 
                     <Form.Item
-                        className='cvat-credentials-form-item'
-                        style={{ padding: '6px 8px 0 8px', marginTop: '40px' }}
+                        className='cvat-credentials-form-item h-[50px] '
+                        style={{ padding: '0 8px 0 8px', marginTop: '40px' }}
                         name='category'
                         rules={[
                             {
@@ -286,10 +287,12 @@ function RegisterFormComponent(props: Props): JSX.Element {
                             },
                         ]}
                     >
-                        <Select placeholder='Select a category' className='rounded-lg'>
-                            <Select.Option value='Project-Co-ordinator'>Project Co-ordinator</Select.Option>
-                            <Select.Option value='Annotator'>Annotator</Select.Option>
-                        </Select>
+                        <div className='rounded-lg'>
+                            <Select placeholder='Select a category' size={'large'} style={{ width: '98%', borderWidth: '0px !important', height:'40px'}}>
+                                <Select.Option value='Project-Co-ordinator'>Project Co-ordinator</Select.Option>
+                                <Select.Option value='Annotator'>Annotator</Select.Option>
+                            </Select>
+                        </div>
                     </Form.Item>
 
 
@@ -321,7 +324,7 @@ function RegisterFormComponent(props: Props): JSX.Element {
                     {
                         true && (
                             <Row>
-                                <Col className='cvat-credentials-link ml-[159px] mb-[40px]   '>
+                                <Col className='cvat-credentials-link ml-[159px] mb-[20px]   '>
                                     <input type='checkbox'/>
                                     <Text strong style={{color:'rgba(17, 24, 39, 0.6)',marginLeft:'10px'}} >
                                         By creating an account? I agree to the &nbsp;
@@ -332,7 +335,7 @@ function RegisterFormComponent(props: Props): JSX.Element {
                         )
                     }
 
-                    <Form.Item className='mt-[30px] rounded-xl ml-[45px]'>
+                    <Form.Item className='mt-[15px] rounded-xl ml-[45px] h-[80px] '>
                         <Button
                             type='primary'
                             htmlType='submit'

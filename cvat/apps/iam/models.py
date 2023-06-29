@@ -75,3 +75,17 @@ class UserDetail(models.Model):
 
     def last_name(self):
         return self.user.last_name
+
+
+class UserSession(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    username = models.CharField(max_length=255)
+    login_time = models.DateTimeField()
+    logout_time = models.DateTimeField(null=True, blank=True)
+    session_duration = models.DurationField(null=True, blank=True)
+    comments = models.CharField(max_length=255, null=True, blank=True)
+
+    def save(self, *args, **kwargs):
+        if self.logout_time and self.login_time:
+            self.session_duration = self.logout_time - self.login_time
+        super().save(*args, **kwargs)

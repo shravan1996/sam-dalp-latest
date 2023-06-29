@@ -9,6 +9,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import InputWrapper from "../styles/InputWrapper";
 import "../styles/styles.css"
 
+
 export default function BasicInfoForm(props: any): JSX.Element {
     const { user, userDetails, genders, setSection, onUpdateProfile } = props;
 
@@ -137,6 +138,7 @@ export default function BasicInfoForm(props: any): JSX.Element {
 
     const percentage = (filledInputs / totalInputs) * 100 ;
 
+
     return <>
         <Formik
             initialValues={iv}
@@ -209,8 +211,15 @@ export default function BasicInfoForm(props: any): JSX.Element {
                                 const selectedDate = field.value
                                 return (
                                 <DatePicker
+
                                     selected={selectedDate}
-                                    dateFormat="yyyy mm dd"
+                                    showYearDropdown
+                                    showMonthDropdown
+                                    yearDropdownItemNumber={100}
+                                    minDate={new Date("1900-01-01")}
+                                    maxDate={new Date()}
+                                    dateFormat="dd-MM-yyyy"
+                                    scrollableYearDropdown={true}
                                     className="form-field"
                                     placeholderText='Date of Birth'
                                     onChange={(date: Date) => {
@@ -218,6 +227,7 @@ export default function BasicInfoForm(props: any): JSX.Element {
                                         date ? form.setFieldValue(field.name, (date)) :  //please use value and not valuOf
                                             form.setFieldValue(field.name, null)
                                     }}
+
                                 />
                                 )
                             }}

@@ -88,6 +88,11 @@ export default function implementAPI(cvat) {
         await serverProxy.server.logout();
     };
 
+    cvat.server.userLogs.implementation = async (duration) => {
+        const result = await serverProxy.server.userLogs(duration);
+        return result;
+    }
+
 
     cvat.server.updateProfile.implementation = async (data) => {
         const result = await serverProxy.server.updateProfile(data);

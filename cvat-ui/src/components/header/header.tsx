@@ -371,6 +371,20 @@ function HeaderContainer(props: Props): JSX.Element {
         </Menu.Item>
     ), 30]);
 
+    menuItems.push([(
+        <Menu.Item
+            key='profile-setup'
+            icon={<UserOutlined /> }
+            onClick={() => {
+                history.push('/auth/profile');
+            }}
+
+        >
+            Profile Setup
+        </Menu.Item>
+    ), 35]);
+
+
     if (renderChangePasswordItem) {
         menuItems.push([(
             <Menu.Item
@@ -398,18 +412,6 @@ function HeaderContainer(props: Props): JSX.Element {
         </Menu.Item>
     ), 50]);
 
-    menuItems.push([(
-        <Menu.Item
-            key='profile-setup'
-            icon={<UserOutlined /> }
-            onClick={() => {
-                history.push('/auth/profile');
-            }}
-
-        >
-            Profile Setup
-        </Menu.Item>
-    ), 50]);
 
     menuItems.push(
         ...plugins.map(({ component: Component, weight }, index) => (
@@ -437,6 +439,7 @@ function HeaderContainer(props: Props): JSX.Element {
     const path2 = document.getElementById('tasks-header');
     const path3 = document.getElementById('jobs-header');
     const path4 = document.getElementById('cloud-header');
+    const path5 = document.getElementById('user-log');
 
 
     if(pathName.includes('projects') && path1!=null)  path1.style.color= '#111827'
@@ -450,6 +453,9 @@ function HeaderContainer(props: Props): JSX.Element {
 
     if(pathName.includes('cloudstorages') && path4!=null)  path4.style.color= '#111827'
     else { if(path4!=null) path4.style.color= 'rgba(17, 24, 39, 0.6)' }
+
+    if(pathName.includes('auth/logs') && path5!=null)  path5.style.color= '#111827'
+    else { if(path5!=null) path5.style.color= 'rgba(17, 24, 39, 0.6)' }
 
     return (
         <Layout.Header className='cvat-header' style={{height:'70px',fontFamily:'Lexend'}}>
@@ -517,6 +523,20 @@ function HeaderContainer(props: Props): JSX.Element {
                         id='cloud-header'
                     >
                         Cloud Storages
+                    </Button>
+                    <Button
+                        className={getButtonClassName('cloudstorages')}
+                        style={{fontWeight:'bold',marginLeft:'30px',color:'rgba(17, 24, 39, 0.6)'}}
+                        type='link'
+                        value='userlogs'
+                        href='/auth/logs'
+                        onClick={(event: React.MouseEvent): void => {
+                            event.preventDefault();
+                            history.push('/auth/logs');
+                        }}
+                        id='user-log'
+                    >
+                        User log
                     </Button>
                     {isModelsPluginActive && false ? (
                         <Button

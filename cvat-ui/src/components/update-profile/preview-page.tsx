@@ -150,7 +150,7 @@ function PreviewPage(props: UserProps): JSX.Element {
                 </section>
                 <section className="preview-section">
                     <div className="section-title">
-                        <h1>PRIOR EXOERIENCE</h1>
+                        <h1>PRIOR EXPERIENCE</h1>
                         <button type="button" className="section-edit-btn" onClick={() => setSection(5)}>Edit</button>
                     </div>
                     <div className="section-row">

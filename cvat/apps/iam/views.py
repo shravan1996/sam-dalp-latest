@@ -6,6 +6,7 @@ import functools
 import hashlib
 
 from django.utils.functional import SimpleLazyObject
+from django.utils import timezone
 from django.http import Http404, HttpResponseBadRequest, HttpResponseRedirect
 from rest_framework import views, serializers, status
 from rest_framework.exceptions import ValidationError, NotFound
@@ -16,10 +17,13 @@ from django.http import HttpResponse
 from django.views.decorators.http import etag as django_etag
 from rest_framework.response import Response
 from dj_rest_auth.registration.views import RegisterView
+from dj_rest_auth.views import LogoutView
 from dj_rest_auth.views import LoginView
 from allauth.account import app_settings as allauth_settings
 from allauth.account.views import ConfirmEmailView
 from allauth.account.utils import has_verified_email, send_email_confirmation
+from datetime import datetime, timedelta
+import django.core.serializers
 
 from furl import furl
 
@@ -32,6 +36,7 @@ from cvat.apps.iam.serializers import UserDetailSerializer
 from .models import UserDetail
 
 from .authentication import Signer
+from cvat.apps.iam.models import UserSession
 
 def get_organization(request):
     from cvat.apps.organizations.models import Organization
@@ -148,6 +153,21 @@ class LoginViewEx(LoginView):
             pass
 
         self.login()
+        user = self.serializer.get_auth_user(
+                self.serializer.data.get('username'),
+                self.serializer.data.get('email'),
+                self.serializer.data.get('password')
+            )
+        data = self.get_serializer(user).data
+        username = data.get('username')
+
+        UserSession.objects.create(
+            user=user,
+            username=username,
+            login_time=timezone.now(),
+            logout_time=None,
+            comments='login'
+        )
         response = self.get_response()
         key = response.data.get('key')
 
@@ -167,6 +187,13 @@ class RegisterViewEx(RegisterView):
         data = self.get_serializer(user).data
         data['email_verification_required'] = True
         data['key'] = None
+
+        UserSession.objects.create(
+            user=user,
+            username=data.get('username'),
+            login_time=timezone.now(),
+            comments='register'
+        )
 
         if allauth_settings.EMAIL_VERIFICATION != \
             allauth_settings.EmailVerificationMethod.MANDATORY:
@@ -213,6 +240,34 @@ class RegisterViewEx(RegisterView):
 
         return response
 
+
+class LogoutViewEx(LogoutView):
+    def logout(self, request):
+        auth_header = request.headers.get('Authorization')
+        token = ""
+
+        if auth_header and auth_header.startswith('Token '):
+            token = auth_header.split(' ')[1]
+
+        try:
+            if token:
+                user_token = Token.objects.select_related('user').get(key=token)
+                user = user_token.user
+
+                response = super().logout(request)
+
+                try:
+                    user_session = UserSession.objects.filter(user=user, logout_time__isnull=True).earliest('login_time')
+                    user_session.logout_time = timezone.now()
+                    user_session.save()
+
+                except UserSession.DoesNotExist:
+                    pass
+                return Response(response.data)
+        except Token.DoesNotExist:
+            return Response("Request Unauthorized")
+            pass
+
 class UserDetailUpdateView(views.APIView):
     permission_classes = [AllowAny]
     authentication_classes = []
@@ -246,6 +301,37 @@ class UserDetailUpdateView(views.APIView):
             raise ValidationError(serializer.errors)
         except Token.DoesNotExist:
             raise ValidationError('Unauthorized Request')
+
+class UserSessionsView(views.APIView):
+    serializer_class = None
+    permission_classes = [AllowAny]
+    authentication_classes = []
+    iam_organization_field = None
+
+    def post (self, request, format=None):
+        duration = request.data.get('duration')
+
+        if duration is None:
+            return Response({"duration": "This field is required"})
+
+        now = datetime.now()
+        start_time = now - timedelta(days=int(duration))
+
+        user_sessions = UserSession.objects.filter(login_time__gte=start_time).order_by('login_time')
+
+        data = []
+        for user_session in user_sessions:
+            data.append({
+                'username': user_session.username,
+                'login_time': user_session.login_time,
+                'logout_time': user_session.logout_time,
+                'session_duration': user_session.session_duration,
+                'comments': user_session.comments,
+            })
+
+        # Return the serialized data as a JSON response
+        return Response(data)
+
 
 def _etag(etag_func):
     """

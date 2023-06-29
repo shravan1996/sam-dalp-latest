@@ -88,7 +88,7 @@ export default function UpdateProfileForm(props: any): JSX.Element {
         { value: 'image', label: 'I have prior experience in Image Annotation' },
         { value: 'audio', label: 'I have prior experience in Audio Annotation' },
         { value: 'video', label: 'I have prior experience in Video Annotation' },
-        { value: 'text', label: 'I have prior experience in TExt Annotation' },
+        { value: 'text', label: 'I have prior experience in Text Annotation' },
         { value: 'none', label: 'None' },
     ];
 

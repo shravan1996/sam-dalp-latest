@@ -139,10 +139,10 @@ function TopBarComponent(props: Props): JSX.Element {
                                     changingHide1()
                                     console.log(project);
                                 }}>
-                                    {(project && hide.one) ? <CreateProject2/> : <CreateProject/>}
+                                    {( hide.one) ? <CreateProject2/> : <CreateProject/>}
 
                                 </button>
-                                {(project && hide.one) &&
+                                {(hide.one) &&
                                     <div className='cvat-projects-page-control-buttons-wrapper ' style={{marginLeft:'0px',marginTop:'12px'}}>
                                         <button
                                             id='cvat-create-project-button'

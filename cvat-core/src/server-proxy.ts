@@ -424,6 +424,21 @@ async function logout(): Promise<void> {
     }
 }
 
+async function userLogs(duration : number) {
+    let response = null;
+    try {
+        response = await Axios.post(`${config.backendAPI}/auth/logs`,
+        JSON.stringify({duration: duration}), {
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+    } catch (errorData) {
+        throw generateError(errorData);
+    }
+    return response.data;
+}
+
 async function changePassword(oldPassword: string, newPassword1: string, newPassword2: string): Promise<void> {
     try {
         await Axios.post(`${config.backendAPI}/auth/password/change`, {
@@ -2201,6 +2216,7 @@ export default Object.freeze({
         authorized,
         healthCheck,
         register,
+        userLogs,
         request: serverRequest,
         userAgreements,
         installedApps,

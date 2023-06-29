@@ -78,10 +78,10 @@ export default function StoragesTopBar(props: Props): JSX.Element {
                                     setProject(currentValue=>!currentValue);
                                     changingHide1()
                                 }}>
-                                    {(project && hide.one) ? <CreateCloudStorage2/> : <CreateCloudStorage/>}
+                                    {(hide.one) ? <CreateCloudStorage2/> : <CreateCloudStorage/>}
 
                                 </button>
-                                {(project && hide.one) &&
+                                {( hide.one) &&
                                     <button
                                     style={{fontFamily:'Lexend',width:'200px',marginTop:'5px',color:'#111827',borderWidth:'0px',fontWeight:'200'}}
                                     onClick={(): void => history.push('/cloudstorages/create')}

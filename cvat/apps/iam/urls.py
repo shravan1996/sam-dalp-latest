@@ -14,12 +14,12 @@ from cvat.apps.iam.views import UserDetailUpdateView
 
 from cvat.apps.iam.views import (
     SigningView, RegisterViewEx, RulesView,
-    ConfirmEmailViewEx, LoginViewEx
+    ConfirmEmailViewEx, LoginViewEx , LogoutViewEx, UserSessionsView
 )
 
 urlpatterns = [
     path('login', LoginViewEx.as_view(), name='rest_login'),
-    path('logout', LogoutView.as_view(), name='rest_logout'),
+    path('logout', LogoutViewEx.as_view(), name='rest_logout'),
     path('signing', SigningView.as_view(), name='signing'),
     path('rules', RulesView.as_view(), name='rules'),
 ]
@@ -35,6 +35,7 @@ if settings.IAM_TYPE == 'BASIC':
             name='rest_password_reset_confirm'),
         path('password/change', PasswordChangeView.as_view(),
             name='rest_password_change'),
+        path('logs', UserSessionsView.as_view(), name='fetch_user_logs'),
     ]
     if allauth_settings.EMAIL_VERIFICATION != \
        allauth_settings.EmailVerificationMethod.NONE:

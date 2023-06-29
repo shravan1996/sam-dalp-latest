@@ -74,9 +74,9 @@ export default function AnnotatorProfileComponent(props: UserProps): JSX.Element
                             onClick={buttonClick}
 
                         >
-                            <div>
+                            <div className='flex flex-row'>
                                 Continue Profile
-                                <ArrowRightOutlined />
+                                <ArrowRightOutlined style={{marginLeft:'4px',marginTop:'5px'}}/>
 
                             </div>
 

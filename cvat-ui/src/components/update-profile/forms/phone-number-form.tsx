@@ -42,8 +42,8 @@ export default function PhoneNumberForm(props: any): JSX.Element {
             >
             <Form>
                 <div className='title-form'>
-                    <div>PHOME NUMBER</div>
-                    <h2>Please enter your Phome NUmber</h2>
+                    <div>PHONE NUMBER</div>
+                    <h2>Please enter your Phone Number</h2>
                 </div>
 
                 <div className="form-row">

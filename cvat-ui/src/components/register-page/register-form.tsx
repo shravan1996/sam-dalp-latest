@@ -109,7 +109,7 @@ function RegisterFormComponent(props: Props): JSX.Element {
     const [form] = Form.useForm();
     const [usernameEdited, setUsernameEdited] = useState(false);
     return (
-        <div className='signin-page flex flex-row justify-start flex-wrap bg-white overflow-hidden order-first'>
+        <div className='signin-page flex flex-row justify-start flex-wrap bg-white order-first'>
 
 
             <div className='signin-image pl-[15px] shadow-2xl shadow-[#6D88DF]    flex flex-col justify-start    rounded-tr-[30%]  '>

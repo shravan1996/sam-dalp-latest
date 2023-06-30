@@ -11,7 +11,7 @@ export default function ExperienceForm(props: any): JSX.Element {
     const { user, userDetails, priorExpOptions, setSection, onUpdateProfile } = props;
 
     const iv = {
-        priorExperience: ['none'],
+        priorExperience: userDetails.prior_experience || ['none'],
       }
 
     const vs = Yup.object().shape({

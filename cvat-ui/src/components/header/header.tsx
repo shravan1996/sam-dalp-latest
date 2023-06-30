@@ -65,6 +65,7 @@ interface Tool {
 
 interface StateToProps {
     user: any;
+    userDetails : any
     tool: Tool;
     switchSettingsShortcut: string;
     settingsDialogShown: boolean;
@@ -90,6 +91,7 @@ function mapStateToProps(state: CombinedState): StateToProps {
     const {
         auth: {
             user,
+            userDetails,
             fetching: logoutFetching,
             fetching: changePasswordFetching,
             showChangePasswordDialog: changePasswordDialogShown,
@@ -104,6 +106,7 @@ function mapStateToProps(state: CombinedState): StateToProps {
 
     return {
         user,
+        userDetails,
         tool: {
             name: server.name as string,
             description: server.description as string,
@@ -149,6 +152,7 @@ type Props = StateToProps & DispatchToProps;
 function HeaderContainer(props: Props): JSX.Element {
     const {
         user,
+        userDetails,
         tool,
         logoutFetching,
         changePasswordFetching,
@@ -457,118 +461,137 @@ function HeaderContainer(props: Props): JSX.Element {
     if(pathName.includes('auth/logs') && path5!=null)  path5.style.color= '#111827'
     else { if(path5!=null) path5.style.color= 'rgba(17, 24, 39, 0.6)' }
 
-    return (
-        <Layout.Header className='cvat-header' style={{height:'70px',fontFamily:'Lexend'}}>
-            <div className='cvat-left-header ml-8 '>
-            <button onClick={(event)=>{
-                event.preventDefault();
-                history.push('/projects');
-                }}>
-                <Icon className='cvat-logo-icon header-icon mr-24' component={DalpLogoHeader1} />
-            </button>
-            </div>
-        <div className='cvat-right-header '>
-            <div>
-                    <Button
-                        className={getButtonClassName('projects')}
-                        style={{fontWeight:'bold',color:'rgba(17, 24, 39, 0.6)'}}
-                        type='link'
-                        onClick={(event: React.MouseEvent): void => {
-                            event.preventDefault();
-                            console.log(window.location.pathname);
-                            history.push('/projects');
-                        }}
-                        id='projects-header'
-                    >
-                        Projects
-                    </Button>
-                    <Button
-                        className={getButtonClassName('tasks')}
-                        style={{fontWeight:'bold',marginLeft:'30px',color:'rgba(17, 24, 39, 0.6)'}}
-                        type='link'
-                        value='tasks'
-                        href='/tasks?page=1'
-                        onClick={(event: React.MouseEvent): void => {
-                            event.preventDefault();
-                            history.push('/tasks');
-                        }}
-                        id='tasks-header'
-                    >
-                        Tasks
-                    </Button>
-                    <Button
-                        className={getButtonClassName('jobs')}
-                        style={{fontWeight:'bold',marginLeft:'30px',color:'rgba(17, 24, 39, 0.6)'}}
-                        type='link'
-                        value='jobs'
-                        href='/jobs?page=1'
-                        onClick={(event: React.MouseEvent): void => {
-                            event.preventDefault();
-                            history.push('/jobs');
-                        }}
-                        id='jobs-header'
-                    >
-                        Jobs
-                    </Button>
-                    <Button
-                        className={getButtonClassName('cloudstorages')}
-                        style={{fontWeight:'bold',marginLeft:'30px',color:'rgba(17, 24, 39, 0.6)'}}
-                        type='link'
-                        value='cloudstorages'
-                        href='/cloudstorages?page=1'
-                        onClick={(event: React.MouseEvent): void => {
-                            event.preventDefault();
-                            history.push('/cloudstorages');
-                        }}
-                        id='cloud-header'
-                    >
-                        Cloud Storages
-                    </Button>
-                    <Button
-                        className={getButtonClassName('cloudstorages')}
-                        style={{fontWeight:'bold',marginLeft:'30px',color:'rgba(17, 24, 39, 0.6)'}}
-                        type='link'
-                        value='userlogs'
-                        href='/auth/logs'
-                        onClick={(event: React.MouseEvent): void => {
-                            event.preventDefault();
-                            history.push('/auth/logs');
-                        }}
-                        id='user-log'
-                    >
-                        User log
-                    </Button>
-                    {isModelsPluginActive && false ? (
-                        <Button
-                            className={getButtonClassName('models')}
-                            type='link'
-                            value='models'
-                            href='/models'
-                            onClick={(event: React.MouseEvent): void => {
-                                event.preventDefault();
-                                history.push('/models');
-                            }}
-                        >
-                            Models
-                        </Button>
-                    ) : null}
-                    {isAnalyticsPluginActive && user.isSuperuser ? (
-                        <Button
-                            className={getButtonClassName('analytics')}
-                            type='link'
-                            href={`${tool.server.host}/analytics`}
-                            onClick={(event: React.MouseEvent): void => {
-                                event.preventDefault();
-                                // false positive
-                                // eslint-disable-next-line
-                                window.open(`${tool.server.host}/analytics`, '_blank');
-                            }}
-                        >
-                            Analytics
-                        </Button>
-                    ) : null}
+    const getProfilePercentage = ()=>{
+        if(!userDetails) return 0;
 
-                </div>
+        let totalInputs = 0;
+        let filledInputs = 0;
+        if(userDetails)
+            for (let key in userDetails) {
+                let value = userDetails[key];
+                totalInputs++;
+                if(value)   filledInputs++;
+            }
+        return Math.floor((filledInputs / totalInputs) ) ;
+    }
+    const profilePercentage = getProfilePercentage();
+
+    return (
+         <Layout.Header className='cvat-header' style={{height:'70px',fontFamily:'Lexend'}}>
+
+            <div className='cvat-left-header ml-8 '>
+                <button onClick={(event)=>{
+                    event.preventDefault();
+                    history.push('/projects');
+                    }}>
+                    <Icon className='cvat-logo-icon header-icon mr-24' component={DalpLogoHeader1} />
+                </button>
+            </div>
+            <div className='cvat-right-header '>
+                { profilePercentage === 1 && (
+                <>
+                    <div>
+                        <Button
+                            className={getButtonClassName('projects')}
+                            style={{fontWeight:'bold',color:'rgba(17, 24, 39, 0.6)'}}
+                            type='link'
+                            onClick={(event: React.MouseEvent): void => {
+                                event.preventDefault();
+                                console.log(window.location.pathname);
+                                history.push('/projects');
+                            }}
+                            id='projects-header'
+                        >
+                            Projects
+                        </Button>
+                        <Button
+                            className={getButtonClassName('tasks')}
+                            style={{fontWeight:'bold',marginLeft:'30px',color:'rgba(17, 24, 39, 0.6)'}}
+                            type='link'
+                            value='tasks'
+                            href='/tasks?page=1'
+                            onClick={(event: React.MouseEvent): void => {
+                                event.preventDefault();
+                                history.push('/tasks');
+                            }}
+                            id='tasks-header'
+                        >
+                            Tasks
+                        </Button>
+                        <Button
+                            className={getButtonClassName('jobs')}
+                            style={{fontWeight:'bold',marginLeft:'30px',color:'rgba(17, 24, 39, 0.6)'}}
+                            type='link'
+                            value='jobs'
+                            href='/jobs?page=1'
+                            onClick={(event: React.MouseEvent): void => {
+                                event.preventDefault();
+                                history.push('/jobs');
+                            }}
+                            id='jobs-header'
+                        >
+                            Jobs
+                        </Button>
+                        <Button
+                            className={getButtonClassName('cloudstorages')}
+                            style={{fontWeight:'bold',marginLeft:'30px',color:'rgba(17, 24, 39, 0.6)'}}
+                            type='link'
+                            value='cloudstorages'
+                            href='/cloudstorages?page=1'
+                            onClick={(event: React.MouseEvent): void => {
+                                event.preventDefault();
+                                history.push('/cloudstorages');
+                            }}
+                            id='cloud-header'
+                        >
+                            Cloud Storages
+                        </Button>
+                        <Button
+                            className={getButtonClassName('cloudstorages')}
+                            style={{fontWeight:'bold',marginLeft:'30px',color:'rgba(17, 24, 39, 0.6)'}}
+                            type='link'
+                            value='userlogs'
+                            href='/auth/logs'
+                            onClick={(event: React.MouseEvent): void => {
+                                event.preventDefault();
+                                history.push('/auth/logs');
+                            }}
+                            id='user-log'
+                        >
+                            User log
+                        </Button>
+                        {isModelsPluginActive && false ? (
+                            <Button
+                                className={getButtonClassName('models')}
+                                type='link'
+                                value='models'
+                                href='/models'
+                                onClick={(event: React.MouseEvent): void => {
+                                    event.preventDefault();
+                                    history.push('/models');
+                                }}
+                            >
+                                Models
+                            </Button>
+                        ) : null}
+                        {isAnalyticsPluginActive && user.isSuperuser ? (
+                            <Button
+                                className={getButtonClassName('analytics')}
+                                type='link'
+                                href={`${tool.server.host}/analytics`}
+                                onClick={(event: React.MouseEvent): void => {
+                                    event.preventDefault();
+                                    // false positive
+                                    // eslint-disable-next-line
+                                    window.open(`${tool.server.host}/analytics`, '_blank');
+                                }}
+                            >
+                                Analytics
+                            </Button>
+                        ) : null}
+                    </div>
+                </>
+                )}
 
 
 
@@ -638,6 +661,7 @@ function HeaderContainer(props: Props): JSX.Element {
             </div>
             <SettingsModal visible={settingsDialogShown} onClose={closeSettings} />
             {renderChangePasswordItem && <ChangePasswordDialog onClose={() => switchChangePasswordDialog(false)} />}
+
         </Layout.Header>
     );
 }

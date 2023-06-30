@@ -249,7 +249,6 @@ class CVATApplication extends React.PureComponent<CVATAppProps & RouteComponentP
 
     public componentDidUpdate(): void {
 
-        console.log('component did UPDATE starts here')
         const {
             verifyAuthorized,
             loadFormats,
@@ -495,8 +494,6 @@ class CVATApplication extends React.PureComponent<CVATAppProps & RouteComponentP
         }
 
         const percentageProfile = profilePercentage() ;
-        let checker = false
-
 
         if (readyForRender) {
             if (user && user.isVerified) {
@@ -516,51 +513,56 @@ class CVATApplication extends React.PureComponent<CVATAppProps & RouteComponentP
 
                                                     <Route exact path='/auth/profile' component={UpdateProfile} />
                                                     <Route exact path='/auth/logout' component={LogoutComponent} />
-                                                    <Route exact path='/auth/logs' component={UserLogsContainer} />
-                                                    <Route exact path='/projects' component={ProjectsPageComponent} />
-                                                    <Route exact path='/projects/create' component={CreateProjectPageComponent} />
-                                                    <Route exact path='/projects/:id' component={ProjectPageComponent} />
-                                                    <Route exact path='/projects/:id/webhooks' component={WebhooksPage} />
-                                                    <Route exact path='/tasks' component={TasksPageContainer} />
-                                                    <Route exact path='/tasks/create' component={CreateTaskPageContainer} />
-                                                    <Route exact path='/tasks/:id' component={TaskPageComponent} />
-                                                    <Route exact path='/tasks/:tid/jobs/:jid' component={AnnotationPageContainer} />
-                                                    <Route exact path='/jobs' component={JobsPageComponent} />
-                                                    <Route exact path='/cloudstorages' component={CloudStoragesPageComponent} />
-                                                    <Route
-                                                        exact
-                                                        path='/cloudstorages/create'
-                                                        component={CreateCloudStoragePageComponent}
-                                                    />
-                                                    <Route
-                                                        exact
-                                                        path='/cloudstorages/update/:id'
-                                                        component={UpdateCloudStoragePageComponent}
-                                                    />
-                                                    <Route
-                                                        exact
-                                                        path='/organizations/create'
-                                                        component={CreateOrganizationComponent}
-                                                    />
-                                                    <Route exact path='/organization/webhooks' component={WebhooksPage} />
-                                                    <Route exact path='/webhooks/create' component={CreateWebhookPage} />
-                                                    <Route exact path='/webhooks/update/:id' component={UpdateWebhookPage} />
-                                                    <Route exact path='/organization' component={OrganizationPage} />
-                                                    { routesToRender }
-                                                    {isModelPluginActive && (
+
+                                                    {percentageProfile == 1 ? (<>
+                                                        <Route exact path='/auth/logs' component={UserLogsContainer} />
+                                                        <Route exact path='/projects' component={ProjectsPageComponent} />
+                                                        <Route exact path='/projects/create' component={CreateProjectPageComponent} />
+                                                        <Route exact path='/projects/:id' component={ProjectPageComponent} />
+                                                        <Route exact path='/projects/:id/webhooks' component={WebhooksPage} />
+                                                        <Route exact path='/tasks' component={TasksPageContainer} />
+                                                        <Route exact path='/tasks/create' component={CreateTaskPageContainer} />
+                                                        <Route exact path='/tasks/:id' component={TaskPageComponent} />
+                                                        <Route exact path='/tasks/:tid/jobs/:jid' component={AnnotationPageContainer} />
+                                                        <Route exact path='/jobs' component={JobsPageComponent} />
+                                                        <Route exact path='/cloudstorages' component={CloudStoragesPageComponent} />
                                                         <Route
-                                                            path='/models'
-                                                        >
-                                                            <Switch>
-                                                                <Route exact path='/models' component={ModelsPageComponent} />
-                                                                <Route exact path='/models/create' component={CreateModelPage} />
-                                                            </Switch>
-                                                        </Route>
-                                                    )}
-                                                    <Redirect
-                                                        push
-                                                        to={new URLSearchParams(location.search).get('next') || '/tasks'}
-                                                    />
+                                                            exact
+                                                            path='/cloudstorages/create'
+                                                            component={CreateCloudStoragePageComponent}
+                                                        />
+                                                        <Route
+                                                            exact
+                                                            path='/cloudstorages/update/:id'
+                                                            component={UpdateCloudStoragePageComponent}
+                                                        />
+                                                        <Route
+                                                            exact
+                                                            path='/organizations/create'
+                                                            component={CreateOrganizationComponent}
+                                                        />
+                                                        <Route exact path='/organization/webhooks' component={WebhooksPage} />
+                                                        <Route exact path='/webhooks/create' component={CreateWebhookPage} />
+                                                        <Route exact path='/webhooks/update/:id' component={UpdateWebhookPage} />
+                                                        <Route exact path='/organization' component={OrganizationPage} />
+                                                        { routesToRender }
+                                                        {isModelPluginActive && (
+                                                            <Route
+                                                                path='/models'
+                                                            >
+                                                                <Switch>
+                                                                    <Route exact path='/models' component={ModelsPageComponent} />
+                                                                    <Route exact path='/models/create' component={CreateModelPage} />
+                                                                </Switch>
+                                                            </Route>
+                                                        )}
+                                                        <Redirect
+                                                            push
+                                                            to={new URLSearchParams(location.search).get('next') || '/tasks'}
+                                                        />
+                                                    </>) :
+                                                        <Redirect to='/auth/profile' />
+                                                    }
                                                 </Switch>
                                             </GlobalHotKeys>
                                             <ExportDatasetModal />
@@ -573,7 +575,6 @@ class CVATApplication extends React.PureComponent<CVATAppProps & RouteComponentP
                                             <OrganizationWatcher />
                                             {/* eslint-disable-next-line */}
                                             <a id='downloadAnchor' target='_blank' style={{ display: 'none' }} download />
-                                            { percentageProfile!=1 && <Redirect to='/auth/profile'/>}
                                         </Layout.Content>
 
                             </Layout>

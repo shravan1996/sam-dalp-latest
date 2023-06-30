@@ -289,11 +289,16 @@ function RegisterFormComponent(props: Props): JSX.Element {
                         ]}
                     >
 
-                            <Select placeholder='Select a category' size={'large'} style={{ width: '98%',  height:'40px'}}>
-                                <Select.Option value='Project-Co-ordinator'>Project Co-ordinator</Select.Option>
+                            {/* <Select placeholder='Select a category' size={'large'} style={{ width: '98%',  height:'40px'}}>
+                                <Select.Option value='PROJECT MANAGER'>Project Manager</Select.Option>
                                 <Select.Option value='Annotator'>Annotator</Select.Option>
-                            </Select>
+                            </Select> */}
 
+                                <select className='border-2   text-lg rounded-lg font-medium px-2 w-[99%] h-14 focus:border-[#2fcbfa] focus:shadow-xl font-[Lexend]' required  name="category" id="category">
+                                    <option value="" disabled selected >Select a category</option>
+                                    <option  value="PROJECT MANAGER">Project Manager</option>
+                                    <option  value="ANNOTATOR">Annotator</option>
+                                </select>
                     </Form.Item>
 
 

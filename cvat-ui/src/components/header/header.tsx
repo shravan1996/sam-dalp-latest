@@ -491,33 +491,39 @@ function HeaderContainer(props: Props): JSX.Element {
                 { profilePercentage === 1 && (
                 <>
                     <div>
-                        <Button
-                            className={getButtonClassName('projects')}
-                            style={{fontWeight:'bold',color:'rgba(17, 24, 39, 0.6)'}}
-                            type='link'
-                            onClick={(event: React.MouseEvent): void => {
-                                event.preventDefault();
-                                console.log(window.location.pathname);
-                                history.push('/projects');
-                            }}
-                            id='projects-header'
-                        >
-                            Projects
-                        </Button>
-                        <Button
-                            className={getButtonClassName('tasks')}
-                            style={{fontWeight:'bold',marginLeft:'30px',color:'rgba(17, 24, 39, 0.6)'}}
-                            type='link'
-                            value='tasks'
-                            href='/tasks?page=1'
-                            onClick={(event: React.MouseEvent): void => {
-                                event.preventDefault();
-                                history.push('/tasks');
-                            }}
-                            id='tasks-header'
-                        >
-                            Tasks
-                        </Button>
+                        { userDetails.category!=='ANNOTATOR' &&
+
+                            <Button
+                                className={getButtonClassName('projects')}
+                                style={{fontWeight:'bold',color:'rgba(17, 24, 39, 0.6)'}}
+                                type='link'
+                                onClick={(event: React.MouseEvent): void => {
+                                    event.preventDefault();
+                                    console.log(window.location.pathname);
+                                    history.push('/projects');
+                                }}
+                                id='projects-header'
+                            >
+                                Projects
+                            </Button>
+                        }
+                        { userDetails.category!=='ANNOTATOR' &&
+
+                            <Button
+                                className={getButtonClassName('tasks')}
+                                style={{fontWeight:'bold',marginLeft:'30px',color:'rgba(17, 24, 39, 0.6)'}}
+                                type='link'
+                                value='tasks'
+                                href='/tasks?page=1'
+                                onClick={(event: React.MouseEvent): void => {
+                                    event.preventDefault();
+                                    history.push('/tasks');
+                                }}
+                                id='tasks-header'
+                            >
+                                Tasks
+                            </Button>
+                        }
                         <Button
                             className={getButtonClassName('jobs')}
                             style={{fontWeight:'bold',marginLeft:'30px',color:'rgba(17, 24, 39, 0.6)'}}

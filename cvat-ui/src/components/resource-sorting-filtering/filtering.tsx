@@ -238,7 +238,7 @@ export default function ResourceFilterHOC(
                         <FilterOutlined />} */}
                 </Button>
 
-                {(( hide.three )&& predefinedFilters) ?
+                {(( hide.three )&& predefinedFilters) &&
                     <div className='cvat-resource-page-predefined-filters-list'>
                         {Object.keys(predefinedFilters).map((key: string): JSX.Element => (
                             <Checkbox
@@ -269,7 +269,7 @@ export default function ResourceFilterHOC(
                                 {key}
                             </Checkbox>
                         )) }
-                    </div> : <p></p>
+                    </div>
 
                 }
 
@@ -284,7 +284,7 @@ export default function ResourceFilterHOC(
                             <FilterFilled /> :
                             <FilterOutlined />} */}
                 </Button>
-                {( hide.four) ?
+                {( hide.four) &&
                     <div className='cvat-resource-page-filters-builder'>
                         { Object.keys(recentFilters).length ? (
                             <Dropdown
@@ -384,7 +384,7 @@ export default function ResourceFilterHOC(
                             </Button>
                         </Space>
                     </div>
-                    : <p></p>
+                    
                 }
 
 

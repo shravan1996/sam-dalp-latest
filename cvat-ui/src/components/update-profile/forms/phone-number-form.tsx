@@ -52,7 +52,7 @@ export default function PhoneNumberForm(props: any): JSX.Element {
                             width={50}
                             id="mobileNumber"
                             name="mobileNumber"
-                            placeholder="+91 | Phome Number"
+                            placeholder="+91 | Phone Number"
                             className="form-field big-field"
                         />
                         <div style={{ color: 'red' }}>

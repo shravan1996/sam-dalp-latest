@@ -109,7 +109,7 @@ export default function LanguageForm(props: any): JSX.Element {
             <Form>
                 <div className='title-form'>
                     <div>LANGUAGE</div>
-                    <h2>Please enter your native langugae and select your english proficiency</h2>
+                    <h2>Please enter your native language and select your english proficiency</h2>
                 </div>
                 <div className="form-row">
                     <InputWrapper style={{ display:'flex',flexDirection:'column' }}>

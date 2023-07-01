@@ -315,6 +315,12 @@ export interface AboutState {
     initialized: boolean;
 }
 
+export interface UserLogsState {
+    userLogs: any;
+    fetching : boolean;
+    initialized: boolean;
+}
+
 export interface UserAgreement {
     name: string;
     urlDisplayText: string;
@@ -456,6 +462,12 @@ export interface NotificationsState {
         about: {
             fetching: null | ErrorState;
         };
+        userLogs: {
+            fetching: null | ErrorState;
+        };
+        // share: {
+        //     fetching: null | ErrorState;
+        // };
         models: {
             starting: null | ErrorState;
             fetching: null | ErrorState;
@@ -873,6 +885,8 @@ export interface CombinedState {
     jobs: JobsState;
     tasks: TasksState;
     about: AboutState;
+    userLogs: UserLogsState
+    // share: ShareState;
     formats: FormatsState;
     userAgreements: UserAgreementsState;
     plugins: PluginsState;

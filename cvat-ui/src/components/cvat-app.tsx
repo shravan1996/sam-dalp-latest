@@ -11,8 +11,7 @@ import Layout from 'antd/lib/layout';
 import Modal from 'antd/lib/modal';
 import notification from 'antd/lib/notification';
 import Spin from 'antd/lib/spin';
-import { LoadingOutlined } from '@ant-design/icons'; // new
-import { DisconnectOutlined } from '@ant-design/icons';
+import { LoadingOutlined, DisconnectOutlined } from '@ant-design/icons'; // new
 import Space from 'antd/lib/space';
 import Text from 'antd/lib/typography/Text';
 import ReactMarkdown from 'react-markdown';
@@ -24,6 +23,7 @@ import LoginWithTokenComponent from 'components/login-with-token/login-with-toke
 import RegisterPageContainer from 'containers/register-page/register-page';
 import ResetPasswordPageConfirmComponent from 'components/reset-password-confirm-page/reset-password-confirm-page';
 import ResetPasswordPageComponent from 'components/reset-password-page/reset-password-page';
+import UserLogsContainer from 'containers/user-logs/user-logs';
 
 import Header from 'components/header/header';
 import GlobalErrorBoundary from 'components/global-error-boundary/global-error-boundary';
@@ -75,6 +75,7 @@ import EmailVerificationSentPage from './email-confirmation-pages/email-verifica
 import IncorrectEmailConfirmationPage from './email-confirmation-pages/incorrect-email-confirmation';
 import CreateModelPage from './create-model-page/create-model-page';
 import OrganizationWatcher from './watchers/organization-watcher';
+import IdleTimeoutComponent from './idle-timeout-component';
 
 interface CVATAppProps {
     loadFormats: () => void;
@@ -451,12 +452,14 @@ class CVATApplication extends React.PureComponent<CVATAppProps & RouteComponentP
                     <GlobalErrorBoundary>
                         <ShortcutsContextProvider>
                             <Layout>
+                                <IdleTimeoutComponent />
                                 <Header />
                                 <Layout.Content style={{ height: '100%' }}>
                                     <ShortcutsDialog />
                                     <GlobalHotKeys keyMap={subKeyMap} handlers={handlers}>
                                         <Switch>
                                             <Route exact path='/auth/logout' component={LogoutComponent} />
+                                            <Route exact path='/auth/logs' component={UserLogsContainer} />
                                             <Route exact path='/projects' component={ProjectsPageComponent} />
                                             <Route exact path='/projects/create' component={CreateProjectPageComponent} />
                                             <Route exact path='/projects/:id' component={ProjectPageComponent} />
@@ -557,11 +560,10 @@ class CVATApplication extends React.PureComponent<CVATAppProps & RouteComponentP
                 </Space>
             );
         }
-
-        return(
+        return (
             //  <Spin size='large' className='cvat-spinner' tip='Connecting...' />
-             <Spin indicator={antIcon} size='large' className='cvat-spinner' /> // new
-        )
+            <Spin indicator={antIcon} size='large' className='cvat-spinner' /> // new
+        );
     }
 }
 

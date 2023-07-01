@@ -6,6 +6,7 @@ from django.contrib import admin
 from django.contrib.auth.models import Group, User
 from django.contrib.auth.admin import GroupAdmin, UserAdmin
 from django.utils.translation import gettext_lazy as _
+from cvat.apps.iam.models import UserSession
 
 class CustomUserAdmin(UserAdmin):
     fieldsets = (
@@ -28,8 +29,13 @@ class CustomUserAdmin(UserAdmin):
 class CustomGroupAdmin(GroupAdmin):
     fieldsets = ((None, {'fields': ('name',)}),)
 
+class UserSessionAdmin(admin.ModelAdmin):
+    list_display = ('username', 'login_time', 'logout_time', 'session_duration')
+    list_filter = ('username',)
 
 admin.site.unregister(User)
 admin.site.unregister(Group)
 admin.site.register(User, CustomUserAdmin)
 admin.site.register(Group, CustomGroupAdmin)
+admin.site.register(UserSession, UserSessionAdmin)
+

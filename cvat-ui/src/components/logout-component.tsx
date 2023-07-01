@@ -1,7 +1,6 @@
 // Copyright (C) 2022 CVAT.ai Corporation
 //
 // SPDX-License-Identifier: MIT
-
 import Spin from 'antd/lib/spin';
 import { LoadingOutlined } from '@ant-design/icons'; // new
 import React, { useEffect } from 'react';
@@ -27,8 +26,7 @@ function LogoutComponent(): JSX.Element {
 
     return (
         <div className='cvat-logout-page cvat-spinner-container'>
-            {/* <Spin className='cvat-spinner' /> */}
-            <Spin indicator={antIcon} size='large' className='cvat-spinner' /> // new
+            <Spin indicator={antIcon} size='large' className='cvat-spinner' />
         </div>
     );
 }

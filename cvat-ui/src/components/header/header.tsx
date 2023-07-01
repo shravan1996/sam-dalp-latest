@@ -5,6 +5,7 @@
 
 import './styles.scss';
 import React, { useCallback } from 'react';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { useHistory, useLocation } from 'react-router';
 import { Row, Col } from 'antd/lib/grid';
@@ -502,6 +503,20 @@ function HeaderContainer(props: Props): JSX.Element {
                         id='cloud-header'
                     >
                         Cloud Storages
+                    </Button>
+                    <Button
+                        className={getButtonClassName('userlogs')}
+                        style={{fontWeight:'bold',marginLeft:'30px',color:'rgba(17, 24, 39, 0.6)'}}
+                        type='link'
+                        value='userlogs'
+                        href='/auth/logs'
+                        onClick={(event: React.MouseEvent): void => {
+                            event.preventDefault();
+                            history.push('/auth/logs');
+                        }}
+                        id='user-logs-header'
+                    >
+                        User Logs
                     </Button>
                     {isModelsPluginActive && false ? (
                         <Button

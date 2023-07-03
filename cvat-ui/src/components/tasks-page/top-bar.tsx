@@ -28,6 +28,9 @@ import DalpLogo from '../../assets/cvat-logo.svg'  // importing dalp logo
 
 import CreateTaskIcon from '../../assets/create-task.svg';
 import CreateTaskIcon2 from '../../assets/create-task2.svg';
+import TextField from '@mui/material/TextField';
+import IconButton from '@mui/material/IconButton';
+import SearchIcon from '@mui/icons-material/Search';
 
 
 const FilteringComponent = ResourceFilterHOC(
@@ -189,6 +192,16 @@ export default function TopBarComponent(props: VisibleTopBarProps): JSX.Element 
         )
      }
 
+    let searchPhrase= '';
+
+     const handleSearch = () => {
+         onApplySearch(searchPhrase);
+     };
+
+     const handleChange = (event:any) => {
+      searchPhrase= event.target.value ;
+     };
+
 
 
 
@@ -202,14 +215,37 @@ export default function TopBarComponent(props: VisibleTopBarProps): JSX.Element 
 
                 <div className='cvat-tasks-page-filters-wrapper ml-16'>
                     {showModal ? '' :
-                        <Input.Search
-                            enterButton
-                            onSearch={(phrase: string) => {
-                                onApplySearch(phrase);
-                            }}
+                        // <Input.Search
+                        //     enterButton
+                        //     onSearch={(phrase: string) => {
+                        //         onApplySearch(phrase);
+                        //     }}
+                        //     defaultValue={query.search || ''}
+                        //     className='cvat-tasks-page-search-bar'
+                        //     placeholder='Search ...'
+                        // />
+
+                        <TextField
+                            variant="outlined"
+                            placeholder="Search"
                             defaultValue={query.search || ''}
-                            className='cvat-tasks-page-search-bar'
-                            placeholder='Search ...'
+                            onChange={handleChange}
+                            InputProps={{
+                                endAdornment: (
+                                <IconButton onClick={handleSearch}
+                                >
+                                    <SearchIcon />
+                                </IconButton>
+                                ),
+                                style: {
+                                    height: '40px', // Set input height
+                                    backgroundColor: 'white', // Set background color
+                                    color: 'black', // Set text color
+                                    width: '300px',
+                                    borderRadius:'20px',
+                                },
+                            }}
+
                         />
                     }
 

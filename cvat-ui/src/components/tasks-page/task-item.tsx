@@ -164,7 +164,7 @@ class TaskItemComponent extends React.PureComponent<TaskItemProps & RouteCompone
                             Open
                         </Button>
                         <Dropdown overlay={<ActionsMenuContainer taskInstance={taskInstance} />}>
-                            <Col className='cvat-item-open-task-actions'>
+                            <Col className='cvat-item-open-task-actions' style={{color:'blue'}}>
                                 {/* <Text className='cvat-text-color'>Actions</Text> */}
                                 <MoreOutlined className='cvat-menu-icon' />
                             </Col>
@@ -196,7 +196,7 @@ class TaskItemComponent extends React.PureComponent<TaskItemProps & RouteCompone
         }
 
         return (
-            <Row className='cvat-tasks-list-item ' justify='center' align='top' style={{ ...style,borderRadius:'7px',borderWidth:'0px' }}>
+            <Row className='cvat-tasks-list-item ' justify='center' align='top' style={{ ...style,borderRadius:'7px',borderWidth:'0px',boxShadow: 'rgb(126, 150, 234) 0px 0px 3px 3px', }}>
                 {this.renderPreview()}
                 {this.renderDescription()}
                 {this.renderProgress()}

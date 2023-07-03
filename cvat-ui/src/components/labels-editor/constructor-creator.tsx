@@ -46,7 +46,7 @@ function ConstructorCreator(props: Props): JSX.Element {
     }, [skeletonConfiguratorRef]);
 
     return (
-        <div className='cvat-label-constructor-creator'>
+        <div className='cvat-label-constructor-creator m-[10px]'>
             <LabelForm
                 label={null}
                 labelNames={labelNames}

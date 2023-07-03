@@ -27,7 +27,9 @@ import DalpLogo from '../../assets/cvat-logo.svg'  // importing dalp logo
 import CreateProject from '../../assets/create-project.svg';
 import CreateProject2 from '../../assets/create-project2.svg';
 import Feedback from '../feedback/feedback';
-
+import TextField from '@mui/material/TextField';
+import IconButton from '@mui/material/IconButton';
+import SearchIcon from '@mui/icons-material/Search';
 
 const FilteringComponent = ResourceFilterHOC(
     config, localStorageRecentKeyword, localStorageRecentCapacity, predefinedFilterValues,
@@ -224,11 +226,21 @@ function TopBarComponent(props: Props): JSX.Element {
         )
      }
 
+    let searchPhrase = '' ;
+
+     const handleSearch = () => {
+         onApplySearch(searchPhrase);
+     };
+
+     const handleChange = (event:any) => {
+      searchPhrase= event.target.value ;
+     };
+
     return (
 
 
 
-        <Row className='cvat-projects-page-top-bar ml-[50px] mt-[10px]' justify='start' align='middle'>
+        <Row className='cvat-projects-page-top-bar ml-[50px] ' justify='start' align='middle'>
 
             <Col md={22} lg={18} xl={16} xxl={16} >
 
@@ -239,15 +251,37 @@ function TopBarComponent(props: Props): JSX.Element {
                 <div className={'cvat-projects-page-filters-wrapper ml-16'}>
 
                     {showModal ? '' :
-                        <Input.Search
-                            enterButton
-                            onSearch={(phrase: string) => {
-                                onApplySearch(phrase);
-                            }}
-                            defaultValue={query.search || ''}
-                            className={'cvat-projects-page-search-bar' }
-                            style={{fontFamily:'Lexend'}}
-                            placeholder='Search '
+                        // <Input.Search
+                        //     enterButton
+                        //     onSearch={(phrase: string) => {
+                        //         onApplySearch(phrase);
+                        //     }}
+                        //     defaultValue={query.search || ''}
+                        //     className={'cvat-projects-page-search-bar' }
+                        //     style={{fontFamily:'Lexend'}}
+                        //     placeholder='Search '
+                        // />
+                        <TextField
+                                variant="outlined"
+                                placeholder="Search"
+                                defaultValue={query.search || ''}
+                                onChange={handleChange}
+                                InputProps={{
+                                    endAdornment: (
+                                    <IconButton onClick={handleSearch}
+                                    >
+                                        <SearchIcon />
+                                    </IconButton>
+                                    ),
+                                    style: {
+                                        height: '40px', // Set input height
+                                        backgroundColor: 'white', // Set background color
+                                        color: 'black', // Set text color
+                                        width: '300px',
+                                        borderRadius:'20px',
+                                    },
+                                }}
+
                         />
                     }
                 </div>

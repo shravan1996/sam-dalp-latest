@@ -11,6 +11,7 @@ import { Row, Col } from 'antd/lib/grid';
 import { UserAgreement } from 'reducers';
 import SigningLayout, { formSizes } from 'components/signing-common/signing-layout';
 import RegisterForm, { RegisterData, UserConfirmation } from './register-form';
+import './style.css' ;
 
 interface RegisterPageComponentProps {
     fetching: boolean;

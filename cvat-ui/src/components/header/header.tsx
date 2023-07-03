@@ -477,7 +477,7 @@ function HeaderContainer(props: Props): JSX.Element {
     const profilePercentage = getProfilePercentage();
 
     return (
-         <Layout.Header className='cvat-header' style={{height:'70px',fontFamily:'Lexend'}}>
+         <Layout.Header className='cvat-header flex justify-between' style={{height:'70px',fontFamily:'Lexend'}}>
 
             <div className='cvat-left-header ml-8 '>
                 <button onClick={(event)=>{
@@ -490,8 +490,8 @@ function HeaderContainer(props: Props): JSX.Element {
             <div className='cvat-right-header '>
                 { profilePercentage === 1 && (
                 <>
-                    <div>
-                        { userDetails.category!=='ANNOTATOR' &&
+                    <div className="flex">
+                        { userDetails.category==='PROJECT MANAGER' &&
 
                             <Button
                                 className={getButtonClassName('projects')}
@@ -507,7 +507,7 @@ function HeaderContainer(props: Props): JSX.Element {
                                 Projects
                             </Button>
                         }
-                        { userDetails.category!=='ANNOTATOR' &&
+                        { userDetails.category==='PROJECT MANAGER' &&
 
                             <Button
                                 className={getButtonClassName('tasks')}
@@ -598,8 +598,6 @@ function HeaderContainer(props: Props): JSX.Element {
                     </div>
                 </>
                 )}
-
-
 
                 <CVATTooltip overlay='Click to open repository'>
                     <Button

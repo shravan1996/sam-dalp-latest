@@ -505,7 +505,7 @@ export default class LabelForm extends React.Component<Props> {
             <CVATTooltip title={tooltipTitle}>
                 <Button
                     className='cvat-submit-new-label-button'
-                    style={{ width: '150px' }}
+                    style={{ width: '150px', borderRadius: '10px', backgroundColor: 'rgb(126,150,234)' }}
                     type='primary'
                     htmlType='submit'
                 >
@@ -524,7 +524,7 @@ export default class LabelForm extends React.Component<Props> {
                     className='cvat-cancel-new-label-button'
                     type='primary'
                     danger
-                    style={{ width: '150px' }}
+                    style={{ width: '150px' , borderRadius: '10px' }}
                     onClick={(): void => {
                         onCancel();
                     }}

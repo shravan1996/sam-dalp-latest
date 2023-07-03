@@ -494,6 +494,14 @@ class CVATApplication extends React.PureComponent<CVATAppProps & RouteComponentP
         }
 
         const percentageProfile = profilePercentage() ;
+        const isProfileCompleted = percentageProfile==1 ;
+
+        let isManager = false ;
+        let isAnnotator = false ;
+        if(userDetails != null){
+            isManager = userDetails.category === 'PROJECT MANAGER' ;
+            isAnnotator = userDetails.category === 'ANNOTATOR' ;
+        }
 
         if (readyForRender) {
             if (user && user.isVerified) {
@@ -502,68 +510,62 @@ class CVATApplication extends React.PureComponent<CVATAppProps & RouteComponentP
                         <ShortcutsContextProvider>
                             <Layout>
                                 <Header />
-                                    {/* { (percentageProfile !=1 && !checker) ? <UpdateProfile checker={checker} />    : */}
-
                                         <Layout.Content >
-
                                             <ShortcutsDialog />
                                             <GlobalHotKeys keyMap={subKeyMap} handlers={handlers}>
-                                                <Switch>
+                                                <>
+                                                    {(isProfileCompleted && isManager )&& (
+                                                        <Switch>
+                                                            <Route exact path='/projects' component={ProjectsPageComponent} />
+                                                            <Route exact path='/projects/create' component={CreateProjectPageComponent} />
+                                                            <Route exact path='/projects/:id' component={ProjectPageComponent} />
+                                                            <Route exact path='/projects/:id/webhooks' component={WebhooksPage} />
+                                                            <Route exact path='/tasks' component={TasksPageContainer} />
+                                                            <Route exact path='/tasks/create' component={CreateTaskPageContainer} />
+                                                            <Route exact path='/tasks/:id' component={TaskPageComponent} />
+                                                            <Route exact path='/auth/logs' component={UserLogsContainer} />
+                                                        </Switch>
+                                                    )}
 
-
-                                                    <Route exact path='/auth/profile' component={UpdateProfile} />
-                                                    <Route exact path='/auth/logout' component={LogoutComponent} />
-
-                                                    {percentageProfile == 1 ? (<>
-                                                        <Route exact path='/auth/logs' component={UserLogsContainer} />
-                                                        <Route exact path='/projects' component={ProjectsPageComponent} />
-                                                        <Route exact path='/projects/create' component={CreateProjectPageComponent} />
-                                                        <Route exact path='/projects/:id' component={ProjectPageComponent} />
-                                                        <Route exact path='/projects/:id/webhooks' component={WebhooksPage} />
-                                                        <Route exact path='/tasks' component={TasksPageContainer} />
-                                                        <Route exact path='/tasks/create' component={CreateTaskPageContainer} />
-                                                        <Route exact path='/tasks/:id' component={TaskPageComponent} />
-                                                        <Route exact path='/tasks/:tid/jobs/:jid' component={AnnotationPageContainer} />
-                                                        <Route exact path='/jobs' component={JobsPageComponent} />
-                                                        <Route exact path='/cloudstorages' component={CloudStoragesPageComponent} />
-                                                        <Route
-                                                            exact
-                                                            path='/cloudstorages/create'
-                                                            component={CreateCloudStoragePageComponent}
-                                                        />
-                                                        <Route
-                                                            exact
-                                                            path='/cloudstorages/update/:id'
-                                                            component={UpdateCloudStoragePageComponent}
-                                                        />
-                                                        <Route
-                                                            exact
-                                                            path='/organizations/create'
-                                                            component={CreateOrganizationComponent}
-                                                        />
-                                                        <Route exact path='/organization/webhooks' component={WebhooksPage} />
-                                                        <Route exact path='/webhooks/create' component={CreateWebhookPage} />
-                                                        <Route exact path='/webhooks/update/:id' component={UpdateWebhookPage} />
-                                                        <Route exact path='/organization' component={OrganizationPage} />
-                                                        { routesToRender }
-                                                        {isModelPluginActive && (
-                                                            <Route
-                                                                path='/models'
-                                                            >
+                                                    {((isProfileCompleted && isManager) || (isProfileCompleted && isAnnotator) )&& (
+                                                        <Switch>
+                                                            <Route exact path='/jobs' component={JobsPageComponent} />
+                                                            <Route exact path='/tasks/:tid/jobs/:jid' component={AnnotationPageContainer} />
+                                                            <Route exact path='/cloudstorages' component={CloudStoragesPageComponent} />
+                                                            <Route exact path='/cloudstorages/create' component={CreateCloudStoragePageComponent} />
+                                                            <Route exact path='/cloudstorages/update/:id' component={UpdateCloudStoragePageComponent} />
+                                                            <Route exact path='/organizations/create' component={CreateOrganizationComponent} />
+                                                            <Route exact path='/organization/webhooks' component={WebhooksPage} />
+                                                            <Route exact path='/webhooks/create' component={CreateWebhookPage} />
+                                                            <Route exact path='/webhooks/update/:id' component={UpdateWebhookPage} />
+                                                            <Route exact path='/organization' component={OrganizationPage} />
+                                                            <Route exact path='/auth/logs' component={UserLogsContainer} />
+                                                        </Switch>
+                                                    )}
+                                                    <Switch>
+                                                        <Route exact path='/auth/profile' component={UpdateProfile} />
+                                                        <Route exact path='/auth/logout' component={LogoutComponent} />
+                                                            {routesToRender}
+                                                            {isModelPluginActive && (
+                                                                <Route path='/models'>
                                                                 <Switch>
                                                                     <Route exact path='/models' component={ModelsPageComponent} />
                                                                     <Route exact path='/models/create' component={CreateModelPage} />
                                                                 </Switch>
-                                                            </Route>
-                                                        )}
-                                                        <Redirect
-                                                            push
-                                                            to={new URLSearchParams(location.search).get('next') || '/tasks'}
-                                                        />
-                                                    </>) :
-                                                        <Redirect to='/auth/profile' />
-                                                    }
-                                                </Switch>
+                                                                </Route>
+                                                            )}
+                                                            <Redirect
+                                                                push
+                                                                to={
+                                                                isAnnotator && isProfileCompleted
+                                                                    ? '/jobs'
+                                                                    : isManager && isProfileCompleted
+                                                                    ? '/projects'
+                                                                    : '/auth/profile'
+                                                                }
+                                                            />
+                                                    </Switch>
+                                              </>
                                             </GlobalHotKeys>
                                             <ExportDatasetModal />
                                             <ExportBackupModal />

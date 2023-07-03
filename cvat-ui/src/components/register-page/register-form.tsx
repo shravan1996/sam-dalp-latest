@@ -294,7 +294,7 @@ function RegisterFormComponent(props: Props): JSX.Element {
                                 <Select.Option value='Annotator'>Annotator</Select.Option>
                             </Select> */}
 
-                                <select className='border-2   text-lg rounded-lg font-medium px-2 w-[99%] h-14 focus:border-[#2fcbfa] focus:shadow-xl font-[Lexend]' required  name="category" id="category">
+                                <select className='border-2 text-lg rounded-lg font-medium px-2 w-[99%] h-14 focus:border-[#2fcbfa] focus:shadow-xl font-[Lexend]' required  name="category" id="category">
                                     <option value="" disabled selected >Select a category</option>
                                     <option  value="PROJECT MANAGER">Project Manager</option>
                                     <option  value="ANNOTATOR">Annotator</option>

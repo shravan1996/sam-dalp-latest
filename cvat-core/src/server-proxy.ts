@@ -375,6 +375,7 @@ async function register(
     firstName: string,
     lastName: string,
     email: string,
+    category:string,
     password: string,
     confirmations: Record<string, string>,
 ): Promise<SerializedRegister> {
@@ -385,11 +386,13 @@ async function register(
             first_name: firstName,
             last_name: lastName,
             email,
+            category,
             password1: password,
             password2: password,
             confirmations,
         });
         setAuthData(response);
+        console.log('category: ',category)
     } catch (errorData) {
         throw generateError(errorData);
     }
@@ -469,6 +472,21 @@ async function resetPassword(newPassword1: string, newPassword2: string, uid: st
     } catch (errorData) {
         throw generateError(errorData);
     }
+}
+
+export async function updateProfile(data :string
+): Promise<any> {
+    let response = null;
+    try {
+        response = await Axios.post(`${config.backendAPI}/auth/profile/update`, data, {
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        }).then((res) => {return res;});
+    }catch (errorData) {
+        throw generateError(errorData);
+    }
+    return response.data;
 }
 
 async function getSelf(): Promise<SerializedUser> {
@@ -691,7 +709,7 @@ async function deleteTask(id: number, organizationID: string | null = null): Pro
     try {
         await Axios.delete(`${backendAPI}/tasks/${id}`, {
             params: {
-                ...(organizationID ? { org: organizationID } : {}),
+            ...(organizationID ? { org: organizationID } : {}),
             },
         });
     } catch (errorData) {
@@ -2115,8 +2133,8 @@ async function updateWebhook(webhookID: number, webhookData: any): Promise<any> 
 
     try {
         const response = await Axios.patch(`${backendAPI}/webhooks/${webhookID}`, webhookData, {
-            params,
-        });
+                params,
+            });
         return response.data;
     } catch (errorData) {
         throw generateError(errorData);
@@ -2191,6 +2209,7 @@ export default Object.freeze({
         formats,
         login,
         logout,
+        updateProfile,
         changePassword,
         requestPasswordReset,
         resetPassword,

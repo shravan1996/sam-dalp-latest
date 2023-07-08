@@ -30,4 +30,6 @@ export const getUserLogsAsync = (duration: number): ThunkAction => async (dispat
     } catch (error) {
         dispatch(userLogsActions.getUserLogsFailed(error));
     }
+
 };
+

@@ -20,6 +20,7 @@ export interface AuthState {
     initialized: boolean;
     fetching: boolean;
     user: any;
+    userDetails:any;
     authActionsFetching: boolean;
     authActionsInitialized: boolean;
     showChangePasswordDialog: boolean;
@@ -465,9 +466,11 @@ export interface NotificationsState {
         userLogs: {
             fetching: null | ErrorState;
         };
+
         // share: {
         //     fetching: null | ErrorState;
         // };
+
         models: {
             starting: null | ErrorState;
             fetching: null | ErrorState;
@@ -886,7 +889,9 @@ export interface CombinedState {
     tasks: TasksState;
     about: AboutState;
     userLogs: UserLogsState
+
     // share: ShareState;
+
     formats: FormatsState;
     userAgreements: UserAgreementsState;
     plugins: PluginsState;

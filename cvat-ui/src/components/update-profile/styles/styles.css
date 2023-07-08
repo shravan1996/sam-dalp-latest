@@ -1,0 +1,244 @@
+.title-form-page {
+    font-size: 20px;
+    margin: 2rem 0 2rem 0;
+}
+
+.outer-container {
+    /* border: 1px solid #d0d2d5; */
+    /* border-radius: 20px; */
+    /* background-color: white; */
+    display: flex;
+    flex-direction: row;
+    /* width: 60rem;
+    height: 70vh; */
+    min-width: 90%;
+    min-height: 95%;
+    position: relative;
+    margin-bottom: 3rem;
+}
+
+.side-container {
+    border: 1px solid #d0d2d5;
+    border-radius: 20px 0 0 20px;
+    background-color: white;;
+    height: 70vh;
+    display: flex;
+    flex-direction: column;
+    padding-top: 2.5rem;
+}
+
+.form-container {
+    border: 1px solid #d0d2d5;
+    border-radius: 0 20px 20px 0;
+    background-color: white;;
+    height: 70vh;
+    min-width: 45rem;
+    padding-top: 3rem;
+    padding-left: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.side-menu {
+    min-width: 16rem;
+    display : flex;
+    flex-direction: row;
+    font-size: 1rem;
+    align-items: flex-start;
+    justify-content: flex-start;
+}
+.side-menu > button {
+    margin: 0 1rem 1rem 1rem;
+    padding-left: 1rem;
+    border-radius: 5px;
+    height: 3rem;
+    width: 15rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    /* background-color: grey; */
+}
+
+.side-menu > button:hover {
+    background-color: #e1e5f4;
+}
+
+.title-form > h2 {
+    color: grey;
+}
+
+.form-row {
+    display: flex;
+    margin-bottom: 10px;
+}
+
+.big-field {
+    width: 25rem !important;
+}
+
+.form-field {
+    border: 1px solid grey;
+    border-radius: 5px;
+    height: 2.5rem;
+    width: 12rem;
+    font-size: 1rem;
+    color: black;
+    margin-right: 1rem;
+    margin-bottom: 1rem;
+    padding: 0.5rem;
+    flex: 1;
+}
+
+.form-field:hover, .pre-filled {
+    background-color: #f3f5fd;
+}
+
+/* .form-field {
+} */
+
+.form-actions {
+    /* position: absolute;
+    display: flex;
+
+    justify-content: flex-end; */
+    display: flex;
+    justify-content: flex-end;
+    position: static;
+    bottom: 2rem;
+    right: 8rem;
+
+}
+.form-actions>button {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem 1.5rem 0.5rem 1.5rem;
+    border-radius: 10px;
+    margin-right: 1rem;
+}
+
+.back-button-form {
+    background-color: white;
+    color: grey;
+    border: 1px solid black;
+}
+.back-button-form:hover {
+    background-color: #f3f3f4;
+    color: black;
+    border: 1px solid black;
+}
+.save-button-form {
+    background-color: #f3f3f4;
+    border: 1px solid black;
+}
+.save-button-form:hover {
+    background-color: #a8a8cf;
+    border: 1px solid black;
+}
+.next-button-form {
+    background-color: #90a1df;
+    color: white;
+}
+.next-button-form:hover {
+    background-color: #032394;
+    color: white;
+}
+
+
+
+/* preview-page css */
+
+.preview-container {
+    width: 100%;
+    min-width: 60rem;
+    border: 1px solid #d0d2d5;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    background-color: #fff;
+    padding: 2rem 3rem;
+}
+
+.title-preview {
+    padding-bottom: 2rem;
+    border-bottom: 1px solid grey;
+
+}
+
+.title-preview>div {
+    font-size: 1rem;
+}
+
+.title-preview>h2 {
+    color: grey;
+}
+
+.preview-section {
+    margin-top: 2.5rem;
+    border-bottom: 1px solid grey;
+}
+
+.section-title {
+    margin-bottom: 1.5rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.section-edit-btn {
+    color: blue;
+    border-bottom: 1px solid blue;
+    margin-bottom: 1rem;
+    font-size: 13px;
+    margin-right: 1rem;
+}
+
+.section-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.section-field {
+    width: 18rem;
+    margin: 0 2rem 2rem 0;
+}
+
+.big-field {
+    min-width: 60rem !important;
+}
+
+.section-field-label {
+    color: grey;
+    padding: 0 0 0.5rem 0
+}
+
+
+.preview-action-btn {
+    /* position: absolute;
+    display: flex;
+
+    justify-content: flex-end; */
+    display: flex;
+    justify-content: flex-end;
+    position: static;
+    margin-top: 2rem;
+    bottom: 2rem;
+    right: 8rem;
+
+}
+.preview-action-btn>button {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem 1.5rem 0.5rem 1.5rem;
+    border-radius: 10px;
+    margin-right: 1rem;
+}
+.preview-submit-btn {
+    background-color: #90a1df;
+    color: white;
+}
+.preview-submit-btn:hover {
+    background-color: #032394;
+    color: white;
+}

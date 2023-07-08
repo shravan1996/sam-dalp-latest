@@ -13,9 +13,9 @@
     height: 100%;
 
     > .ant-layout-content {
-        overflow-y: hidden;
+        overflow-y: auto;
         overflow-x: hidden;
-        background-color: #F5F6F7; // new
+        background-color:#fff;  // #F5F6F7; // new
     }
 }
 

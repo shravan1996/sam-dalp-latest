@@ -57,7 +57,7 @@ function build() {
                 const result = await PluginRegistry.apiWrapper(cvat.server.userAgreements);
                 return result;
             },
-            async register(username, firstName, lastName, email, password, userConfirmations) {
+            async register(username, firstName, lastName, email, password, category, userConfirmations) {
                 const result = await PluginRegistry.apiWrapper(
                     cvat.server.register,
                     username,
@@ -65,6 +65,7 @@ function build() {
                     lastName,
                     email,
                     password,
+                    category,
                     userConfirmations,
                 );
                 return result;
@@ -81,6 +82,7 @@ function build() {
                 const result = await PluginRegistry.apiWrapper(cvat.server.userLogs, duration);
                 return result;
             },
+
             async hasLimits(userId, orgId) {
                 const result = await PluginRegistry.apiWrapper(cvat.server.hasLimits, userId, orgId);
                 return result;
@@ -97,6 +99,13 @@ function build() {
                 );
                 return result;
             },
+
+            async updateProfile(data) {
+                const result = await PluginRegistry.apiWrapper(cvat.server.updateProfile, data);
+                return result;
+            },
+
+
             async changePassword(oldPassword, newPassword1, newPassword2) {
                 const result = await PluginRegistry.apiWrapper(
                     cvat.server.changePassword,

@@ -17,6 +17,9 @@ import {
 import  ModalCloseIcon  from '../../assets/modal-close-icon.svg'; // importing x icon.
 import DalpLogo from '../../assets/cvat-logo.svg'  // importing dalp logo
 import DalpListIcon from '../../assets/dalp-list-icon.svg';
+import TextField from '@mui/material/TextField';
+import IconButton from '@mui/material/IconButton';
+import SearchIcon from '@mui/icons-material/Search';
 
 
 const FilteringComponent = ResourceFilterHOC(
@@ -121,6 +124,16 @@ export default function TopBarComponent(props: VisibleTopBarProps): JSX.Element 
         )
      }
 
+    let searchPhrase = '' ;
+
+     const handleSearch = () => {
+         onApplySearch(searchPhrase);
+     };
+
+     const handleChange = (event:any) => {
+      searchPhrase= event.target.value ;
+     };
+
 
     return (
         <>
@@ -136,7 +149,7 @@ export default function TopBarComponent(props: VisibleTopBarProps): JSX.Element 
 
                             <div className='cvat-webhooks-page-filters-wrapper ml-16'>
 
-                                <Input.Search
+                                {/* <Input.Search
                                     enterButton
                                     onSearch={(phrase: string) => {
                                         onApplySearch(phrase);
@@ -144,6 +157,28 @@ export default function TopBarComponent(props: VisibleTopBarProps): JSX.Element 
                                     defaultValue={query.search || ''}
                                     className='cvat-webhooks-page-search-bar'
                                     placeholder='Search ...'
+                                /> */}
+                                <TextField
+                                    variant="outlined"
+                                    placeholder="Search"
+                                    defaultValue={query.search || ''}
+                                    onChange={handleChange}
+                                    InputProps={{
+                                        endAdornment: (
+                                        <IconButton onClick={handleSearch}
+                                        >
+                                            <SearchIcon />
+                                        </IconButton>
+                                        ),
+                                        style: {
+                                            height: '40px', // Set input height
+                                            backgroundColor: 'white', // Set background color
+                                            color: 'black', // Set text color
+                                            width: '300px',
+                                            borderRadius:'20px',
+                                        },
+                                    }}
+
                                 />
 
                                 <div>

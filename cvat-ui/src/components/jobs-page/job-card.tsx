@@ -47,7 +47,7 @@ function JobCardComponent(props: Props): JSX.Element {
         <Card
             onMouseEnter={() => setExpanded(true)}
             onMouseLeave={() => setExpanded(false)}
-            style={{ height:'240px',width:'300px',marginBottom:'40px' }}
+            style={{ height:'240px',width:'300px',marginBottom:'40px',borderWidth:'0px',boxShadow: 'rgb(126, 150, 234) 0px 0px 3px 3px',}}
             className='cvat-job-page-list-item'
             onClick={onClick}
             cover={(

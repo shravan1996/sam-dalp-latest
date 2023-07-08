@@ -84,7 +84,7 @@ export default function ProjectItemComponent(props: Props): JSX.Element {
             )}
 
             size='small'
-            style={{width:'300px',height:'280px',fontFamily:'Lexend',padding:'12px',borderRadius:'10px',marginRight:'20px',display:'flex',flexDirection:'column',justifyContent:'space-between'}}
+            style={{width:'300px',height:'280px',boxShadow: 'rgb(126, 150, 234) 0px 0px 3px 3px', fontFamily:'Lexend',padding:'12px',borderRadius:'10px',marginRight:'30px',marginBottom:'30px', display:'flex',flexDirection:'column',justifyContent:'space-between'}}
             className={'cvat-projects-project-item-card ' + props.modalValue ? 'backdrop-blur-sm inset-0 bg-black bg-opacity-60 ' : ''}
         >
             <div className='-ml-[10px]' >

@@ -361,6 +361,16 @@ $social-google-background: #4286f5;
 
         .cvat-credentials-form-item{
             font-size:6px;
+
+            .select:required:invalid {
+                color: #c5bfbf;
+              }
+              option[value=""][disabled] {
+                display: none;
+              }
+              option {
+                color: black;
+              }
         }
 
         }

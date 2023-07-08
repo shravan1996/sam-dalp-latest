@@ -94,10 +94,27 @@ export default function implementAPI(cvat) {
     }
 
 
+    cvat.server.hasLimits.implementation = async (userId, orgId) => {
+        const result = await serverProxy.server.hasLimits(userId, orgId);
+        return result;
+    };
+
+    cvat.server.socialAuthentication.implementation = async () => {
+        const result: SocialAuthMethodsRawType = await serverProxy.server.socialAuthentication();
+        return Object.entries(result).map(([provider, value]) => new SocialAuthMethod({ ...value, provider }));
+    };
+
+    cvat.server.selectSSOIdentityProvider.implementation = async (email?: string, iss?: string):Promise<string> => {
+        const result: string = await serverProxy.server.selectSSOIdentityProvider(email, iss);
+        return result;
+    };
+
+
     cvat.server.updateProfile.implementation = async (data) => {
         const result = await serverProxy.server.updateProfile(data);
         return result;
     }
+
 
     cvat.server.changePassword.implementation = async (oldPassword, newPassword1, newPassword2) => {
         await serverProxy.server.changePassword(oldPassword, newPassword1, newPassword2);

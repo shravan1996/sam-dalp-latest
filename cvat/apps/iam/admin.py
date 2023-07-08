@@ -35,9 +35,14 @@ class UserSessionAdmin(admin.ModelAdmin):
     list_filter = ('username',)
 
 
+
 admin.site.unregister(User)
 admin.site.unregister(Group)
 admin.site.register(UserDetail)
 admin.site.register(User, CustomUserAdmin)
 admin.site.register(Group, CustomGroupAdmin)
+
 admin.site.register(UserSession, UserSessionAdmin)
+
+
+

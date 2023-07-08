@@ -82,10 +82,29 @@ function build() {
                 const result = await PluginRegistry.apiWrapper(cvat.server.userLogs, duration);
                 return result;
             },
+
+            async hasLimits(userId, orgId) {
+                const result = await PluginRegistry.apiWrapper(cvat.server.hasLimits, userId, orgId);
+                return result;
+            },
+            async socialAuthentication() {
+                const result = await PluginRegistry.apiWrapper(cvat.server.socialAuthentication);
+                return result;
+            },
+            async selectSSOIdentityProvider(email?: string, iss?: string) {
+                const result: string = await PluginRegistry.apiWrapper(
+                    cvat.server.selectSSOIdentityProvider,
+                    email,
+                    iss,
+                );
+                return result;
+            },
+
             async updateProfile(data) {
                 const result = await PluginRegistry.apiWrapper(cvat.server.updateProfile, data);
                 return result;
             },
+
 
             async changePassword(oldPassword, newPassword1, newPassword2) {
                 const result = await PluginRegistry.apiWrapper(

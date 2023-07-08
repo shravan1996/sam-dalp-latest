@@ -5,6 +5,7 @@
 
 import './styles.scss';
 import React, { useCallback } from 'react';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { useHistory, useLocation } from 'react-router';
 import { Row, Col } from 'antd/lib/grid';
@@ -487,6 +488,7 @@ function HeaderContainer(props: Props): JSX.Element {
                     <Icon className='cvat-logo-icon header-icon mr-24' component={DalpLogoHeader1} />
                 </button>
             </div>
+
             <div className='cvat-right-header '>
                 { profilePercentage === 1 && (
                 <>
@@ -524,6 +526,7 @@ function HeaderContainer(props: Props): JSX.Element {
                                 Tasks
                             </Button>
                         }
+
                         <Button
                             className={getButtonClassName('jobs')}
                             style={{fontWeight:'bold',marginLeft:'30px',color:'rgba(17, 24, 39, 0.6)'}}

@@ -3,6 +3,7 @@
 # SPDX-License-Identifier: MIT
 
 
+
 from django.db import models
 from django.contrib.auth import get_user_model
 from django.contrib.postgres.fields import ArrayField
@@ -75,7 +76,6 @@ class UserDetail(models.Model):
 
     def last_name(self):
         return self.user.last_name
-
 
 class UserSession(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)

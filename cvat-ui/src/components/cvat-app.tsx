@@ -11,7 +11,9 @@ import Layout from 'antd/lib/layout';
 import Modal from 'antd/lib/modal';
 import notification from 'antd/lib/notification';
 import Spin from 'antd/lib/spin';
+
 import { DisconnectOutlined, LoadingOutlined } from '@ant-design/icons';
+
 import Space from 'antd/lib/space';
 import Text from 'antd/lib/typography/Text';
 import ReactMarkdown from 'react-markdown';
@@ -77,6 +79,7 @@ import EmailVerificationSentPage from './email-confirmation-pages/email-verifica
 import IncorrectEmailConfirmationPage from './email-confirmation-pages/incorrect-email-confirmation';
 import CreateModelPage from './create-model-page/create-model-page';
 import OrganizationWatcher from './watchers/organization-watcher';
+import IdleTimeoutComponent from './idle-timeout-component';
 
 interface CVATAppProps {
     loadFormats: () => void;
@@ -509,7 +512,9 @@ class CVATApplication extends React.PureComponent<CVATAppProps & RouteComponentP
                     <GlobalErrorBoundary>
                         <ShortcutsContextProvider>
                             <Layout>
+                                <IdleTimeoutComponent />
                                 <Header />
+
                                         <Layout.Content >
                                             <ShortcutsDialog />
                                             <GlobalHotKeys keyMap={subKeyMap} handlers={handlers}>
@@ -542,6 +547,7 @@ class CVATApplication extends React.PureComponent<CVATAppProps & RouteComponentP
                                                             <Route exact path='/auth/logs' component={UserLogsContainer} />
                                                         </Switch>
                                                     )}
+
                                                     <Switch>
                                                         <Route exact path='/auth/profile' component={UpdateProfile} />
                                                         <Route exact path='/auth/logout' component={LogoutComponent} />
@@ -622,11 +628,10 @@ class CVATApplication extends React.PureComponent<CVATAppProps & RouteComponentP
                 </Space>
             );
         }
-
-        return(
+        return (
             //  <Spin size='large' className='cvat-spinner' tip='Connecting...' />
-             <Spin indicator={antIcon} size='large' className='cvat-spinner' /> // new
-        )
+            <Spin indicator={antIcon} size='large' className='cvat-spinner' /> // new
+        );
     }
 }
 

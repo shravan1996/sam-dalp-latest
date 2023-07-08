@@ -134,6 +134,7 @@ function UserLogsComponent (props : any) {
     };
 
     return (
+
         <div className='flex flex-col'>
             <div className='title-form-page ml-[5px] mx-[60px]' >
                 <div className='font-[700] pl-[30px] pt-[10px]'>User time log</div>

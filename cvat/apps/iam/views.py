@@ -38,6 +38,10 @@ from .models import UserDetail
 from .authentication import Signer
 from cvat.apps.iam.models import UserSession
 
+from .serializers import UserSessionSerializer
+
+
+
 def get_organization(request):
     from cvat.apps.organizations.models import Organization
 
@@ -130,6 +134,7 @@ class LoginViewEx(LoginView):
     def post(self, request, *args, **kwargs):
         self.request = request
         self.serializer = self.get_serializer(data=self.request.data)
+
         try:
             self.serializer.is_valid(raise_exception=True)
         except ValidationError:
@@ -203,11 +208,14 @@ class RegisterViewEx(RegisterView):
         try:
             token, created = Token.objects.get_or_create(user=user)
             if created:
-                token.key = data['key']
+
+                token.key = data.get('key')
+
                 token.created = timezone.now()
                 token.save()
         except:
             pass
+
 
         category = self.request.data.get('category')
         data['category'] = category.lower()
@@ -240,7 +248,6 @@ class RegisterViewEx(RegisterView):
 
         return response
 
-
 class LogoutViewEx(LogoutView):
     def logout(self, request):
         auth_header = request.headers.get('Authorization')
@@ -267,6 +274,7 @@ class LogoutViewEx(LogoutView):
         except Token.DoesNotExist:
             return Response("Request Unauthorized")
             pass
+
 
 class UserDetailUpdateView(views.APIView):
     permission_classes = [AllowAny]
@@ -301,6 +309,7 @@ class UserDetailUpdateView(views.APIView):
             raise ValidationError(serializer.errors)
         except Token.DoesNotExist:
             raise ValidationError('Unauthorized Request')
+
 
 class UserSessionsView(views.APIView):
     serializer_class = None

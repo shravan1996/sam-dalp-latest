@@ -1,0 +1,34 @@
+CMD ["processor"]
+RUN |3 NUCLIO_LABEL=1.11.21 NUCLIO_ARCH=amd64 NUCLIO_BUILD_LOCAL_HANDLER_DIR=handler /bin/sh -c python /opt/nuclio/whl/$(basename /opt/nuclio/whl/pip-*.whl)/pip install pip --no-index --find-links /opt/nuclio/whl && python -m pip install nuclio-sdk msgpack --no-index --find-links /opt/nuclio/whl # buildkit
+COPY handler /opt/nuclio # buildkit
+COPY artifacts/py3.8-whl /opt/nuclio/whl # buildkit
+COPY artifacts/py /opt/nuclio/ # buildkit
+COPY artifacts/processor /usr/local/bin/processor # buildkit
+RUN |3 NUCLIO_LABEL=1.11.21 NUCLIO_ARCH=amd64 NUCLIO_BUILD_LOCAL_HANDLER_DIR=handler /bin/sh -c ln -s /usr/bin/python3 /usr/bin/python # buildkit
+RUN |3 NUCLIO_LABEL=1.11.21 NUCLIO_ARCH=amd64 NUCLIO_BUILD_LOCAL_HANDLER_DIR=handler /bin/sh -c wget https://github.com/ultralytics/assets/releases/download/v0.0.0/yolov8n.pt # buildkit
+WORKDIR /opt/nuclio
+RUN |3 NUCLIO_LABEL=1.11.21 NUCLIO_ARCH=amd64 NUCLIO_BUILD_LOCAL_HANDLER_DIR=handler /bin/sh -c pip install onnxruntime # buildkit
+RUN |3 NUCLIO_LABEL=1.11.21 NUCLIO_ARCH=amd64 NUCLIO_BUILD_LOCAL_HANDLER_DIR=handler /bin/sh -c apt update && apt install --no-install-recommends -y libglib2.0-0 && apt install wget # buildkit
+USER root
+ARG NUCLIO_BUILD_LOCAL_HANDLER_DIR
+ARG NUCLIO_ARCH
+ARG NUCLIO_LABEL
+
+ENV DEBIAN_FRONTEND=teletype
+RUN /bin/sh -c git clone hhttps://github.com/ultralytics/ultralytics /usr/src/ultralytics/ # buildkit
+WORKDIR /usr/src/ultralytics/
+RUN /bin/sh -c mkdir -p /usr/src/ultralytics/ # buildkit
+RUN /bin/sh -c pip install --no-cache -r requirements.txt albumentations gsutil notebook     coremltools onnx onnx-simplifier onnxruntime 'openvino-dev>=2022.3'     --extra-index-url https://download.pytorch.org/whl/cpu # buildkit
+RUN /bin/sh -c python3 -m pip install --upgrade pip wheel # buildkit
+COPY requirements.txt . # buildkit
+RUN /bin/sh -c apt install --no-install-recommends -y python3-pip git zip curl htop libgl1-mesa-glx libglib2.0-0 libpython3-dev gnupg # buildkit
+RUN /bin/sh -c TZ=Etc/UTC apt install -y tzdata # buildkit
+RUN /bin/sh -c apt update # buildkit
+ENV DEBIAN_FRONTEND=noninteractive
+ADD https://ultralytics.com/assets/Arial.ttf https://ultralytics.com/assets/Arial.Unicode.ttf /root/.config/Ultralytics/ # buildkit
+/bin/sh -c #(nop)  CMD ["/bin/bash"]
+/bin/sh -c #(nop) ADD file:f8bb312bf73c62343d91c9988d58945c5d0fced3f559b95c4dd21a19183d933d in /
+/bin/sh -c #(nop)  LABEL org.opencontainers.image.version=22.10
+/bin/sh -c #(nop)  LABEL org.opencontainers.image.ref.name=ubuntu
+/bin/sh -c #(nop)  ARG LAUNCHPAD_BUILD_ARCH
+/bin/sh -c #(nop)  ARG RELEASE

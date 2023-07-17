@@ -66,4 +66,3 @@ cvat-core/reports
 # db files
 .cvat_db/
 /dist/
-base/

@@ -12,7 +12,7 @@ RUN apt-get update && apt-get install -y libgl1-mesa-glx libglib2.0-0 libpython3
 
 # Copy the model and the necessary files
 RUN mkdir -p /opt/nuclio
-ADD https://drive.google.com/file/d/1W-EJc01-tnWnaSpYgyvyCJ1vV-GiitUX/view?usp=sharing /opt/nuclio/
+ADD https://raw.githubusercontent.com/akshatt810/yolov8-onnx-model/master/yolov8n.onnx /opt/nuclio/
 RUN git clone https://github.com/ultralytics/ultralytics /opt/nuclio/yolov8/
 RUN  ls /opt/nuclio/yolov8/
 
@@ -27,7 +27,7 @@ RUN cp /opt/nuclio/yolov8/requirements.txt /opt/nuclio/ && \
 COPY . /opt/nuclio
 
 # Copy the model to the handler directory
-RUN cp /opt/nuclio/yolov8n.pt /opt/nuclio/handler
+RUN cp /opt/nuclio/yolov8n.onnx /opt/nuclio/handler
 
 # Set the working directory to the handler directory
 WORKDIR /opt/nuclio/

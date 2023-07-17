@@ -2,39 +2,20 @@
 #
 # SPDX-License-Identifier: MIT
 
-import os
 import cv2
 import numpy as np
 import onnxruntime as ort
-import onnx
-# import datetime
+
 
 class ModelHandler:
     def __init__(self, labels):
-        # current_time = datetime.datetime.now()
-        # formatted_time = current_time.strftime('%Y-%m-%d %H:%M:%S')
-        # print(formatted_time)
-        # print('\n\n\nThe contents are \n\n')
-        # for filename in os.listdir('.'):
-        #     print(filename)
-        # print('\n')
-        # model_path = 'yolov8n.pt'
-        # print('model is \n')
-        # model_temp = onnx.load(model_path)
-
-        # onnx.checker.check_model(model_temp)
-
         self.model = None
-        if os.path.exists("yolov8n.pt"):
-            os.rename("yolov8n.pt", "yolov8n.onnx")
-        self.load_network(model="yolov8n.pt")
-        # self.labels = labels
+        self.labels = labels
+        self.load_network(model="yolov8n.onnx")
 
     def load_network(self, model):
-        device = ort.get_device()
-        cuda = True if device == 'GPU' else False
         try:
-            providers = ['CUDAExecutionProvider', 'CPUExecutionProvider'] if cuda else ['CPUExecutionProvider']
+            providers = ['CPUExecutionProvider']
             so = ort.SessionOptions()
             so.log_severity_level = 3
 
@@ -42,7 +23,6 @@ class ModelHandler:
             self.output_details = [i.name for i in self.model.get_outputs()]
             self.input_details = [i.name for i in self.model.get_inputs()]
 
-            self.is_inititated = True
         except Exception as e:
             raise Exception(f"Cannot load model {model}: {e}")
 
@@ -74,63 +54,53 @@ class ModelHandler:
         im = cv2.copyMakeBorder(im, top, bottom, left, right, cv2.BORDER_CONSTANT, value=color)  # add border
         return im, r, (dw, dh)
 
-    def _infer(self, inputs: np.ndarray):
+    def preprocess(self, img):
         try:
-            img = cv2.cvtColor(inputs, cv2.COLOR_BGR2RGB)
+            img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
             image = img.copy()
-            image, ratio, dwdh = self.letterbox(image, auto=False)
+
+            image, _, _ = self.letterbox(image, new_shape=(480, 640), auto=False)
             image = image.transpose((2, 0, 1))
             image = np.expand_dims(image, 0)
-            image = np.ascontiguousarray(image)
-
-            im = image.astype(np.float32)
-            im /= 255
-
-            inp = {self.input_details[0]: im}
-            # ONNX inference
-            output = list()
-            detections = self.model.run(self.output_details, inp)[0]
-
-            # for det in detections:
-            boxes = detections[:, 1:5]
-            labels = detections[:, 5]
-            scores = detections[:, -1]
-
-            boxes -= np.array(dwdh * 2)
-            boxes /= ratio
-            boxes = boxes.round().astype(np.int32)
-            output.append(boxes)
-            output.append(labels)
-            output.append(scores)
-            return output
-
+            image = image.astype(np.float32)
+            image /= 255.0
+            return image
         except Exception as e:
-            print(e)
+            raise Exception(f"Error in preprocessing image: {e}")
 
-    def infer(self, image, threshold):
-        image = np.array(image)
-        image = image[:, :, ::-1].copy()
-        h, w, _ = image.shape
-        detections = self._infer(image)
+    def infer(self, img, threshold):
+        img = np.array(img)
+        img = img[:, :, ::-1].copy()
+        preprocessed_img = self.preprocess(img)
+        input_data = {self.input_details[0]: preprocessed_img}
 
+        # ONNX inference
+        output = list()
+        try:
+            output = self.model.run(self.output_details, input_data)[0]
+        except Exception as e:
+            raise Exception(f"Error in model running: {e}")
+
+        h, w, _ = img.shape
         results = []
-        if detections:
-            boxes = detections[0]
-            labels = detections[1]
-            scores = detections[2]
+        for detection in output:
+            scores = detection[:, 5]
+            class_indices = np.argwhere(scores >= threshold).flatten()
+            for class_index in class_indices:
+                label = self.labels[class_index]
+                score = scores[class_index]
+                box = detection[class_index, :4]
 
-            for label, score, box in zip(labels, scores, boxes):
-                if score >= threshold:
-                    xtl = max(int(box[0]), 0)
-                    ytl = max(int(box[1]), 0)
-                    xbr = min(int(box[2]), w)
-                    ybr = min(int(box[3]), h)
+                xtl = int(max(box[0], 0))
+                ytl = int(max(box[1], 0))
+                xbr = int(min(box[2], w))
+                ybr = int(min(box[3], h))
 
-                    results.append({
-                        "confidence": str(score),
-                        "label": self.labels.get(label, "unknown"),
-                        "points": [xtl, ytl, xbr, ybr],
-                        "type": "rectangle",
-                    })
+                results.append({
+                    "confidence": str(score),
+                    "label": label,
+                    "points": [xtl, ytl, xbr, ybr],
+                    "type": "rectangle"
+                })
 
         return results

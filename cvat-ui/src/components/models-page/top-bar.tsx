@@ -12,6 +12,9 @@ import { ModelsQuery } from 'reducers';
 import {
     localStorageRecentKeyword, localStorageRecentCapacity, config,
 } from './models-filter-configuration';
+import TextField from '@mui/material/TextField';
+import IconButton from '@mui/material/IconButton';
+import SearchIcon from '@mui/icons-material/Search';
 
 const FilteringComponent = ResourceFilterHOC(
     config, localStorageRecentKeyword, localStorageRecentCapacity,
@@ -32,20 +35,57 @@ export default function TopBarComponent(props: VisibleTopBarProps): JSX.Element 
     } = props;
     const [visibility, setVisibility] = useState(defaultVisibility);
 
+    let searchPhrase= '';
+
+    const handleSearch = () => {
+        onApplySearch(searchPhrase);
+    };
+
+    const handleChange = (event:any) => {
+     searchPhrase= event.target.value ;
+    };
+
+
     return (
         <Row className='cvat-models-page-top-bar' justify='center' align='middle'>
             <Col md={22} lg={18} xl={16} xxl={16}>
                 <div className='cvat-models-page-filters-wrapper'>
-                    <Input.Search
-                        disabled={disabled}
+                <>
+
+                    {/* <Input.Search
                         enterButton
+
                         onSearch={(phrase: string) => {
                             onApplySearch(phrase);
                         }}
                         defaultValue={query.search || ''}
-                        className='cvat-webhooks-page-search-bar'
+                        className='cvat-jobs-page-search-bar'
                         placeholder='Search ...'
-                    />
+                        style={{ borderRadius: '14px', backgroundColor: '#f7f7f7', border: 'none' }}
+                    /> */}
+                        <TextField
+                            variant="outlined"
+                            placeholder="Search"
+                            defaultValue={query.search || ''}
+                            onChange={handleChange}
+                            InputProps={{
+                                endAdornment: (
+                                <IconButton onClick={handleSearch}
+                                >
+                                    <SearchIcon />
+                                </IconButton>
+                                ),
+                                style: {
+                                    height: '40px', // Set input height
+                                    backgroundColor: 'white', // Set background color
+                                    color: 'black', // Set text color
+                                    width: '300px',
+                                    borderRadius:'20px',
+                                },
+                            }}
+
+                        />
+                </>
                     <div>
                         <SortingComponent
                             disabled={disabled}

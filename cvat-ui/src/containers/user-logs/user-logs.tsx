@@ -29,4 +29,6 @@ const mapDispatchToProps: DispatchToProps = {
     fetchUserLogs: getUserLogsAsync,
 };
 
+
 export default connect(mapStateToProps, mapDispatchToProps)(UserLogsComponent);
+

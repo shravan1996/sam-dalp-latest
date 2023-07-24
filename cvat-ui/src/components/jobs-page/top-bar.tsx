@@ -16,6 +16,9 @@ import DalpListIcon from '../../assets/dalp-list-icon.svg';
 
 import  ModalCloseIcon  from '../../assets/modal-close-icon.svg'; // importing x icon.
 import DalpLogo from '../../assets/cvat-logo.svg'  // impoting dalp logo
+import TextField from '@mui/material/TextField';
+import IconButton from '@mui/material/IconButton';
+import SearchIcon from '@mui/icons-material/Search';
 
 const FilteringComponent = ResourceFilterHOC(
     config, localStorageRecentKeyword, localStorageRecentCapacity, predefinedFilterValues,
@@ -115,6 +118,17 @@ function TopBarComponent(props: Props): JSX.Element {
         )
      }
 
+    let searchPhrase= '' ;
+
+    const handleSearch = () => {
+        onApplySearch(searchPhrase);
+    };
+
+    const handleChange = (event:any) => {
+     searchPhrase = event.target.value;
+    };
+
+
     return (
         <Row className='cvat-jobs-page-top-bar ml-[50px] ' justify='start' align='middle'>
             <Col md={22} lg={18} xl={16} xxl={16}>
@@ -124,16 +138,43 @@ function TopBarComponent(props: Props): JSX.Element {
                 </button>
                 <div className='ml-16' >
                     {showModal ? '' :
-                        <Input.Search
-                            enterButton
-                            onSearch={(phrase: string) => {
-                                onApplySearch(phrase);
-                            }}
-                            defaultValue={query.search || ''}
-                            className='cvat-jobs-page-search-bar'
-                            placeholder='Search ...'
-                        />
-                        }
+                        <>
+
+                            {/* <Input.Search
+                                enterButton
+
+                                onSearch={(phrase: string) => {
+                                    onApplySearch(phrase);
+                                }}
+                                defaultValue={query.search || ''}
+                                className='cvat-jobs-page-search-bar'
+                                placeholder='Search ...'
+                                style={{ borderRadius: '14px', backgroundColor: '#f7f7f7', border: 'none' }}
+                            /> */}
+                            <TextField
+                                variant="outlined"
+                                placeholder="Search"
+                                defaultValue={query.search || ''}
+                                onChange={handleChange}
+                                InputProps={{
+                                    endAdornment: (
+                                    <IconButton onClick={handleSearch}
+                                    >
+                                        <SearchIcon />
+                                    </IconButton>
+                                    ),
+                                    style: {
+                                        height: '40px', // Set input height
+                                        backgroundColor: 'white', // Set background color
+                                        color: 'black', // Set text color
+                                        width: '300px',
+                                        borderRadius:'20px',
+                                    },
+                                }}
+
+                            />
+                        </>
+                    }
                 </div>
             </Col>
         </Row>

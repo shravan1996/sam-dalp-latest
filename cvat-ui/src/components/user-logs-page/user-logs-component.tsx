@@ -134,79 +134,87 @@ function UserLogsComponent (props : any) {
     };
 
     return (
-        <TableContainer component={Paper} sx={{ width: 1500, margin: '100px auto'}}>
-          <Table aria-label="customized table">
-            <TableHead>
-              <TableRow>
-                <StyledTableCell sx={{ marginRight: -40, paddingRight: 0 }}>Username</StyledTableCell>
-                <StyledTableCell align="center">Login Date</StyledTableCell>
-                <StyledTableCell align="center">Login Time</StyledTableCell>
-                <StyledTableCell align="center">Logout Date</StyledTableCell>
-                <StyledTableCell align="center">Logout Time</StyledTableCell>
-                <StyledTableCell align="center">Login Status</StyledTableCell>
-                <StyledTableCell align="center">Time Duration</StyledTableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-            {(rowsPerPage > 0
-                ? rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                : rows
-              ).map((row) => {
-                const istLoginTime = new Date(row.login_time).toLocaleString('EN-IN', {
-                  timeZone: 'Asia/Kolkata',
-                });
-                const istLogoutTime = row.logout_time
-                  ? new Date(row.logout_time).toLocaleString('EN-IN', {
+
+        <div className='flex flex-col'>
+            <div className='title-form-page ml-[5px] mx-[60px]' >
+                <div className='font-[700] pl-[30px] pt-[10px]'>User time log</div>
+            </div>
+
+            <TableContainer component={Paper} sx={{ width: 1500, margin: '10px auto'}}>
+              <Table aria-label="customized table">
+                <TableHead>
+                  <TableRow>
+                    <StyledTableCell sx={{ marginRight: -40, paddingRight: 0 }}>Username</StyledTableCell>
+                    <StyledTableCell align="center">Login Date</StyledTableCell>
+                    <StyledTableCell align="center">Login Time</StyledTableCell>
+                    <StyledTableCell align="center">Logout Date</StyledTableCell>
+                    <StyledTableCell align="center">Logout Time</StyledTableCell>
+                    <StyledTableCell align="center">Login Status</StyledTableCell>
+                    <StyledTableCell align="center">Time Duration</StyledTableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                {(rowsPerPage > 0
+                    ? rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                    : rows
+                  ).map((row : any) => {
+                    const istLoginTime = new Date(row.login_time).toLocaleString('EN-IN', {
                       timeZone: 'Asia/Kolkata',
-                    })
-                  : '--';
-              
-                return (
-                  <StyledTableRow key={row.username}>
-                    <StyledTableCell component="th" scope="row" sx={{ marginRight: -10, paddingRight: 0 }}>
-                      {row.username}
-                    </StyledTableCell>
-                    <StyledTableCell align="center">{format(new Date(row.login_time), 'dd-MM-yyyy')}</StyledTableCell>
-                    <StyledTableCell align="center">{istLoginTime.split(',')[1]}</StyledTableCell>
-                    <StyledTableCell align="center">
-                      {row.logout_time ? format(new Date(row.logout_time), 'dd-MM-yyyy') : '--'}
-                    </StyledTableCell>
-                    <StyledTableCell align="center">{row.logout_time ? istLogoutTime.split(',')[1] : '--'}</StyledTableCell>
-                    <StyledTableCell align="center">{row.logout_time ? 'OUT' : 'IN'}</StyledTableCell>
-                    <StyledTableCell align="center">
-                      {row.session_duration ? Math.floor(row.session_duration) : '--'}
-                    </StyledTableCell>
-                  </StyledTableRow>
-                );
-              })}
-              {emptyRows > 0 && (
-                <TableRow style={{ height: 53 * emptyRows }}>
-                  <TableCell colSpan={6} />
-                </TableRow>
-              )}
-            </TableBody>
-            <TableFooter>
-          <TableRow>
-            <TablePagination
-              rowsPerPageOptions={[5, 10, 25, { label: 'All', value: -1 }]}
-              colSpan={3}
-              count={rows.length}
-              rowsPerPage={rowsPerPage}
-              page={page}
-              SelectProps={{
-                inputProps: {
-                  'aria-label': 'rows per page',
-                },
-                native: true,
-              }}
-              onPageChange={handleChangePage}
-              onRowsPerPageChange={handleChangeRowsPerPage}
-              ActionsComponent={TablePaginationActions}
-            />
-          </TableRow>
-        </TableFooter>
-          </Table>
-        </TableContainer>
-      );
+                    });
+                    const istLogoutTime = row.logout_time
+                      ? new Date(row.logout_time).toLocaleString('EN-IN', {
+                          timeZone: 'Asia/Kolkata',
+                        })
+                      : '--';
+
+                    return (
+                      <StyledTableRow key={row.username}>
+                        <StyledTableCell component="th" scope="row" sx={{ marginRight: -10, paddingRight: 0 }}>
+                          {row.username}
+                        </StyledTableCell>
+                        <StyledTableCell align="center">{format(new Date(row.login_time), 'dd-MM-yyyy')}</StyledTableCell>
+                        <StyledTableCell align="center">{istLoginTime.split(',')[1]}</StyledTableCell>
+                        <StyledTableCell align="center">
+                          {row.logout_time ? format(new Date(row.logout_time), 'dd-MM-yyyy') : '--'}
+                        </StyledTableCell>
+                        <StyledTableCell align="center">{row.logout_time ? istLogoutTime.split(',')[1] : '--'}</StyledTableCell>
+                        <StyledTableCell align="center">{row.logout_time ? 'OUT' : 'IN'}</StyledTableCell>
+                        <StyledTableCell align="center">
+                          {row.session_duration ? Math.floor(row.session_duration) : '--'}
+                        </StyledTableCell>
+                      </StyledTableRow>
+                    );
+                  })}
+                  {emptyRows > 0 && (
+                    <TableRow style={{ height: 53 * emptyRows }}>
+                      <TableCell colSpan={6} />
+                    </TableRow>
+                  )}
+                </TableBody>
+                <TableFooter>
+              <TableRow>
+                <TablePagination
+                  rowsPerPageOptions={[5, 10, 25, { label: 'All', value: -1 }]}
+                  colSpan={3}
+                  count={rows.length}
+                  rowsPerPage={rowsPerPage}
+                  page={page}
+                  SelectProps={{
+                    inputProps: {
+                      'aria-label': 'rows per page',
+                    },
+                    native: true,
+                  }}
+                  onPageChange={handleChangePage}
+                  onRowsPerPageChange={handleChangeRowsPerPage}
+                  ActionsComponent={TablePaginationActions}
+                />
+              </TableRow>
+            </TableFooter>
+              </Table>
+            </TableContainer>
+        </div>
+    );
+
 }
 export default React.memo(UserLogsComponent);

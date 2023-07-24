@@ -11,6 +11,7 @@ const defaultState: AuthState = {
     initialized: false,
     fetching: false,
     user: null,
+    userDetails: null,
     authActionsFetching: false,
     authActionsInitialized: false,
     allowChangePassword: false,
@@ -76,6 +77,24 @@ export default function (state = defaultState, action: AuthActions | BoundariesA
                 user: action.payload.user,
             };
         case AuthActionTypes.REGISTER_FAILED:
+            return {
+                ...state,
+                fetching: false,
+            };
+        case AuthActionTypes.UPDATE_PROFILE:
+            return {
+                ...state,
+                fetching: true,
+                // userDetails: any,
+            };
+        case AuthActionTypes.UPDATE_PROFILE_SUCCESS:
+            return {
+                ...state,
+                fetching: false,
+                userDetails: action.payload.userDetails,
+
+            };
+        case AuthActionTypes.UPDATE_PROFILE_FAILED:
             return {
                 ...state,
                 fetching: false,

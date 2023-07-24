@@ -11,6 +11,7 @@ import { Row, Col } from 'antd/lib/grid';
 import { UserAgreement } from 'reducers';
 import SigningLayout, { formSizes } from 'components/signing-common/signing-layout';
 import RegisterForm, { RegisterData, UserConfirmation } from './register-form';
+import './style.css' ;
 
 interface RegisterPageComponentProps {
     fetching: boolean;
@@ -20,6 +21,7 @@ interface RegisterPageComponentProps {
         firstName: string,
         lastName: string,
         email: string,
+        category: string,
         password: string,
         confirmations: UserConfirmation[],
     ) => void;
@@ -42,6 +44,7 @@ function RegisterPageComponent(props: RegisterPageComponentProps & RouteComponen
                                     registerData.firstName,
                                     registerData.lastName,
                                     registerData.email,
+                                    registerData.category,
                                     registerData.password,
                                     registerData.confirmations,
                                 );

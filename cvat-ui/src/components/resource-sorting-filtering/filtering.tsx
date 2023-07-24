@@ -231,14 +231,14 @@ export default function ResourceFilterHOC(
                     type='default'
                     onClick={() => {setFilter(currentValue => !currentValue);changingHide3()}}
                 >
-                     {((filter===true && hide.three )&& predefinedFilters) ? <QuickFilterIcon2/> : <QuickFilterIcon/> }
+                     {(( hide.three )&& predefinedFilters) ? <QuickFilterIcon2/> : <QuickFilterIcon/> }
 
                     {/* { appliedFilter.predefined ?
                         <FilterFilled /> :
                         <FilterOutlined />} */}
                 </Button>
 
-                {((filter===true && hide.three )&& predefinedFilters) ?
+                {(( hide.three )&& predefinedFilters) &&
                     <div className='cvat-resource-page-predefined-filters-list'>
                         {Object.keys(predefinedFilters).map((key: string): JSX.Element => (
                             <Checkbox
@@ -269,7 +269,7 @@ export default function ResourceFilterHOC(
                                 {key}
                             </Checkbox>
                         )) }
-                    </div> : <p></p>
+                    </div>
 
                 }
 
@@ -278,13 +278,13 @@ export default function ResourceFilterHOC(
                 <hr className='mt-4 mb-8'  style={{ backgroundColor:"#374151",height:"1px",width:"250px"}} />
 
                 <Button className='cvat-switch-filters-constructor-button' style={{ borderColor:"white"}}  type='default' onClick={() => {onBuilderVisibleChange(!builderVisible);setFilter2(currentVal =>!currentVal);changingHide4()}}>
-                        {(filter2 && hide.four)? <FilterIcon2/> : <FilterIcon/>}
+                        {( hide.four)? <FilterIcon2/> : <FilterIcon/>}
 
                         {/* { appliedFilter.built || appliedFilter.recent ?
                             <FilterFilled /> :
                             <FilterOutlined />} */}
                 </Button>
-                {(filter2 && hide.four) ?
+                {( hide.four) &&
                     <div className='cvat-resource-page-filters-builder'>
                         { Object.keys(recentFilters).length ? (
                             <Dropdown
@@ -384,7 +384,7 @@ export default function ResourceFilterHOC(
                             </Button>
                         </Space>
                     </div>
-                    : <p></p>
+                    
                 }
 
 

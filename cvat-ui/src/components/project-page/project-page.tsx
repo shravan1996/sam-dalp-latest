@@ -45,6 +45,9 @@ import DalpListIcon from '../../assets/dalp-list-icon.svg';
 import CreateTask from '../../assets/create-task.svg';
 import  ModalCloseIcon  from '../../assets/modal-close-icon.svg'; // importing x icon.
 import DalpLogo from '../../assets/cvat-logo.svg'  // importing dalp logo
+import TextField from '@mui/material/TextField';
+import IconButton from '@mui/material/IconButton';
+import SearchIcon from '@mui/icons-material/Search';
 
 const core = getCore();
 
@@ -306,6 +309,24 @@ export default function ProjectPageComponent(): JSX.Element {
         )
      }
 
+    let searchPhrase = '' ;
+
+     const handleSearch = () => {
+        //  onApplySearch(searchPhrase);
+         dispatch(getProjectTasksAsync({
+            ...tasksQuery,
+            page: 1,
+            projectId: id,
+            search: searchPhrase,
+        }));
+
+     };
+
+     const handleChange = (event:any) => {
+        searchPhrase = event.target.value ;
+     };
+
+
     //
     return (
         <Row justify='start' align='top' className={'cvat-project-page ' }>
@@ -319,7 +340,7 @@ export default function ProjectPageComponent(): JSX.Element {
                                 <DalpListIcon/>
                             </button>
                             <div className='cvat-project-page-tasks-filters-wrapper'>
-                                <Input.Search
+                                {/* <Input.Search
                                     enterButton
                                     onSearch={(_search: string) => {
                                         dispatch(getProjectTasksAsync({
@@ -332,6 +353,28 @@ export default function ProjectPageComponent(): JSX.Element {
                                     defaultValue={tasksQuery.search || ''}
                                     className='cvat-project-page-tasks-search-bar ml-8'
                                     placeholder='Search ...'
+                                /> */}
+                                <TextField
+                                    variant="outlined"
+                                    placeholder="Search"
+                                    defaultValue={tasksQuery.search || ''}
+                                    onChange={handleChange}
+                                    InputProps={{
+                                        endAdornment: (
+                                        <IconButton onClick={handleSearch}
+                                        >
+                                            <SearchIcon />
+                                        </IconButton>
+                                        ),
+                                        style: {
+                                            height: '40px', // Set input height
+                                            backgroundColor: 'white', // Set background color
+                                            color: 'black', // Set text color
+                                            width: '300px',
+                                            borderRadius:'20px',
+                                        },
+                                    }}
+
                                 />
                                 <div>
 

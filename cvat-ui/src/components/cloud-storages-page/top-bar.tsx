@@ -23,6 +23,9 @@ import DalpLogo from '../../assets/cvat-logo.svg'  // importing dalp logo
 
 import CreateCloudStorage from '../../assets/create-cloud-storage.svg';
 import CreateCloudStorage2 from '../../assets/create-cloud-storage2.svg';
+import TextField from '@mui/material/TextField';
+import IconButton from '@mui/material/IconButton';
+import SearchIcon from '@mui/icons-material/Search';
 
 const FilteringComponent = ResourceFilterHOC(
     config, localStorageRecentKeyword, localStorageRecentCapacity, predefinedFilterValues,
@@ -78,10 +81,10 @@ export default function StoragesTopBar(props: Props): JSX.Element {
                                     setProject(currentValue=>!currentValue);
                                     changingHide1()
                                 }}>
-                                    {(project && hide.one) ? <CreateCloudStorage2/> : <CreateCloudStorage/>}
+                                    {(hide.one) ? <CreateCloudStorage2/> : <CreateCloudStorage/>}
 
                                 </button>
-                                {(project && hide.one) &&
+                                {( hide.one) &&
                                     <button
                                     style={{fontFamily:'Lexend',width:'200px',marginTop:'5px',color:'#111827',borderWidth:'0px',fontWeight:'200'}}
                                     onClick={(): void => history.push('/cloudstorages/create')}
@@ -148,6 +151,18 @@ export default function StoragesTopBar(props: Props): JSX.Element {
         )
      }
 
+    let searchPhrase= '' ;
+
+    const handleSearch = () => {
+        onApplySearch(searchPhrase);
+    };
+
+    const handleChange = (event:any) => {
+     searchPhrase=event.target.value;
+    };
+
+
+
     return (
         <Row justify='start' align='middle' className='cvat-cloud-storages-list-top-bar  -ml-[215px]'>
             <Col span={24}>
@@ -160,15 +175,42 @@ export default function StoragesTopBar(props: Props): JSX.Element {
                     {showModal ? '' :
 
 
-                        <Input.Search
-                            enterButton
-                            onSearch={(phrase: string) => {
-                                onApplySearch(phrase);
-                            }}
-                            defaultValue={query.search || ''}
-                            className='cvat-cloudstorages-page-tasks-search-bar'
-                            placeholder='Search ...'
-                        />
+                            <>
+
+                                {/* <Input.Search
+                                    enterButton
+
+                                    onSearch={(phrase: string) => {
+                                        onApplySearch(phrase);
+                                    }}
+                                    defaultValue={query.search || ''}
+                                    className='cvat-jobs-page-search-bar'
+                                    placeholder='Search ...'
+                                    style={{ borderRadius: '14px', backgroundColor: '#f7f7f7', border: 'none' }}
+                                /> */}
+                                <TextField
+                                    variant="outlined"
+                                    placeholder="Search"
+                                    defaultValue={query.search || ''}
+                                    onChange={handleChange}
+                                    InputProps={{
+                                        endAdornment: (
+                                        <IconButton onClick={handleSearch}
+                                        >
+                                            <SearchIcon />
+                                        </IconButton>
+                                        ),
+                                        style: {
+                                            height: '40px', // Set input height
+                                            backgroundColor: 'white', // Set background color
+                                            color: 'black', // Set text color
+                                            width: '300px',
+                                            borderRadius:'20px',
+                                        },
+                                    }}
+
+                                />
+                            </>
                     }
                 </div>
                 {/*<Button

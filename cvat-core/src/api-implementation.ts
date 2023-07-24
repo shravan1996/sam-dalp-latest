@@ -64,6 +64,7 @@ export default function implementAPI(cvat) {
         lastName,
         email,
         password,
+        category,
         userConfirmations,
     ) => {
         const user = await serverProxy.server.register(
@@ -72,6 +73,7 @@ export default function implementAPI(cvat) {
             lastName,
             email,
             password,
+            category,
             userConfirmations,
         );
 
@@ -91,6 +93,7 @@ export default function implementAPI(cvat) {
         return result;
     }
 
+
     cvat.server.hasLimits.implementation = async (userId, orgId) => {
         const result = await serverProxy.server.hasLimits(userId, orgId);
         return result;
@@ -105,6 +108,13 @@ export default function implementAPI(cvat) {
         const result: string = await serverProxy.server.selectSSOIdentityProvider(email, iss);
         return result;
     };
+
+
+    cvat.server.updateProfile.implementation = async (data) => {
+        const result = await serverProxy.server.updateProfile(data);
+        return result;
+    }
+
 
     cvat.server.changePassword.implementation = async (oldPassword, newPassword1, newPassword2) => {
         await serverProxy.server.changePassword(oldPassword, newPassword1, newPassword2);

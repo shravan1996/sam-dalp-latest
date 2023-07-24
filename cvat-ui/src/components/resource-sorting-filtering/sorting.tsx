@@ -181,19 +181,19 @@ function SortingModalComponent(props: Props): JSX.Element {
     function changingHide2(){
         if(hide.two===true) {changeHide({'one':false,'two':false,'three':false,'four':false})}
         else{changeHide({'one':false,'two':true,'three':false,'four':false})}
-        
+
     }
 
 
     return (
         <div>
             <Button className='cvat-switch-sort-constructor-button' style={{borderWidth:'0px'}} type='default' onClick={() =>{onVisibleChange(!visible); changingHide2()} }>
-                {(visible && hide.two) ? <SortByIcon2/> : <SortByIcon/>}
+                {(  hide.two) ? <SortByIcon2/> : <SortByIcon/>}
 
 
             </Button>
 
-            {(visible && hide.two) &&
+            {( hide.two) &&
                 <div style={{marginLeft:'5px'}}>
                     <SortableList
                         onSortEnd={({ oldIndex, newIndex }: { oldIndex: number, newIndex: number }) => {
